@@ -18,7 +18,7 @@ public class ComplexNumber {
     }
 
     public boolean isReal() {
-        if (this.imaginary == 0.0f && this.real != 0.0f) {
+        if (this.imaginary == 0.0f) {
             return true;
         } else {
             return false;
@@ -26,7 +26,7 @@ public class ComplexNumber {
     }
 
     public boolean isImaginary() {
-        if (this.real == 0.0f && this.imaginary != 0.0f) {
+        if (this.real == 0.0f) {
             return true;
         } else {
             return false;
