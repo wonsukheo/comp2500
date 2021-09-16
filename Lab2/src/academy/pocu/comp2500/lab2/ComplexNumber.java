@@ -10,11 +10,11 @@ public class ComplexNumber {
     }
 
     public ComplexNumber(double real) {
-        this(real, 0.0);
+        this(real, 0.0f);
     }
 
     public ComplexNumber() {
-        this(0.0, 0.0);
+        this(0.0f, 0.0f);
     }
 
     public boolean isReal() {
