@@ -19,51 +19,55 @@ public class ListItem {
         return text;
     }
     public void setText(String newText) {
-        this.text = newText;
+        text = newText;
     }
 
     public char getBulletStyle() {
         return bulletStyle;
     }
     public void setBulletStyle(char newBulletStyle) {
-        this.bulletStyle = newBulletStyle;
+        bulletStyle = newBulletStyle;
     }
 
     public ArrayList<ListItem> getSublistItems() {
         return sublistItems;
     }
 
-    public boolean addSublistItem(ListItem sublistItemText) {
+    public void addSublistItem(ListItem sublistItemText) {
         for (ListItem sublistItem : this.sublistItems) {
             if (sublistItemText.equals(sublistItem.getText())) {
                 System.out.println("same text already exist. please use different text");
-                return false;
             }
         }
         sublistItems.add(sublistItemText);
-        return true;
     }
-    public boolean removeSublistItem(String sublistItemText) {
+    public void removeSublistItem(String sublistItemText) {
         for (ListItem sublistItem : this.sublistItems) {
             if (sublistItemText.equals(sublistItem.getText())) {
                 this.sublistItems.remove(sublistItem);
-                return true;
             }
         }
         System.out.println("text does not exist.");
-        return false;
     }
 
     public String toString() {
+        return this.toString(1);
+    }
+
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
-        if (this.sublistItems != null) {
+        if (this.sublistItems.size() > 0) {
             for (ListItem sublistItem : this.sublistItems) {
-                sb.append(String.format("    %s", sublistItem.toString()));
+                for (int i = 0; i < level; i++) {
+                    sb.append("    ");
+                }
+                sb.append(String.format("%s", sublistItem.toString(level + 1)));
             }
         }
 
         return sb.toString();
     }
+
 }
