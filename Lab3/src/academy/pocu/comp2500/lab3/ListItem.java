@@ -54,7 +54,7 @@ public class ListItem {
         return this.toString(1);
     }
 
-    public String toString(int level) {
+    private String toString(int level) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
