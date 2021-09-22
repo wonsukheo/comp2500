@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ListItem {
     private String text;             //List Name
-    private char bulletStyle = '*';
+    private char bulletStyle;
     private ArrayList<ListItem> sublistItems = new ArrayList<>();
 
     public ListItem(String text, char bulletStyle) {
@@ -29,25 +29,15 @@ public class ListItem {
         bulletStyle = newBulletStyle;
     }
 
-    public ArrayList<ListItem> getSublistItems() {
-        return sublistItems;
+    public ListItem getSublistItems(int index) {
+        return sublistItems.get(index);
     }
 
     public void addSublistItem(ListItem sublistItemText) {
-        for (ListItem sublistItem : this.sublistItems) {
-            if (sublistItemText.equals(sublistItem.getText())) {
-                System.out.println("same text already exist. please use different text");
-            }
-        }
         sublistItems.add(sublistItemText);
     }
-    public void removeSublistItem(String sublistItemText) {
-        for (ListItem sublistItem : this.sublistItems) {
-            if (sublistItemText.equals(sublistItem.getText())) {
-                this.sublistItems.remove(sublistItem);
-            }
-        }
-        System.out.println("text does not exist.");
+    public void removeSublistItem(int index) {
+        sublistItems.remove(index);
     }
 
     public String toString() {
@@ -69,5 +59,4 @@ public class ListItem {
 
         return sb.toString();
     }
-
 }
