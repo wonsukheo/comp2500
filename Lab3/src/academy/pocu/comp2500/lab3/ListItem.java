@@ -29,7 +29,7 @@ public class ListItem {
         this.bulletStyle = bulletStyle;
     }
 
-    public ListItem getSublistItems(int index) {
+    public ListItem getSublistItem(int index) {
         return sublistItems.get(index);
     }
 
