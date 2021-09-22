@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ListItem {
     private String text;             //List Name
-    private char bulletStyle;
+    private char bulletStyle = '*';
     private ArrayList<ListItem> sublistItems = new ArrayList<>();
 
     public ListItem(String text, char bulletStyle) {
@@ -18,42 +18,42 @@ public class ListItem {
     public String getText() {
         return text;
     }
-    public void setText(String newText) {
-        text = newText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public char getBulletStyle() {
         return bulletStyle;
     }
-    public void setBulletStyle(char newBulletStyle) {
-        bulletStyle = newBulletStyle;
+    public void setBulletStyle(char bulletStyle) {
+        this.bulletStyle = bulletStyle;
     }
 
     public ListItem getSublistItems(int index) {
         return sublistItems.get(index);
     }
 
-    public void addSublistItem(ListItem sublistItemText) {
-        sublistItems.add(sublistItemText);
+    public void addSublistItem(ListItem sublistItem) {
+        sublistItems.add(sublistItem);
     }
     public void removeSublistItem(int index) {
         sublistItems.remove(index);
     }
 
     public String toString() {
-        return this.toString(1);
-    }
-
-    private String toString(int level) {
+        int level = 1;
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
         if (this.sublistItems.size() > 0) {
             for (ListItem sublistItem : this.sublistItems) {
-                for (int i = 0; i < level; i++) {
-                    sb.append("    ");
+                sb.append(String.format("    %c %s%s", sublistItem.bulletStyle, sublistItem.text, System.lineSeparator()));
+
+                if (sublistItem.sublistItems.size() > 0) {
+                    for (ListItem subsublistItem : sublistItem.sublistItems) {
+                        sb.append(String.format("        %c %s%s", subsublistItem.bulletStyle, subsublistItem.text, System.lineSeparator()));
+                    }
                 }
-                sb.append(String.format("%s", sublistItem.toString(level + 1)));
             }
         }
 
