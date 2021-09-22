@@ -41,19 +41,19 @@ public class ListItem {
     }
 
     public String toString() {
-        int level = 1;
+        return this.toString(1);
+    }
+
+    private String toString(int level) {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("%c %s%s", this.bulletStyle, this.text, System.lineSeparator()));
 
         if (this.sublistItems.size() > 0) {
             for (ListItem sublistItem : this.sublistItems) {
-                sb.append(String.format("    %c %s%s", sublistItem.bulletStyle, sublistItem.text, System.lineSeparator()));
-
-                if (sublistItem.sublistItems.size() > 0) {
-                    for (ListItem subsublistItem : sublistItem.sublistItems) {
-                        sb.append(String.format("        %c %s%s", subsublistItem.bulletStyle, subsublistItem.text, System.lineSeparator()));
-                    }
+                for (int i = 0; i < level; i++) {
+                    sb.append("    ");
                 }
+                sb.append(String.format("%s", sublistItem.toString(level + 1)));
             }
         }
 
