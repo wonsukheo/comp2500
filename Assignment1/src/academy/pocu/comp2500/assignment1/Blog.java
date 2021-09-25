@@ -18,9 +18,11 @@ public class Blog {
     public int getArthurId() {
         return arthurId;
     }
-    public int getBlogId() { return blogId; }
+    public int getBlogId() {
+        return blogId;
+    }
 
-    static boolean createBlog (int userId) {
+    static boolean createBlog(int userId) {
         if (isExist(userId)) {
             System.out.println("blog with same userId already exist");
             return false;
@@ -63,14 +65,14 @@ public class Blog {
         return null;
     }
     public ArrayList<Article> getArticleListOrNull() {
-        return getArticleListOrNull(qsort.ESortingType.createdDescending);
+        return getArticleListOrNull(Qsort.ESortingType.CREATED_DESCENDING);
     }
-    public ArrayList<Article> getArticleListOrNull(qsort.ESortingType sortingType) {
+    public ArrayList<Article> getArticleListOrNull(Qsort.ESortingType sortingType) {
         if (articleList.size() < 1) {
             System.err.println("This Blog does not have any article");
             return null;
         }
-        qsort.quickSortArticle(articleList, sortingType);
+        Qsort.quickSortArticle(articleList, sortingType);
         return articleList;
     }
     public ArrayList<Article> getArticleListTagFiltered(String tag) {
@@ -96,39 +98,4 @@ public class Blog {
         }
         return filteredList;
     }
-
-
-    /*
-    public Article getArticleOrNull(int articleId) {
-        if (isArticleExist(articleId)) {
-            return articleList.get(articleId);
-        }
-        System.out.println("article with articleId does not exist");
-        return null;
-    }
-
-    boolean isArticleExist(int articleId) {
-        if (articleList.size() <= articleId) {
-            System.out.println("article with articleId cannot be found");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public boolean isAuth(int userId) {
-        if (blogId == userId) {
-            return true;
-        } else {
-            System.out.println("you are not authorized");
-            return false;
-        }
-    }
-    */
-
-
-
-
-
-
 }

@@ -17,7 +17,9 @@ public class User {
     public int getUserId() {
         return userId;
     }
-    public String getUserName() { return userName; };
+    public String getUserName() {
+        return userName;
+    }
     public Blog getBlog() {
         return blog;
     }
@@ -33,7 +35,6 @@ public class User {
         }
         return false;
     }
-
     public boolean createArticle(int blogId, String title) {
         if (Blog.isExist(blogId)) {
             return Blog.blogList.get(blogId).createArticle(userId, title);
@@ -41,47 +42,7 @@ public class User {
             return false;
         }
     }
-
-
     public ArrayList<Article> getArticleListOrNull(int arthurId) {
         return Blog.blogList.get(arthurId).getArticleListOrNull();
     }
-
-    /*public boolean changeArticleTitle(int articleId, String title) {
-        if (Blog.isExist(userId)) {
-            if (Blog.blogList.get(userId).isArticleExist(articleId)) {
-                Article temp = Blog.blogList.get(userId).getArticleOrNull(articleId);
-
-                if (temp == null) {
-                    return false;
-                } else {
-                    if (temp.isAuth(userId)) {
-                        temp.setTitle(title);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean changeArticleText(int articleId, String text) {
-        if (Blog.isExist(userId)) {
-            if (Blog.blogList.get(userId).isArticleExist(articleId)) {
-                Article temp = Blog.blogList.get(userId).getArticleOrNull(articleId);
-
-                if (temp == null) {
-                    return false;
-                } else {
-                    if (temp.isAuth(userId)) {
-                        temp.setText(text);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }*/
-
-
 }

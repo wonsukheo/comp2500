@@ -12,7 +12,7 @@ public class Comment {
     private byte downvote = 0;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
-    public Comment (int userId, String text) {
+    public Comment(int userId, String text) {
         this.userId = userId;
         this.text = text;
         commentId = id++;
@@ -24,7 +24,9 @@ public class Comment {
     public void setComment(String text) {
         this.text = text;
     }
-    public int getCommentId() { return commentId; }
+    public int getCommentId() {
+        return commentId;
+    }
     public ArrayList<Comment> getSubcommentList() {
         return subCommentList;
     }

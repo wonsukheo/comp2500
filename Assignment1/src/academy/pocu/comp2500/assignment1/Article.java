@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Article {
     private static int id = 0;
-    enum EReaction {
-        Great,
-        Sad,
-        Angry,
-        Fun,
-        Love
+    public enum Reaction {
+        GREAT,
+        SAD,
+        ANGRY,
+        FUN,
+        LOVE
     }
 
     private int great;
@@ -50,38 +50,40 @@ public class Article {
     public int getArthurId() {
         return arthurId;
     }
-    public int getArticleId() { return articleId; }
-    public void setReaction(Article.EReaction reaction, boolean vote) {
+    public int getArticleId() {
+        return articleId;
+    }
+    public void setReaction(Reaction reaction, boolean vote) {
         switch (reaction) {
-            case Great :
+            case GREAT:
                 if (vote) {
                     great++;
                 } else {
                     great--;
                 }
                 break;
-            case Sad :
+            case SAD:
                 if (vote) {
                     sad++;
                 } else {
                     sad--;
                 }
                 break;
-            case Angry :
+            case ANGRY:
                 if (vote) {
                     angry++;
                 } else {
                     angry--;
                 }
                 break;
-            case Fun:
+            case FUN:
                 if (vote) {
                     fun++;
                 } else {
                     fun--;
                 }
                 break;
-            case Love:
+            case LOVE:
                 if (vote) {
                     love++;
                 } else {
@@ -93,7 +95,7 @@ public class Article {
                 break;
         }
     }
-    public ArrayList<String> getTagList () {
+    public ArrayList<String> getTagList() {
         return tagList;
     }
     public OffsetDateTime getCreatedOffSetDateTime() {
@@ -145,12 +147,12 @@ public class Article {
                 commentList.add(subc);
             }
         }
-        qsort.quickSortComment(commentList);
+        Qsort.quickSortComment(commentList);
 
         return commentList;
     }
     public ArrayList<Comment> getCommentListSortByVote() {
-        qsort.quickSortComment(commentList);
+        Qsort.quickSortComment(commentList);
 
         return commentList;
     }
