@@ -7,7 +7,7 @@ public class User {
 
     private int userId;
     private String userName;
-    private Blog blog;
+    private ArrayList<Blog> blogList = new ArrayList<>();
 
     public User(String name) {
         userId = id++;
@@ -20,27 +20,28 @@ public class User {
     public String getUserName() {
         return userName;
     }
-    public Blog getBlog() {
-        return blog;
+    public ArrayList<Blog> getBlogList() {
+        return blogList;
     }
 
-    public boolean createBlog() {
-        if (Blog.createBlog(userId)) {
-            for (Blog blog : Blog.blogList) {
-                if (blog.getArthurId() == userId) {
-                    this.blog = blog;
-                    return true;
+    public void createBlog() {
+        Blog.createBlog(userId);
+
+
+        for (Blog blog : Blog.blogList) {
+            loop_exit:
+            if (blog.getArthurId() == userId) {
+                for (Blog myBlog : this.blogList) {
+                    if (blog.getBlogId() == myBlog.getBlogId()) {
+                        break loop_exit;
+                    }
                 }
+                blogList.add(blog);
             }
         }
-        return false;
     }
-    public boolean createArticle(int blogId, String title) {
-        if (Blog.isExistSameUserId(blogId)) {
-            return Blog.blogList.get(blogId).createArticle(userId, title);
-        } else {
-            return false;
-        }
+    public boolean createArticleWithBlogId(int blogId, String title) {
+        return Blog.blogList.get(blogId).createArticle(userId, title);
     }
     public ArrayList<Article> getArticleListOrNull(int arthurId) {
         return Blog.blogList.get(arthurId).getArticleListOrNull();

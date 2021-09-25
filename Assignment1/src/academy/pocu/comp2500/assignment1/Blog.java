@@ -22,15 +22,10 @@ public class Blog {
         return blogId;
     }
 
-    static boolean createBlog(int userId) {
-        if (isExistSameUserId(userId)) {
-            return false;
-        } else {
-            blogList.add(new Blog(userId));
-            return true;
-        }
+    static void createBlog(int userId) {
+            Blog.blogList.add(new Blog(userId));
     }
-    static boolean isExistSameUserId(int userId) {
+    /*static boolean isExistSameUserId(int userId) {
         for (Blog blog : Blog.blogList) {
             if (blog.getArthurId() == userId) {
                 return true;
@@ -38,7 +33,7 @@ public class Blog {
         }
         System.err.println("Blog with userId doesn't exist");
         return false;
-    }
+    }*/
     static Blog getBlogWithUserId(int userId) {
         return blogList.get(userId);
     }
