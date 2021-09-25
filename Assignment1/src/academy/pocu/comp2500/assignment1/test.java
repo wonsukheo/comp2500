@@ -2,14 +2,17 @@ package academy.pocu.comp2500.assignment1;
 
 import java.util.ArrayList;
 
-public class test {
+public class Test {
     public static void main(String[] args) {
         User user1 = new User("Won");
         User user2 = new User("Nhien");
         User user4 = new User("Xu");
 
         user1.createBlog();
-        user1.getBlog().createArticle(user1.getUserId(), "Won Story");
+        user2.createBlog();
+
+        user1.createBlog();
+        /*user1.getBlog().createArticle(user1.getUserId(), "Won Story");
         int articleId2;
         for (Article a : user1.getBlog().getArticleListOrNull()) {
             if (a.getTitle().equals("Won Story")) {
@@ -21,7 +24,7 @@ public class test {
                     System.out.println(c.getText());
                 }
             }
-        }
+        }*/
 
 
 
