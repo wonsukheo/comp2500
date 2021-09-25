@@ -11,7 +11,7 @@ public class App {
         registry.registerAuthorFilterSetter("Blog", "getArticleListArthurFiltered");
         registry.registerPostOrderSetter("Blog", "getArticleListOrNull");
         registry.registerPostListGetter("Blog", "getArticleListOrNull");
-        registry.registerPostAdder("Blog", "createArticle");
+        registry.registerPostAdder("User", "createArticle");
         registry.registerPostTitleUpdater("Article", "setTitle");
         registry.registerPostBodyUpdater("Article", "setText");
         registry.registerPostTagAdder("Article", "addTag");
