@@ -29,12 +29,11 @@ public class Comment {
         return subCommentList;
     }
 
-    public void vote(boolean vote) {
-        if (vote == true) {
-            upvote++;
-        } else {
-            downvote++;
-        }
+    public void upVote(int userId) {
+        upvote++;
+    }
+    public void downVote(int userId) {
+        downvote++;
     }
     public int getVote() {
         return upvote - downvote;

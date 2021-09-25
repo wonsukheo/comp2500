@@ -21,11 +21,11 @@ public class App {
         registry.registerSubcommentUpdater("Comment", "setComment");
         registry.registerReactionAdder("Article", "setReaction");
         registry.registerReactionRemover("Article", "setReaction");
-        registry.registerCommentUpvoter("Comment", "vote");
-        registry.registerCommentDownvoter("Comment", "vote");
+        registry.registerCommentUpvoter("Comment", "upVote");
+        registry.registerCommentDownvoter("Comment", "downVote");
         registry.registerCommentListGetter("Article", "getCommentList");
         registry.registerSubcommentListGetter("Article", "getCommentList");
-        registry.registerSubcommentUpvoter("Comment", "vote");
-        registry.registerSubcommentDownvoter("Comment", "vote");
+        registry.registerSubcommentUpvoter("Comment", "upVote");
+        registry.registerSubcommentDownvoter("Comment", "downVote");
     }
 }
