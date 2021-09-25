@@ -53,38 +53,38 @@ public class Article {
     public int getArticleId() {
         return articleId;
     }
-    public void setReaction(Reaction reaction, boolean vote) {
+    public void setReaction(Reaction reaction, boolean type) {
         switch (reaction) {
             case GREAT:
-                if (vote) {
+                if (type) {
                     great++;
                 } else {
                     great--;
                 }
                 break;
             case SAD:
-                if (vote) {
+                if (type) {
                     sad++;
                 } else {
                     sad--;
                 }
                 break;
             case ANGRY:
-                if (vote) {
+                if (type) {
                     angry++;
                 } else {
                     angry--;
                 }
                 break;
             case FUN:
-                if (vote) {
+                if (type) {
                     fun++;
                 } else {
                     fun--;
                 }
                 break;
             case LOVE:
-                if (vote) {
+                if (type) {
                     love++;
                 } else {
                     love--;
@@ -164,24 +164,4 @@ public class Article {
             return false;
         }
     }
-
-    /*
-    public String getCommentsInString() {
-        return getCommentsInString(0, commentList);
-    }
-    private String getCommentsInString(int depth, ArrayList<Comment> commentList) {
-        char bulletStyle = '>';
-        StringBuilder sb = new StringBuilder();
-
-        for (Comment comment : commentList) {
-            for (int i = 0; i < depth; i++) {
-                sb.append("    ");
-            }
-            sb.append(String.format(" %c%s", bulletStyle, comment.getComment()));
-            getCommentsInString(depth++, comment.getSubcommentList());
-        }
-
-        return sb.toString();
-    }
-    */
 }

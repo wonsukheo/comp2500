@@ -23,19 +23,16 @@ public class Blog {
     }
 
     static boolean createBlog(int userId) {
-        if (isExist(userId)) {
-            System.out.println("blog with same userId already exist");
+        if (isExistSameUserId(userId)) {
             return false;
         } else {
             blogList.add(new Blog(userId));
             return true;
         }
-        /*blogList.add(new Blog(userId));
-        return true;*/
     }
-    static boolean isExist(int blogId) {
-        for (Blog blog : blogList) {
-            if (blog.arthurId == blogId) {
+    static boolean isExistSameUserId(int userId) {
+        for (Blog blog : Blog.blogList) {
+            if (blog.getArthurId() == userId) {
                 return true;
             }
         }
@@ -47,12 +44,6 @@ public class Blog {
     }
 
     public boolean createArticle(int userId, String title) {
-        /*for (Article article : articleList) {
-            if (article.getTitle().equals(title)) {
-                System.out.println("article with same title already exist");
-                return false;
-            }
-        }*/
         articleList.add(new Article(userId, title));
         return true;
     }
@@ -88,11 +79,11 @@ public class Blog {
         }
         return filteredList;
     }
-    public ArrayList<Article> getArticleListArthurFiltered(int arthurId) {
+    public ArrayList<Article> getArticleListArthurFiltered(int userId) {
         ArrayList<Article> filteredList = new ArrayList<>();
 
         for (Article a : articleList) {
-            if (a.getArthurId() == arthurId) {
+            if (a.getArthurId() == userId) {
                 filteredList.add(a);
             }
         }

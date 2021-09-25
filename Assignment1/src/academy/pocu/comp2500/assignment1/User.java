@@ -36,7 +36,7 @@ public class User {
         return false;
     }
     public boolean createArticle(int blogId, String title) {
-        if (Blog.isExist(blogId)) {
+        if (Blog.isExistSameUserId(blogId)) {
             return Blog.blogList.get(blogId).createArticle(userId, title);
         } else {
             return false;
