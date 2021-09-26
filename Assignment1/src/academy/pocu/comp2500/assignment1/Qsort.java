@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Qsort {
-    static enum ESortingType {
+    enum SortingType {
         CREATED_ASCENDING,
         CREATED_DESCENDING,
         MODIFIED_ASCENDING,
@@ -14,7 +14,7 @@ public class Qsort {
     public static void quickSortComment(ArrayList<Comment> commentList) {
         quickSortComment(commentList, 0, commentList.size() - 1);
     }
-    public static void quickSortArticle(ArrayList<Article> articleList, Qsort.ESortingType sortingType) {
+    public static void quickSortArticle(ArrayList<Article> articleList, SortingType sortingType) {
         quickSortArticle(articleList, 0, articleList.size() - 1, sortingType);
     }
 
@@ -25,7 +25,7 @@ public class Qsort {
             quickSortComment(commentList, p + 1, high);
         }
     }
-    private static void quickSortArticle(ArrayList<Article> articleList, int low, int high, Qsort.ESortingType sortingType) {
+    private static void quickSortArticle(ArrayList<Article> articleList, int low, int high, SortingType sortingType) {
         if (low < high + 1) {
             int p = partitionArticle(articleList, low, high, sortingType);
             quickSortArticle(articleList, low, p - 1, sortingType);
@@ -55,7 +55,7 @@ public class Qsort {
         swapComment(commentList, low, border - 1);
         return border - 1;
     }
-    private static int partitionArticle(ArrayList<Article> articleList, int low, int high, Qsort.ESortingType sortingType) {
+    private static int partitionArticle(ArrayList<Article> articleList, int low, int high, SortingType sortingType) {
         swapArticle(articleList, low, getPivot(low, high));
         int border = low + 1;
 

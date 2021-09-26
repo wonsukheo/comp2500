@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class User {
     private static int id = 0;
-
     private int userId;
     private String userName;
     private ArrayList<Blog> blogList = new ArrayList<>();
@@ -17,16 +16,13 @@ public class User {
     public int getUserId() {
         return userId;
     }
+
     public String getUserName() {
         return userName;
     }
-    public ArrayList<Blog> getBlogList() {
-        return blogList;
-    }
 
     public void createBlog() {
-        Blog.createBlog(userId);
-
+        Blog.blogList.add(new Blog(userId));
 
         for (Blog blog : Blog.blogList) {
             loop_exit:
@@ -36,14 +32,15 @@ public class User {
                         break loop_exit;
                     }
                 }
-                blogList.add(blog);
+                this.blogList.add(blog);
             }
         }
     }
-    public boolean createArticleWithBlogId(int blogId, String title) {
-        return Blog.blogList.get(blogId).createArticle(userId, title);
-    }
-    public ArrayList<Article> getArticleListOrNull(int arthurId) {
-        return Blog.blogList.get(arthurId).getArticleListOrNull();
+
+    public ArrayList<Blog> getBlogListOrNull() {
+        if (blogList.size() < 1) {
+            return null;
+        }
+        return blogList;
     }
 }

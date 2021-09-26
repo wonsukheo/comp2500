@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 public class Blog {
     private static int id = 0;
-    static ArrayList<Blog> blogList = new ArrayList<>();   //public or private?
-
-    private int arthurId;
+    static ArrayList<Blog> blogList = new ArrayList<>(); //public or private?
+    private int arthurId; //blog owner's userId
     private int blogId;
-    private ArrayList<Article> articleList = new ArrayList<>(); // articleId = articleList index
+    private ArrayList<Article> articleList = new ArrayList<>();
 
     public Blog(int userId) {
         arthurId = userId;
@@ -18,42 +17,20 @@ public class Blog {
     public int getArthurId() {
         return arthurId;
     }
+
     public int getBlogId() {
         return blogId;
     }
 
-    static void createBlog(int userId) {
-            Blog.blogList.add(new Blog(userId));
-    }
-    /*static boolean isExistSameUserId(int userId) {
-        for (Blog blog : Blog.blogList) {
-            if (blog.getArthurId() == userId) {
-                return true;
-            }
-        }
-        System.err.println("Blog with userId doesn't exist");
-        return false;
-    }*/
-    static Blog getBlogWithUserId(int userId) {
-        return blogList.get(userId);
+    public void createArticle(int blogId, int userId, String title, String text) {
+        articleList.add(new Article(this.blogId, userId, title, text));
     }
 
-    public boolean createArticle(int userId, String title) {
-        articleList.add(new Article(userId, title));
-        return true;
+    public ArrayList<Article> getSortedArticleListOrNull() {
+        return getSortedArticleListOrNull(Qsort.SortingType.CREATED_DESCENDING);
     }
-    public Article getArticle(int articleId) {
-        for (Article a : articleList) {
-            if (a.getArticleId() == articleId) {
-                return a;
-            }
-        }
-        return null;
-    }
-    public ArrayList<Article> getArticleListOrNull() {
-        return getArticleListOrNull(Qsort.ESortingType.CREATED_DESCENDING);
-    }
-    public ArrayList<Article> getArticleListOrNull(Qsort.ESortingType sortingType) {
+
+    public ArrayList<Article> getSortedArticleListOrNull(Qsort.SortingType sortingType) {
         if (articleList.size() < 1) {
             System.err.println("This Blog does not have any article");
             return null;
@@ -61,19 +38,33 @@ public class Blog {
         Qsort.quickSortArticle(articleList, sortingType);
         return articleList;
     }
-    public ArrayList<Article> getArticleListTagFiltered(String tag) {
+
+    public ArrayList<Article> getArticleListTagFilteredOrNull(String tag) {
+        ArrayList<String> tagList = new ArrayList<>();
+        tagList.add(tag);
+        return getArticleListTagListFilteredOrNull(tagList);
+    }
+
+    public ArrayList<Article> getArticleListTagListFilteredOrNull(ArrayList<String> tagList) {
         ArrayList<Article> filteredList = new ArrayList<>();
 
         for (Article a : articleList) {
-            for (String t : a.getTagList()) {
-                if (t.equals(tag)) {
-                    filteredList.add(a);
-                    break;
+            loopexit:
+            for (String tagInArticle : a.getTagListOrNull()) {
+                for (String tagInFilter : tagList) {
+                    if (tagInArticle.equals(tagInFilter)) {
+                        filteredList.add(a);
+                        break loopexit;
+                    }
                 }
             }
         }
+        if (filteredList.size() < 1) {
+            return null;
+        }
         return filteredList;
     }
+
     public ArrayList<Article> getArticleListArthurFiltered(int userId) {
         ArrayList<Article> filteredList = new ArrayList<>();
 
@@ -81,6 +72,10 @@ public class Blog {
             if (a.getArthurId() == userId) {
                 filteredList.add(a);
             }
+        }
+
+        if (filteredList.size() < 1) {
+            return null;
         }
         return filteredList;
     }

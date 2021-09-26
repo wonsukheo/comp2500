@@ -19,7 +19,8 @@ public class Article {
     private int fun;
     private int love;
     private OffsetDateTime createdDateTime;
-    private OffsetDateTime modifiedDateTime = createdDateTime;
+    private OffsetDateTime modifiedDateTime;
+    private int blogId;
     private int articleId;
     private int arthurId;
     private String title;
@@ -27,80 +28,54 @@ public class Article {
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
-    public Article(int userId, String title) {
+    public Article(int blogId, int userId, String title, String text) {
+        this.blogId = blogId;
         arthurId = userId;
         articleId = id++;
         this.title = title;
+        this.text = text;
         createdDateTime = OffsetDateTime.now();
+        modifiedDateTime = createdDateTime;
     }
 
     public String getTitle() {
         return title;
     }
-    public void setTitle(int userId, String title) {
-        isAuth(userId);
-        this.title = title;
-        modifiedDateTime = OffsetDateTime.now();
+
+    public String getText() {
+        return text;
     }
-    public void setText(int userId, String text) {
-        isAuth(userId);
-        this.text = text;
-        modifiedDateTime = OffsetDateTime.now();
+
+    public boolean setTitle(int userId, String title) {
+        if (isAuth(userId)) {
+            this.title = title;
+            modifiedDateTime = OffsetDateTime.now();
+            return true;
+        }
+        return false;
     }
+
+    public boolean setText(int userId, String text)  {
+        if (isAuth(userId)) {
+            this.text = text;
+            modifiedDateTime = OffsetDateTime.now();
+            return true;
+        }
+        return false;
+    }
+
     public int getArthurId() {
         return arthurId;
     }
+
     public int getArticleId() {
         return articleId;
     }
-    public void setReaction(Reaction reaction, boolean type) {
-        switch (reaction) {
-            case GREAT:
-                if (type) {
-                    great++;
-                } else {
-                    great--;
-                }
-                break;
-            case SAD:
-                if (type) {
-                    sad++;
-                } else {
-                    sad--;
-                }
-                break;
-            case ANGRY:
-                if (type) {
-                    angry++;
-                } else {
-                    angry--;
-                }
-                break;
-            case FUN:
-                if (type) {
-                    fun++;
-                } else {
-                    fun--;
-                }
-                break;
-            case LOVE:
-                if (type) {
-                    love++;
-                } else {
-                    love--;
-                }
-                break;
-            default:
-                System.out.println("invalid reactionType");
-                break;
-        }
-    }
-    public ArrayList<String> getTagList() {
-        return tagList;
-    }
+
     public OffsetDateTime getCreatedOffSetDateTime() {
         return createdDateTime;
     }
+
     public OffsetDateTime getModifiedOffSetDateTime() {
         return modifiedDateTime;
     }
@@ -120,43 +95,87 @@ public class Article {
         tagList.add(tag);
         return true;
     }
+
     public void addComment(int userId, String text) {
         commentList.add(new Comment(userId, text));
     }
-    public Comment getCommentWithCommentId(int commentId) {
-        ArrayList<Comment> fullCommentList = getFullCommentList();
 
-        for (Comment c : fullCommentList) {
-            if (c.getCommentId() == commentId) {
-                return c;
-            }
+    public void addReaction(Reaction reaction) {
+        switch (reaction) {
+            case GREAT:
+                great++;
+                break;
+            case SAD:
+                sad++;
+                break;
+            case ANGRY:
+                angry++;
+                break;
+            case FUN:
+                fun++;
+                break;
+            case LOVE:
+                love++;
+                break;
+            default:
+                System.out.println("invalid reactionType");
+                break;
         }
+    }
 
-        return null;
+    public void removeReaction(Reaction reaction) {
+        switch (reaction) {
+            case GREAT:
+                great--;
+                break;
+            case SAD:
+                sad--;
+                break;
+            case ANGRY:
+                angry--;
+                break;
+            case FUN:
+                fun--;
+                break;
+            case LOVE:
+                love--;
+                break;
+            default:
+                System.out.println("invalid reactionType");
+                break;
+        }
     }
-    public ArrayList<Comment> getCommentList() {
-        return commentList;
+
+    public ArrayList<String> getTagListOrNull() {
+        if (tagList.size() < 1) {
+            return null;
+        }
+        return tagList;
     }
-    public ArrayList<Comment> getFullCommentList() {
-        ArrayList<Comment> commentList = new ArrayList<>();
+
+    public ArrayList<Comment> getFullCommentListOrNull() {
+        ArrayList<Comment> result = new ArrayList<>();
 
         for (Comment c : commentList) {
-            commentList.add(c);
+            result.add(c);
 
-            for (Comment subc : c.getSubcommentList()) {
-                commentList.add(subc);
+            for (Comment subc : c.getSubcommentListOrNull()) {
+                result.add(subc);
             }
         }
-        Qsort.quickSortComment(commentList);
+        if (result.size() < 1) {
+            return null;
+        }
+        return result;
+    }
 
+    public ArrayList<Comment> getCommentListSortByVoteOrNull() {
+        ArrayList<Comment> commentList = getFullCommentListOrNull();
+        Qsort.quickSortComment(commentList);
         return commentList;
     }
-    public ArrayList<Comment> getCommentListSortByVote() {
-        Qsort.quickSortComment(commentList);
 
-        return commentList;
-    }
-    public boolean isAuth(int userId) {
+    private boolean isAuth(int userId) {
         if (arthurId == userId) {
             return true;
         } else {

@@ -5,15 +5,15 @@ import java.util.ArrayList;
 public class Comment {
     private static int id = 0;
 
-    private int userId;
+    private int arthurId;
     private int commentId;
     private String text;
-    private byte upvote = 0;
-    private byte downvote = 0;
+    private int upvote = 0;
+    private int downvote = 0;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
     public Comment(int userId, String text) {
-        this.userId = userId;
+        this.arthurId = userId;
         this.text = text;
         commentId = id++;
     }
@@ -21,26 +21,48 @@ public class Comment {
     public String getText() {
         return text;
     }
-    public void setComment(String text) {
-        this.text = text;
+
+    public boolean setText(int userId, String text) {
+        if (isAuth(userId)) {
+            this.text = text;
+            return true;
+        }
+        return false;
     }
+
     public int getCommentId() {
         return commentId;
     }
-    public ArrayList<Comment> getSubcommentList() {
-        return subCommentList;
-    }
 
-    public void upVote(int userId) {
+    public void upVote() {
         upvote++;
     }
-    public void downVote(int userId) {
+
+    public void downVote() {
         downvote++;
     }
+
     public int getVote() {
         return upvote - downvote;
     }
+
     public void addSubComment(int userId, String text) {
         subCommentList.add(new Comment(userId, text));
+    }
+
+    public ArrayList<Comment> getSubcommentListOrNull() {
+        if (subCommentList.size() < 1){
+            return null;
+        }
+        return subCommentList;
+    }
+
+    private boolean isAuth(int userId) {
+        if (arthurId == userId) {
+            return true;
+        } else {
+            System.err.println("you are not authorized");
+            return false;
+        }
     }
 }
