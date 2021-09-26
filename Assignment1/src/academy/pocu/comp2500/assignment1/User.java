@@ -43,8 +43,4 @@ public class User {
         }
         return blogList;
     }
-
-    public void testTest() {
-
-    };
 }
