@@ -31,7 +31,7 @@ public class Comment {
     }
 
     public boolean upVote(User user) {
-        if (!isAuth(user)) {
+        if (!this.user.isSame(user)) {
             upvote++;
             return true;
         }
@@ -39,7 +39,7 @@ public class Comment {
     }
 
     public boolean downVote(User user) {
-        if (!isAuth(user)) {
+        if (!this.user.isSame(user)) {
             downvote++;
             return true;
         }

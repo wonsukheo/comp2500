@@ -158,7 +158,16 @@ public class Post {
     }
 
     public ArrayList<Comment> getCommentList() {
-        return commentList;
+        ArrayList<Comment> fullCommentList = new ArrayList<>();
+
+        for (Comment comment : commentList) {
+            fullCommentList.add(comment);
+            for (Comment subcomment : comment.getSubcomments()) {
+                fullCommentList.add(subcomment);
+            }
+        }
+
+        return fullCommentList;
     }
 
     public ArrayList<Comment> getCommentListSortByVote() {
