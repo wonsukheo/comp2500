@@ -72,10 +72,10 @@ public class Post {
     }
 
     public boolean addTag(User user, String tag) {
-        if (!isAuth(user)) {
+        /*if (!isAuth(user)) {
             System.out.println("you are not authorized to add tag");
             return false;
-        }
+        }*/
 
         for (String t : tagList) {
             if (t.equals(tag)) {
@@ -85,6 +85,13 @@ public class Post {
         }
         tagList.add(tag);
         return true;
+    }
+
+    public ArrayList<String> getTagList() {
+        ArrayList<String> result = new ArrayList<>();
+        result = (ArrayList<String>) tagList.clone();
+        
+        return result;
     }
 
     public void addComment(Comment comment) {
@@ -153,11 +160,9 @@ public class Post {
         }
     }
 
-    public ArrayList<String> getTagList() {
-        return tagList;
-    }
 
-    public ArrayList<Comment> getCommentList() {
+
+    public ArrayList<Comment> getCommentList()  {
         ArrayList<Comment> comments = new ArrayList<>();
 
         for (Comment c : this.commentList) {
