@@ -46,8 +46,8 @@ public class Post {
         return text;
     }
 
-    public boolean setTitle(int userId, String title) {
-        if (isAuth(userId)) {
+    public boolean setTitle(User user, String title) {
+        if (isAuth(user.getUserId())) {
             this.title = title;
             modifiedDateTime = OffsetDateTime.now();
             return true;
@@ -55,8 +55,8 @@ public class Post {
         return false;
     }
 
-    public boolean setText(int userId, String text) {
-        if (isAuth(userId)) {
+    public boolean setText(User user, String text) {
+        if (isAuth(user.getUserId())) {
             this.text = text;
             modifiedDateTime = OffsetDateTime.now();
             return true;
@@ -80,8 +80,8 @@ public class Post {
         return modifiedDateTime;
     }
 
-    public boolean addTag(int userId, String tag) {
-        if (!isAuth(userId)) {
+    public boolean addTag(User user, String tag) {
+        if (!isAuth(user.getUserId())) {
             System.out.println("you are not authorized to add tag");
             return false;
         }

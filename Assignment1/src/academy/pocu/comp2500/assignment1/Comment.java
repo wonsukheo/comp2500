@@ -24,8 +24,8 @@ public class Comment {
         return text;
     }
 
-    public boolean setText(int userId, String text) {
-        if (isAuth(userId)) {
+    public boolean setText(User user, String text) {
+        if (isAuth(user.getUserId())) {
             this.text = text;
             return true;
         }

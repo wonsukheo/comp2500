@@ -60,11 +60,11 @@ public class Blog {
         return filteredList;
     }
 
-    public ArrayList<Post> getPostListArthurFiltered(int userId) {
+    public ArrayList<Post> getPostListArthurFiltered(User user) {
         ArrayList<Post> filteredList = new ArrayList<>();
 
         for (Post a : postList) {
-            if (a.getArthurId() == userId) {
+            if (a.getArthurId() == user.getUserId()) {
                 filteredList.add(a);
             }
         }
