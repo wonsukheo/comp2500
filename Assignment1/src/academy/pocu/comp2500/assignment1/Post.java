@@ -34,7 +34,6 @@ public class Post {
             this.title = title;
             this.text = text;
             createdDateTime = OffsetDateTime.now();
-            modifiedDateTime = createdDateTime;
             blog.createPost(this);
         }
     }

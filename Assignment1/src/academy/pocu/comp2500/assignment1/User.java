@@ -7,8 +7,8 @@ public class User {
     private String userName;
     private ArrayList<Blog> blogList = new ArrayList<>();
 
-    public User(String userName, int userId) {
-        this.userName = userName;
+    public User(String name, int userId) {
+        this.userName = name;
         this.userId = userId;
     }
 
