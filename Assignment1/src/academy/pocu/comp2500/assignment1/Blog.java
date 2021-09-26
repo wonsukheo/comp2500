@@ -3,27 +3,24 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 
 public class Blog {
-    private static int id = 0;
-    static ArrayList<Blog> blogList = new ArrayList<>(); //public or private?
     private int arthurId; //blog owner's userId
     private int blogId;
     private ArrayList<Post> postList = new ArrayList<>();
 
-    public Blog(int userId) {
+    public Blog(int userId, int blogId) {
         arthurId = userId;
-        blogId = id++;
+        this.blogId = blogId;
     }
 
     public int getArthurId() {
         return arthurId;
     }
-
     public int getBlogId() {
         return blogId;
     }
 
-    public void createPost(int userId, String title, String text) {
-        postList.add(new Post(blogId, userId, title, text));
+    public void createPost(int postId, String title, String text) {
+        postList.add(new Post(postId, blogId, arthurId, title, text));  //가정: 블로그 주인만 글을 작성 가능
     }
 
     public ArrayList<Post> getSortedPostListOrNull() {
@@ -31,11 +28,12 @@ public class Blog {
     }
 
     public ArrayList<Post> getSortedPostListOrNull(Sorting.SortingType sortingType) {
+        Sorting sorting = new Sorting();
         if (postList.size() < 1) {
             System.err.println("This Blog does not have any article");
             return null;
         }
-        Sorting.quickSortArticle(postList, sortingType);
+        sorting.sortArticle(postList, sortingType);
         return postList;
     }
 

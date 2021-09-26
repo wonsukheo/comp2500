@@ -4,7 +4,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
 public class Post {
-    private static int id = 0;
     public enum Reaction {
         GREAT,
         SAD,
@@ -12,7 +11,6 @@ public class Post {
         FUN,
         LOVE
     }
-
     private int great;
     private int sad;
     private int angry;
@@ -28,10 +26,10 @@ public class Post {
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
-    public Post(int blogId, int userId, String title, String text) {
+    public Post(int blogId, int userId, int postId, String title, String text) {
         this.blogId = blogId;
         arthurId = userId;
-        postId = id++;
+        this.postId = postId;
         this.title = title;
         this.text = text;
         createdDateTime = OffsetDateTime.now();
@@ -96,8 +94,8 @@ public class Post {
         return true;
     }
 
-    public void addComment(int userId, String text) {
-        commentList.add(new Comment(userId, text));
+    public void addComment(int userId, int commentId, String text) {
+        commentList.add(new Comment(userId, commentId, text));
     }
 
     public void addReaction(Reaction reaction) {
@@ -170,8 +168,9 @@ public class Post {
     }
 
     public ArrayList<Comment> getCommentListSortByVoteOrNull() {
+        Sorting sorting = new Sorting();
         ArrayList<Comment> commentList = getFullCommentListOrNull();
-        Sorting.quickSortComment(commentList);
+        sorting.sortComment(commentList);
         return commentList;
     }
 

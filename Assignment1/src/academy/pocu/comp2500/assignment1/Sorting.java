@@ -11,40 +11,40 @@ public class Sorting {
         MODIFIED_DESCENDING,
         TITLE_DESCENDING
     }
-    static void quickSortComment(ArrayList<Comment> comments) {
-        quickSortComment(comments, 0, comments.size() - 1);
+    public void sortComment(ArrayList<Comment> comments) {
+        sortComment(comments, 0, comments.size() - 1);
     }
-    static void quickSortArticle(ArrayList<Post> posts, SortingType sortingType) {
-        quickSortArticle(posts, 0, posts.size() - 1, sortingType);
+    public void sortArticle(ArrayList<Post> posts, SortingType sortingType) {
+        sortArticle(posts, 0, posts.size() - 1, sortingType);
     }
 
-    private static void quickSortComment(ArrayList<Comment> commentList, int low, int high) {
+    private void sortComment(ArrayList<Comment> commentList, int low, int high) {
         if (low < high + 1) {
             int p = partitionComment(commentList, low, high);
-            quickSortComment(commentList, low, p - 1);
-            quickSortComment(commentList, p + 1, high);
+            sortComment(commentList, low, p - 1);
+            sortComment(commentList, p + 1, high);
         }
     }
-    private static void quickSortArticle(ArrayList<Post> postList, int low, int high, SortingType sortingType) {
+    private void sortArticle(ArrayList<Post> postList, int low, int high, SortingType sortingType) {
         if (low < high + 1) {
             int p = partitionArticle(postList, low, high, sortingType);
-            quickSortArticle(postList, low, p - 1, sortingType);
-            quickSortArticle(postList, p + 1, high, sortingType);
+            sortArticle(postList, low, p - 1, sortingType);
+            sortArticle(postList, p + 1, high, sortingType);
         }
     }
 
-    private static void swapComment(ArrayList<Comment> commentList, int index1, int index2) {
+    private void swapComment(ArrayList<Comment> commentList, int index1, int index2) {
         Collections.swap(commentList, index1, index2);
     }
-    private static void swapArticle(ArrayList<Post> postList, int index1, int index2) {
+    private void swapArticle(ArrayList<Post> postList, int index1, int index2) {
         Collections.swap(postList, index1, index2);
     }
 
-    private static int getPivot(int low, int high) {
+    private int getPivot(int low, int high) {
         return (low + high) / 2;
     }
 
-    private static int partitionComment(ArrayList<Comment> commentList, int low, int high) {
+    private int partitionComment(ArrayList<Comment> commentList, int low, int high) {
         swapComment(commentList, low, getPivot(low, high));
         int border = low + 1;
         for (int i = border; i <= high; i++) {
@@ -55,7 +55,7 @@ public class Sorting {
         swapComment(commentList, low, border - 1);
         return border - 1;
     }
-    private static int partitionArticle(ArrayList<Post> postList, int low, int high, SortingType sortingType) {
+    private int partitionArticle(ArrayList<Post> postList, int low, int high, SortingType sortingType) {
         swapArticle(postList, low, getPivot(low, high));
         int border = low + 1;
 

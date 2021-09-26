@@ -3,8 +3,6 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 
 public class Comment {
-    private static int id = 0;
-
     private int arthurId;
     private int commentId;
     private String text;
@@ -12,10 +10,10 @@ public class Comment {
     private int downvote = 0;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
-    public Comment(int userId, String text) {
+    public Comment(int userId, int commentId, String text) {
         this.arthurId = userId;
         this.text = text;
-        commentId = id++;
+        this.commentId = commentId;
     }
 
     public String getText() {
@@ -46,8 +44,8 @@ public class Comment {
         return upvote - downvote;
     }
 
-    public void addSubComment(int userId, String text) {
-        subCommentList.add(new Comment(userId, text));
+    public void addSubComment(int userId, int commentId, String text) {
+        subCommentList.add(new Comment(userId, commentId, text));
     }
 
     public ArrayList<Comment> getSubcommentListOrNull() {
