@@ -18,23 +18,18 @@ public class Post {
     private int love;
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
-    private int blogId;
-    //private int postId;
-    private int arthurId;
+    private int userId;
     private String title;
     private String text;
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
-    public Post(Blog blog, User author, String title, String text) {
-        this.blogId = blog.getBlogId();
-        arthurId = author.getUserId();
-        //this.postId = postId;
+    public Post(Blog blog, User user, String title, String text) {
+        userId = user.getUserId();
         this.title = title;
         this.text = text;
         createdDateTime = OffsetDateTime.now();
-        blog.createPost(this);
-
+        blog.addPost(this);
     }
 
     public String getTitle() {
@@ -63,13 +58,9 @@ public class Post {
         return false;
     }
 
-    public int getArthurId() {
-        return arthurId;
+    public int getUserId() {
+        return userId;
     }
-
-    /*public int getPostId() {
-        return postId;
-    }*/
 
     public OffsetDateTime getCreatedOffSetDateTime() {
         return createdDateTime;
@@ -155,7 +146,7 @@ public class Post {
         for (Comment c : commentList) {
             result.add(c);
 
-            for (Comment subc : c.getSubcommentList()) {
+            for (Comment subc : c.getSubcomments()) {
                 result.add(subc);
             }
         }
@@ -170,7 +161,7 @@ public class Post {
     }
 
     private boolean isAuth(User user) {
-        if (arthurId == user.getUserId()) {
+        if (userId == user.getUserId()) {
             return true;
         } else {
             System.err.println("you are not authorized");

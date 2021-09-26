@@ -3,46 +3,46 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 
 public class Blog {
-    private int arthurId; //blog owner's userId
+    private int userId;
     private int blogId;
     private ArrayList<Post> postList = new ArrayList<>();
 
-    public Blog(User author, int blogId) {
-        if (!isExist(author, blogId)) {
-            arthurId = author.getUserId();
+    public Blog(User user, int blogId) {
+        if (!isExist(user, blogId)) {
+            userId = user.getUserId();
             this.blogId = blogId;
-            author.createBlog(this);
+            user.createBlog(this);
         }
     }
 
-    public int getArthurId() {
-        return arthurId;
+    public int getUserId() {
+        return userId;
     }
     public int getBlogId() {
         return blogId;
     }
 
-    public void createPost(Post post) {
-        postList.add(post);  //가정: 블로그 주인만 글을 작성 가능
+    public void addPost(Post post) {
+        postList.add(post);
     }
 
-    public ArrayList<Post> getSortedPostList() {
-        return getSortedPostList(Sorting.SortingType.CREATED_DESCENDING);
+    public ArrayList<Post> getPostsSorted() {
+        return getPostsSorted(Sorting.SortingType.CREATED_DESCENDING);
     }
 
-    public ArrayList<Post> getSortedPostList(Sorting.SortingType sortingType) {
+    public ArrayList<Post> getPostsSorted(Sorting.SortingType sortingType) {
         Sorting sorting = new Sorting();
         sorting.sortArticle(postList, sortingType);
         return postList;
     }
 
-    public ArrayList<Post> getPostListTagFiltered(String tag) {
+    public ArrayList<Post> getPostsFilteredTags(String tag) {
         ArrayList<String> tagList = new ArrayList<>();
         tagList.add(tag);
-        return getPostListTagListFiltered(tagList);
+        return getPostsFilteredTags(tagList);
     }
 
-    public ArrayList<Post> getPostListTagListFiltered(ArrayList<String> tags) {
+    public ArrayList<Post> getPostsFilteredTags(ArrayList<String> tags) {
         ArrayList<Post> filteredList = new ArrayList<>();
 
         for (Post a : postList) {
@@ -60,11 +60,11 @@ public class Blog {
         return filteredList;
     }
 
-    public ArrayList<Post> getPostListArthurFiltered(User user) {
+    public ArrayList<Post> getPostsFilteredUser(User user) {
         ArrayList<Post> filteredList = new ArrayList<>();
 
         for (Post a : postList) {
-            if (a.getArthurId() == user.getUserId()) {
+            if (a.getUserId() == user.getUserId()) {
                 filteredList.add(a);
             }
         }

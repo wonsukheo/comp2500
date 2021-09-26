@@ -7,11 +7,11 @@ public class App {
         // Register like this
         // registry.registerPostAdder("Foo", "bar");
         registry.registerBlogCreator("Blog");
-        registry.registerTagFilterSetter("Blog", "getPostListTagListFiltered");
-        registry.registerAuthorFilterSetter("Blog", "getPostListArthurFiltered");
-        registry.registerPostOrderSetter("Blog", "getSortedPostList");
-        registry.registerPostListGetter("Blog", "getSortedPostList");
-        registry.registerPostAdder("Blog", "createPost");
+        registry.registerTagFilterSetter("Blog", "getPostsFilteredTags");
+        registry.registerAuthorFilterSetter("Blog", "getPostsFilteredUser");
+        registry.registerPostOrderSetter("Blog", "getPostsSorted");
+        registry.registerPostListGetter("Blog", "getPostsSorted");
+        registry.registerPostAdder("Blog", "addPost");
         registry.registerPostTitleUpdater("Post", "setTitle");
         registry.registerPostBodyUpdater("Post", "setText");
         registry.registerPostTagAdder("Post", "addTag");

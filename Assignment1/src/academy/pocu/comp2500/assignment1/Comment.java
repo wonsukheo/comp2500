@@ -3,19 +3,19 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 
 public class Comment {
-    private int arthurId;
+    private int userId;
     private String text;
     private int upvote = 0;
     private int downvote = 0;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
     public Comment(Post post, User user, String text) {
-        this.arthurId = user.getUserId();
+        this.userId = user.getUserId();
         this.text = text;
         post.addComment(this);
     }
     public Comment(Comment comment, User user, String text) {
-        this.arthurId = user.getUserId();
+        this.userId = user.getUserId();
         this.text = text;
         comment.addSubComment(this);
     }
@@ -48,12 +48,12 @@ public class Comment {
         subCommentList.add(comment);
     }
 
-    public ArrayList<Comment> getSubcommentList() {
+    public ArrayList<Comment> getSubcomments() {
         return subCommentList;
     }
 
     private boolean isAuth(User user) {
-        if (arthurId == user.getUserId()) {
+        if (userId == user.getUserId()) {
             return true;
         } else {
             System.err.println("you are not authorized");
