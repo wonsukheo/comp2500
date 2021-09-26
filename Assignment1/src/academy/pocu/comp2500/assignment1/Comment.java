@@ -65,6 +65,7 @@ public class Comment {
         return subcomments;
     }
 
+
     public ArrayList<Comment> getSubcommentsRecursive(ArrayList<Comment> comments) {
         if (this.subCommentList.size() < 1) {
             return comments;
