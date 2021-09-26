@@ -10,10 +10,9 @@ public class Comment {
     private int downvote;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
-    public Comment(Post post, User user, String text) {
+    public Comment(User user, String text) {
         this.userId = user.getUserId();
         this.text = text;
-        post.addComment(this);
     }
 
     public String getText() {

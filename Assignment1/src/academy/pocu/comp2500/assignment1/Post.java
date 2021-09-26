@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Post {
-    public enum Reaction {
+    enum Reaction {
         GREAT,
         SAD,
         ANGRY,
@@ -25,12 +25,11 @@ public class Post {
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
-    public Post(Blog blog, User user, String title, String text) {
+    public Post(User user, String title, String text) {
         userId = user.getUserId();
         this.title = title;
         this.text = text;
         createdDateTime = OffsetDateTime.now();
-        blog.addPost(this);
     }
 
     public String getTitle() {
