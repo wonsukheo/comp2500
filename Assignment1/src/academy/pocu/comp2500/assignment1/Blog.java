@@ -22,20 +22,20 @@ public class Blog {
         return blogId;
     }
 
-    public void createArticle(int blogId, int userId, String title, String text) {
-        articleList.add(new Article(this.blogId, userId, title, text));
+    public void createArticle(int userId, String title, String text) {
+        articleList.add(new Article(blogId, userId, title, text));
     }
 
     public ArrayList<Article> getSortedArticleListOrNull() {
-        return getSortedArticleListOrNull(Qsort.SortingType.CREATED_DESCENDING);
+        return getSortedArticleListOrNull(Sorting.SortingType.CREATED_DESCENDING);
     }
 
-    public ArrayList<Article> getSortedArticleListOrNull(Qsort.SortingType sortingType) {
+    public ArrayList<Article> getSortedArticleListOrNull(Sorting.SortingType sortingType) {
         if (articleList.size() < 1) {
             System.err.println("This Blog does not have any article");
             return null;
         }
-        Qsort.quickSortArticle(articleList, sortingType);
+        Sorting.quickSortArticle(articleList, sortingType);
         return articleList;
     }
 

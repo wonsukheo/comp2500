@@ -3,7 +3,7 @@ package academy.pocu.comp2500.assignment1;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Qsort {
+public class Sorting {
     enum SortingType {
         CREATED_ASCENDING,
         CREATED_DESCENDING,
@@ -11,10 +11,10 @@ public class Qsort {
         MODIFIED_DESCENDING,
         TITLE_DESCENDING
     }
-    public static void quickSortComment(ArrayList<Comment> comments) {
+    static void quickSortComment(ArrayList<Comment> comments) {
         quickSortComment(comments, 0, comments.size() - 1);
     }
-    public static void quickSortArticle(ArrayList<Article> articles, SortingType sortingType) {
+    static void quickSortArticle(ArrayList<Article> articles, SortingType sortingType) {
         quickSortArticle(articles, 0, articles.size() - 1, sortingType);
     }
 

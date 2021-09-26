@@ -171,7 +171,7 @@ public class Article {
 
     public ArrayList<Comment> getCommentListSortByVoteOrNull() {
         ArrayList<Comment> commentList = getFullCommentListOrNull();
-        Qsort.quickSortComment(commentList);
+        Sorting.quickSortComment(commentList);
         return commentList;
     }
 
