@@ -30,16 +30,20 @@ public class Comment {
         return user;
     }
 
-    public void upVote(User user) {
+    public boolean upVote(User user) {
         if (!isAuth(user)) {
             upvote++;
+            return true;
         }
+        return false;
     }
 
-    public void downVote(User user) {
+    public boolean downVote(User user) {
         if (!isAuth(user)) {
             downvote++;
+            return true;
         }
+        return false;
     }
 
     public void subCommentUpVote(Comment comment, User user) {

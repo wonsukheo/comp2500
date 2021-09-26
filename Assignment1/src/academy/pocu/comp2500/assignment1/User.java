@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class User {
     private int userId;
     private String userName;
+    private ArrayList<User> userList = new ArrayList<>();
     private ArrayList<Blog> blogList = new ArrayList<>();
 
     public User(String name, int userId) {
@@ -26,5 +27,22 @@ public class User {
 
     public ArrayList<Blog> getBlogList() {
         return blogList;
+    }
+
+    public boolean isSame(User user) {
+        boolean result = true;
+        if (this.userId != user.getUserId()) {
+            result = false;
+            return result;
+        }
+        if (this.userName != user.getUserName()) {
+            result = false;
+            return result;
+        }
+        if (!this.equals(user)) {
+            result = false;
+            return result;
+        }
+        return result;
     }
 }
