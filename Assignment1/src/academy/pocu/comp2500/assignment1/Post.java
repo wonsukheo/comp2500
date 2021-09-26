@@ -163,9 +163,7 @@ public class Post {
         }
     }
 
-
-
-    public ArrayList<Comment> getCommentList()  {
+    public ArrayList<Comment> getCommentList() {
         ArrayList<Comment> comments = new ArrayList<>();
 
         for (Comment c : this.commentList) {

@@ -15,6 +15,7 @@ public class Blog {
     private ArrayList<String> tagFilter = new ArrayList<>();
     private boolean tagFilterOn = false;
     private boolean userFilterOn = false;
+    private boolean sortFilterOn = false;
 
     private int blogId;
     private ArrayList<Post> postList = new ArrayList<>();
@@ -66,22 +67,24 @@ public class Blog {
                 filteredList.add(p);
             }
         }
-        sortArticle(filteredList, SortingType.CREATED_DESCENDING);
+        if (!sortFilterOn) {
+            sortArticle(filteredList, SortingType.CREATED_DESCENDING);
+        }
         return filteredList;
     }
 
-    public ArrayList<Post> getPostListSorted(SortingType sortingType) {
+    public void setSortFilter(SortingType sortingType) {
         sortArticle(postList, sortingType);
-        return postList;
+        sortFilterOn = true;
     }
 
-    public void setPostsFilteredTags(String tag) {
+    public void setTagFilter(String tag) {
         ArrayList<String> tagList = new ArrayList<>();
         tagList.add(tag);
-        setPostsFilteredTags(tagList);
+        setTagsFilter(tagList);
     }
 
-    public void setPostsFilteredTags(ArrayList<String> tags) {
+    public void setTagsFilter(ArrayList<String> tags) {
         tagFilter.clear();
         for (String tag : tags) {
             tagFilter.add(tag);
@@ -94,7 +97,7 @@ public class Blog {
         }
     }
 
-    public void setPostsFilteredUser(User user) {
+    public void setUserFilter(User user) {
         userFilter = user;
 
         if (userFilterOn) {

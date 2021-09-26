@@ -7,9 +7,9 @@ public class App {
         // Register like this
         // registry.registerPostAdder("Foo", "bar");
         registry.registerBlogCreator("Blog");
-        registry.registerTagFilterSetter("Blog", "setPostsFilteredTags");
-        registry.registerAuthorFilterSetter("Blog", "setPostsFilteredUser");
-        registry.registerPostOrderSetter("Blog", "getPostListSorted");
+        registry.registerTagFilterSetter("Blog", "setTagsFilter");
+        registry.registerAuthorFilterSetter("Blog", "setUserFilter");
+        registry.registerPostOrderSetter("Blog", "setSortFilter");
         registry.registerPostListGetter("Blog", "getPostList");
         registry.registerPostAdder("Blog", "addPost");
         registry.registerPostTitleUpdater("Post", "setTitle");
@@ -24,7 +24,7 @@ public class App {
         registry.registerCommentUpvoter("Comment", "upVote");
         registry.registerCommentDownvoter("Comment", "downVote");
         registry.registerCommentListGetter("Post", "getCommentList");
-        registry.registerSubcommentListGetter("Comment", "getSubcommentsRecursive");
+        registry.registerSubcommentListGetter("Comment", "getSubcomments");
         registry.registerSubcommentUpvoter("Comment", "upVote");
         registry.registerSubcommentDownvoter("Comment", "downVote");
     }

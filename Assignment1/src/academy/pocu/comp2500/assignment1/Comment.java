@@ -54,6 +54,15 @@ public class Comment {
     public void addSubComment(Comment comment) {
         subCommentList.add(comment);
     }
+    public void subCommentUpVote(Comment comment, User user) {
+        comment.upVote(user);
+    }
+    public void subCommentDownVote(Comment comment, User user) {
+        comment.downVote(user);
+    }
+    public void subCommentSetText(Comment comment, User user, String text) {
+        comment.setText(user, text);
+    }
 
     public ArrayList<Comment> getSubcomments() {
         ArrayList<Comment> subcomments = new ArrayList<>();
@@ -65,12 +74,12 @@ public class Comment {
         return subcomments;
     }
 
-
     public ArrayList<Comment> getSubcommentsRecursive(ArrayList<Comment> comments) {
         if (this.subCommentList.size() < 1) {
             return comments;
         }
         for (Comment c : this.getSubcomments()) {
+            comments.add(c);
             c.getSubcommentsRecursive(comments);
         }
         return comments;
