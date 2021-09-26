@@ -48,7 +48,7 @@ public class Blog {
         if (tagFilterOn) {
             for (Post post : postList) {
                 loop_exit:
-                for (String tagPosted : post.getTagList()) {
+                for (String tagPosted : post.getTags()) {
                     for (String tagFiltered : tagFilter) {
                         if (tagPosted.equals(tagFiltered)) {
                             if (!filteredList.contains(post)) {

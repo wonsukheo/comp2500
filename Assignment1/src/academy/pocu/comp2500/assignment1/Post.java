@@ -87,10 +87,13 @@ public class Post {
         return true;
     }
 
-    public ArrayList<String> getTagList() {
+    public ArrayList<String> getTags() {
         ArrayList<String> result = new ArrayList<>();
-        result = (ArrayList<String>) tagList.clone();
-        
+
+        for (String tag : tagList) {
+            result.add(tag);
+        }
+
         return result;
     }
 
@@ -166,6 +169,7 @@ public class Post {
         ArrayList<Comment> comments = new ArrayList<>();
 
         for (Comment c : this.commentList) {
+            comments.add(c);
             c.getSubcommentsRecursive(comments);
         }
 
@@ -173,9 +177,9 @@ public class Post {
     }
 
     public ArrayList<Comment> getCommentListSortByVote() {
-        ArrayList<Comment> temp = commentList;
-        sortComment(temp);
-        return temp;
+        ArrayList<Comment> comments = getCommentList();
+        sortComment(comments);
+        return comments;
     }
 
     private boolean isAuth(User user) {
