@@ -14,11 +14,11 @@ public class Comment {
         this.text = text;
         post.addComment(this);
     }
-    public Comment(Comment comment, User user, String text) {
+    /*public Comment(Comment comment, User user, String text) {
         this.userId = user.getUserId();
         this.text = text;
         comment.addSubComment(this);
-    }
+    }*/
 
     public String getText() {
         return text;
