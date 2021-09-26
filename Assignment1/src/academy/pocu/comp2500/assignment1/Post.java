@@ -19,23 +19,22 @@ public class Post {
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
     private int blogId;
-    private int postId;
+    //private int postId;
     private int arthurId;
     private String title;
     private String text;
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
-    public Post(Blog blog, User author, int postId, String title, String text) {
-        if (!isExist(blog, author, postId)) {
-            this.blogId = blog.getBlogId();
-            arthurId = author.getUserId();
-            this.postId = postId;
-            this.title = title;
-            this.text = text;
-            createdDateTime = OffsetDateTime.now();
-            blog.createPost(this);
-        }
+    public Post(Blog blog, User author, String title, String text) {
+        this.blogId = blog.getBlogId();
+        arthurId = author.getUserId();
+        //this.postId = postId;
+        this.title = title;
+        this.text = text;
+        createdDateTime = OffsetDateTime.now();
+        blog.createPost(this);
+
     }
 
     public String getTitle() {
@@ -47,7 +46,7 @@ public class Post {
     }
 
     public boolean setTitle(User user, String title) {
-        if (isAuth(user.getUserId())) {
+        if (isAuth(user)) {
             this.title = title;
             modifiedDateTime = OffsetDateTime.now();
             return true;
@@ -56,7 +55,7 @@ public class Post {
     }
 
     public boolean setText(User user, String text) {
-        if (isAuth(user.getUserId())) {
+        if (isAuth(user)) {
             this.text = text;
             modifiedDateTime = OffsetDateTime.now();
             return true;
@@ -68,9 +67,9 @@ public class Post {
         return arthurId;
     }
 
-    public int getPostId() {
+    /*public int getPostId() {
         return postId;
-    }
+    }*/
 
     public OffsetDateTime getCreatedOffSetDateTime() {
         return createdDateTime;
@@ -81,7 +80,7 @@ public class Post {
     }
 
     public boolean addTag(User user, String tag) {
-        if (!isAuth(user.getUserId())) {
+        if (!isAuth(user)) {
             System.out.println("you are not authorized to add tag");
             return false;
         }
@@ -170,8 +169,8 @@ public class Post {
         return commentList;
     }
 
-    private boolean isAuth(int userId) {
-        if (arthurId == userId) {
+    private boolean isAuth(User user) {
+        if (arthurId == user.getUserId()) {
             return true;
         } else {
             System.err.println("you are not authorized");
@@ -179,7 +178,7 @@ public class Post {
         }
     }
 
-    private boolean isExist(Blog blog, User user, int postId) {
+    /*private boolean isExist(Blog blog, User user, int postId) {
         ArrayList<Post> posts = blog.getPostListArthurFiltered(user);
 
         for (Post p : posts) {
@@ -188,5 +187,5 @@ public class Post {
             }
         }
         return false;
-    }
+    }*/
 }

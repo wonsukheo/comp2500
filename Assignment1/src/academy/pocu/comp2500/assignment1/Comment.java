@@ -25,7 +25,7 @@ public class Comment {
     }
 
     public boolean setText(User user, String text) {
-        if (isAuth(user.getUserId())) {
+        if (isAuth(user)) {
             this.text = text;
             return true;
         }
@@ -52,8 +52,8 @@ public class Comment {
         return subCommentList;
     }
 
-    private boolean isAuth(int userId) {
-        if (arthurId == userId) {
+    private boolean isAuth(User user) {
+        if (arthurId == user.getUserId()) {
             return true;
         } else {
             System.err.println("you are not authorized");
