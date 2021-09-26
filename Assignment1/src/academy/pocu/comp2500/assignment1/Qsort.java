@@ -11,11 +11,11 @@ public class Qsort {
         MODIFIED_DESCENDING,
         TITLE_DESCENDING
     }
-    public static void quickSortComment(ArrayList<Comment> commentList) {
-        quickSortComment(commentList, 0, commentList.size() - 1);
+    public static void quickSortComment(ArrayList<Comment> comments) {
+        quickSortComment(comments, 0, comments.size() - 1);
     }
-    public static void quickSortArticle(ArrayList<Article> articleList, SortingType sortingType) {
-        quickSortArticle(articleList, 0, articleList.size() - 1, sortingType);
+    public static void quickSortArticle(ArrayList<Article> articles, SortingType sortingType) {
+        quickSortArticle(articles, 0, articles.size() - 1, sortingType);
     }
 
     private static void quickSortComment(ArrayList<Comment> commentList, int low, int high) {

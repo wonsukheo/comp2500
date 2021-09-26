@@ -51,7 +51,7 @@ public class Comment {
     }
 
     public ArrayList<Comment> getSubcommentListOrNull() {
-        if (subCommentList.size() < 1){
+        if (subCommentList.size() < 1) {
             return null;
         }
         return subCommentList;

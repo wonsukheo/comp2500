@@ -55,7 +55,7 @@ public class Article {
         return false;
     }
 
-    public boolean setText(int userId, String text)  {
+    public boolean setText(int userId, String text) {
         if (isAuth(userId)) {
             this.text = text;
             modifiedDateTime = OffsetDateTime.now();

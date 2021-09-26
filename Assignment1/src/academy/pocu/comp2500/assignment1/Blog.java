@@ -45,13 +45,13 @@ public class Blog {
         return getArticleListTagListFilteredOrNull(tagList);
     }
 
-    public ArrayList<Article> getArticleListTagListFilteredOrNull(ArrayList<String> tagList) {
+    public ArrayList<Article> getArticleListTagListFilteredOrNull(ArrayList<String> tags) {
         ArrayList<Article> filteredList = new ArrayList<>();
 
         for (Article a : articleList) {
             loopexit:
             for (String tagInArticle : a.getTagListOrNull()) {
-                for (String tagInFilter : tagList) {
+                for (String tagInFilter : tags) {
                     if (tagInArticle.equals(tagInFilter)) {
                         filteredList.add(a);
                         break loopexit;
