@@ -1,12 +1,13 @@
 package academy.pocu.comp2500.assignment1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Comment {
     private int userId;
     private String text;
-    private int upvote = 0;
-    private int downvote = 0;
+    private int upvote;
+    private int downvote;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
     public Comment(Post post, User user, String text) {
@@ -14,11 +15,6 @@ public class Comment {
         this.text = text;
         post.addComment(this);
     }
-    /*public Comment(Comment comment, User user, String text) {
-        this.userId = user.getUserId();
-        this.text = text;
-        comment.addSubComment(this);
-    }*/
 
     public String getText() {
         return text;
@@ -38,6 +34,16 @@ public class Comment {
 
     public void downVote() {
         downvote++;
+    }
+
+    public void subCommentUpVote(Comment comment) {
+        comment.upVote();
+    }
+    public void subCommentDownVote(Comment comment) {
+        comment.downVote();
+    }
+    public void subCommentSetText(Comment comment, User user, String text) {
+        comment.setText(user, text);
     }
 
     public int getVote() {
@@ -60,4 +66,6 @@ public class Comment {
             return false;
         }
     }
+
+
 }

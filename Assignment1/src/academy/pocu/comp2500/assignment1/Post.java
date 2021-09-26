@@ -2,6 +2,7 @@ package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Post {
     public enum Reaction {
@@ -90,7 +91,23 @@ public class Post {
         commentList.add(comment);
     }
 
-    public void addReaction(Reaction reaction) {
+    public int getReaction(Reaction reaction) {
+        switch (reaction) {
+            case GREAT:
+                return great;
+            case SAD:
+                return sad;
+            case ANGRY:
+                return angry;
+            case FUN:
+                return fun;
+            case LOVE:
+                return love;
+            default:
+                return 0;
+        }
+    }
+    public void setReaction(Reaction reaction) {
         switch (reaction) {
             case GREAT:
                 great++;
@@ -140,24 +157,14 @@ public class Post {
         return tagList;
     }
 
-    public ArrayList<Comment> getFullCommentList() {
-        ArrayList<Comment> result = new ArrayList<>();
-
-        for (Comment c : commentList) {
-            result.add(c);
-
-            for (Comment subc : c.getSubcomments()) {
-                result.add(subc);
-            }
-        }
-        return result;
+    public ArrayList<Comment> getCommentList() {
+        return commentList;
     }
 
     public ArrayList<Comment> getCommentListSortByVote() {
-        Sorting sorting = new Sorting();
-        ArrayList<Comment> commentList = getFullCommentList();
-        sorting.sortComment(commentList);
-        return commentList;
+        ArrayList<Comment> temp = commentList;
+        sortComment(temp);
+        return temp;
     }
 
     private boolean isAuth(User user) {
@@ -168,15 +175,31 @@ public class Post {
             return false;
         }
     }
-
-    /*private boolean isExist(Blog blog, User user, int postId) {
-        ArrayList<Post> posts = blog.getPostListArthurFiltered(user);
-
-        for (Post p : posts) {
-            if (p.getPostId() == postId) {
-                return true;
+    private void sortComment(ArrayList<Comment> comments) {
+        sortComment(comments, 0, comments.size() - 1);
+    }
+    private void sortComment(ArrayList<Comment> commentList, int low, int high) {
+        if (low < high + 1) {
+            int p = partitionComment(commentList, low, high);
+            sortComment(commentList, low, p - 1);
+            sortComment(commentList, p + 1, high);
+        }
+    }
+    private void swapComment(ArrayList<Comment> commentList, int index1, int index2) {
+        Collections.swap(commentList, index1, index2);
+    }
+    private int getPivot(int low, int high) {
+        return (low + high) / 2;
+    }
+    private int partitionComment(ArrayList<Comment> commentList, int low, int high) {
+        swapComment(commentList, low, getPivot(low, high));
+        int border = low + 1;
+        for (int i = border; i <= high; i++) {
+            if (commentList.get(i).getVote() < commentList.get(low).getVote()) {
+                swapComment(commentList, i, border++);
             }
         }
-        return false;
-    }*/
+        swapComment(commentList, low, border - 1);
+        return border - 1;
+    }
 }

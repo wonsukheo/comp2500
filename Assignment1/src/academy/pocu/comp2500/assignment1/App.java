@@ -9,8 +9,8 @@ public class App {
         registry.registerBlogCreator("Blog");
         registry.registerTagFilterSetter("Blog", "getPostsFilteredTags");
         registry.registerAuthorFilterSetter("Blog", "getPostsFilteredUser");
-        registry.registerPostOrderSetter("Blog", "getPostsSorted");
-        registry.registerPostListGetter("Blog", "getPostsSorted");
+        registry.registerPostOrderSetter("Blog", "getPostListSorted");
+        registry.registerPostListGetter("Blog", "getPostList");
         registry.registerPostAdder("Blog", "addPost");
         registry.registerPostTitleUpdater("Post", "setTitle");
         registry.registerPostBodyUpdater("Post", "setText");
@@ -18,14 +18,14 @@ public class App {
         registry.registerCommentAdder("Post", "addComment");
         registry.registerSubcommentAdder("Comment", "addSubComment");
         registry.registerCommentUpdater("Comment", "setText");
-        registry.registerSubcommentUpdater("Comment", "setText");
-        registry.registerReactionAdder("Post", "addReaction");
+        registry.registerSubcommentUpdater("Comment", "subCommentSetText");
+        registry.registerReactionAdder("Post", "setReaction");
         registry.registerReactionRemover("Post", "removeReaction");
         registry.registerCommentUpvoter("Comment", "upVote");
         registry.registerCommentDownvoter("Comment", "downVote");
-        registry.registerCommentListGetter("Post", "getCommentListSortByVote");
-        registry.registerSubcommentListGetter("Post", "getCommentListSortByVote");
-        registry.registerSubcommentUpvoter("Comment", "upVote");
-        registry.registerSubcommentDownvoter("Comment", "downVote");
+        registry.registerCommentListGetter("Post", "getCommentList");
+        registry.registerSubcommentListGetter("Comment", "getSubcomments");
+        registry.registerSubcommentUpvoter("Comment", "subCommentUpVote");
+        registry.registerSubcommentDownvoter("Comment", "subCommentDownVote");
     }
 }
