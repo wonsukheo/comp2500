@@ -26,14 +26,17 @@ public class Post {
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
-    public Post(int blogId, int userId, int postId, String title, String text) {
-        this.blogId = blogId;
-        arthurId = userId;
-        this.postId = postId;
-        this.title = title;
-        this.text = text;
-        createdDateTime = OffsetDateTime.now();
-        modifiedDateTime = createdDateTime;
+    public Post(Blog blog, User author, int postId, String title, String text) {
+        if (!isExist(blog, author, postId)) {
+            this.blogId = blog.getBlogId();
+            arthurId = author.getUserId();
+            this.postId = postId;
+            this.title = title;
+            this.text = text;
+            createdDateTime = OffsetDateTime.now();
+            modifiedDateTime = createdDateTime;
+            blog.createPost(this);
+        }
     }
 
     public String getTitle() {
@@ -94,8 +97,8 @@ public class Post {
         return true;
     }
 
-    public void addComment(int userId, int commentId, String text) {
-        commentList.add(new Comment(userId, commentId, text));
+    public void addComment(Comment comment) {
+        commentList.add(comment);
     }
 
     public void addReaction(Reaction reaction) {
@@ -144,32 +147,26 @@ public class Post {
         }
     }
 
-    public ArrayList<String> getTagListOrNull() {
-        if (tagList.size() < 1) {
-            return null;
-        }
+    public ArrayList<String> getTagList() {
         return tagList;
     }
 
-    public ArrayList<Comment> getFullCommentListOrNull() {
+    public ArrayList<Comment> getFullCommentList() {
         ArrayList<Comment> result = new ArrayList<>();
 
         for (Comment c : commentList) {
             result.add(c);
 
-            for (Comment subc : c.getSubcommentListOrNull()) {
+            for (Comment subc : c.getSubcommentList()) {
                 result.add(subc);
             }
-        }
-        if (result.size() < 1) {
-            return null;
         }
         return result;
     }
 
-    public ArrayList<Comment> getCommentListSortByVoteOrNull() {
+    public ArrayList<Comment> getCommentListSortByVote() {
         Sorting sorting = new Sorting();
-        ArrayList<Comment> commentList = getFullCommentListOrNull();
+        ArrayList<Comment> commentList = getFullCommentList();
         sorting.sortComment(commentList);
         return commentList;
     }
@@ -181,5 +178,16 @@ public class Post {
             System.err.println("you are not authorized");
             return false;
         }
+    }
+
+    private boolean isExist(Blog blog, User user, int postId) {
+        ArrayList<Post> posts = blog.getPostListArthurFiltered(user.getUserId());
+
+        for (Post p : posts) {
+            if (p.getPostId() == postId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

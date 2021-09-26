@@ -7,9 +7,12 @@ public class Blog {
     private int blogId;
     private ArrayList<Post> postList = new ArrayList<>();
 
-    public Blog(int userId, int blogId) {
-        arthurId = userId;
-        this.blogId = blogId;
+    public Blog(User author, int blogId) {
+        if (!isExist(author, blogId)) {
+            arthurId = author.getUserId();
+            this.blogId = blogId;
+            author.createBlog(this);
+        }
     }
 
     public int getArthurId() {
@@ -19,36 +22,32 @@ public class Blog {
         return blogId;
     }
 
-    public void createPost(int postId, String title, String text) {
-        postList.add(new Post(postId, blogId, arthurId, title, text));  //가정: 블로그 주인만 글을 작성 가능
+    public void createPost(Post post) {
+        postList.add(post);  //가정: 블로그 주인만 글을 작성 가능
     }
 
-    public ArrayList<Post> getSortedPostListOrNull() {
-        return getSortedPostListOrNull(Sorting.SortingType.CREATED_DESCENDING);
+    public ArrayList<Post> getSortedPostList() {
+        return getSortedPostList(Sorting.SortingType.CREATED_DESCENDING);
     }
 
-    public ArrayList<Post> getSortedPostListOrNull(Sorting.SortingType sortingType) {
+    public ArrayList<Post> getSortedPostList(Sorting.SortingType sortingType) {
         Sorting sorting = new Sorting();
-        if (postList.size() < 1) {
-            System.err.println("This Blog does not have any article");
-            return null;
-        }
         sorting.sortArticle(postList, sortingType);
         return postList;
     }
 
-    public ArrayList<Post> getPostListTagFilteredOrNull(String tag) {
+    public ArrayList<Post> getPostListTagFiltered(String tag) {
         ArrayList<String> tagList = new ArrayList<>();
         tagList.add(tag);
-        return getPostListTagListFilteredOrNull(tagList);
+        return getPostListTagListFiltered(tagList);
     }
 
-    public ArrayList<Post> getPostListTagListFilteredOrNull(ArrayList<String> tags) {
+    public ArrayList<Post> getPostListTagListFiltered(ArrayList<String> tags) {
         ArrayList<Post> filteredList = new ArrayList<>();
 
         for (Post a : postList) {
             loopexit:
-            for (String tagInArticle : a.getTagListOrNull()) {
+            for (String tagInArticle : a.getTagList()) {
                 for (String tagInFilter : tags) {
                     if (tagInArticle.equals(tagInFilter)) {
                         filteredList.add(a);
@@ -57,9 +56,7 @@ public class Blog {
                 }
             }
         }
-        if (filteredList.size() < 1) {
-            return null;
-        }
+
         return filteredList;
     }
 
@@ -72,9 +69,17 @@ public class Blog {
             }
         }
 
-        if (filteredList.size() < 1) {
-            return null;
-        }
         return filteredList;
+    }
+
+    private boolean isExist(User author, int blogId) {
+        ArrayList<Blog> b = author.getBlogList();
+
+        for (Blog blog : b) {
+            if (blog.getBlogId() == blogId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

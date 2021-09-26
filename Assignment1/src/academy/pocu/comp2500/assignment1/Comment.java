@@ -4,16 +4,20 @@ import java.util.ArrayList;
 
 public class Comment {
     private int arthurId;
-    private int commentId;
     private String text;
     private int upvote = 0;
     private int downvote = 0;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
-    public Comment(int userId, int commentId, String text) {
-        this.arthurId = userId;
+    public Comment(Post post, User user, String text) {
+        this.arthurId = user.getUserId();
         this.text = text;
-        this.commentId = commentId;
+        post.addComment(this);
+    }
+    public Comment(Comment comment, User user, String text) {
+        this.arthurId = user.getUserId();
+        this.text = text;
+        comment.addSubComment(this);
     }
 
     public String getText() {
@@ -28,10 +32,6 @@ public class Comment {
         return false;
     }
 
-    public int getCommentId() {
-        return commentId;
-    }
-
     public void upVote() {
         upvote++;
     }
@@ -44,14 +44,11 @@ public class Comment {
         return upvote - downvote;
     }
 
-    public void addSubComment(int userId, int commentId, String text) {
-        subCommentList.add(new Comment(userId, commentId, text));
+    private void addSubComment(Comment comment) {
+        subCommentList.add(comment);
     }
 
-    public ArrayList<Comment> getSubcommentListOrNull() {
-        if (subCommentList.size() < 1) {
-            return null;
-        }
+    public ArrayList<Comment> getSubcommentList() {
         return subCommentList;
     }
 

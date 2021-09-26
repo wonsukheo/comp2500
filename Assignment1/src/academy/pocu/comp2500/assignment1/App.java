@@ -6,11 +6,11 @@ public class App {
     public App(Registry registry) {
         // Register like this
         // registry.registerPostAdder("Foo", "bar");
-        registry.registerBlogCreator("User");
-        registry.registerTagFilterSetter("Blog", "getPostListTagListFilteredOrNull");
+        registry.registerBlogCreator("Blog");
+        registry.registerTagFilterSetter("Blog", "getPostListTagListFiltered");
         registry.registerAuthorFilterSetter("Blog", "getPostListArthurFiltered");
-        registry.registerPostOrderSetter("Blog", "getSortedPostListOrNull");
-        registry.registerPostListGetter("Blog", "getSortedPostListOrNull");
+        registry.registerPostOrderSetter("Blog", "getSortedPostList");
+        registry.registerPostListGetter("Blog", "getSortedPostList");
         registry.registerPostAdder("Blog", "createPost");
         registry.registerPostTitleUpdater("Post", "setTitle");
         registry.registerPostBodyUpdater("Post", "setText");
@@ -23,8 +23,8 @@ public class App {
         registry.registerReactionRemover("Post", "removeReaction");
         registry.registerCommentUpvoter("Comment", "upVote");
         registry.registerCommentDownvoter("Comment", "downVote");
-        registry.registerCommentListGetter("Post", "getCommentListSortByVoteOrNull");
-        registry.registerSubcommentListGetter("Post", "getCommentListSortByVoteOrNull");
+        registry.registerCommentListGetter("Post", "getCommentListSortByVote");
+        registry.registerSubcommentListGetter("Post", "getCommentListSortByVote");
         registry.registerSubcommentUpvoter("Comment", "upVote");
         registry.registerSubcommentDownvoter("Comment", "downVote");
     }

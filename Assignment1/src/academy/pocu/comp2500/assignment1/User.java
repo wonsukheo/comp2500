@@ -7,7 +7,7 @@ public class User {
     private String userName;
     private ArrayList<Blog> blogList = new ArrayList<>();
 
-    public User(String Username, int userId) {
+    public User(String userName, int userId) {
         this.userName = userName;
         this.userId = userId;
     }
@@ -20,14 +20,11 @@ public class User {
         return userName;
     }
 
-    public void createBlog(int blogId) {
-        blogList.add(new Blog(userId, blogId));
+    public void createBlog(Blog blog) {
+        blogList.add(blog);
     }
 
-    public ArrayList<Blog> getBlogListOrNull() {
-        if (blogList.size() < 1) {
-            return null;
-        }
+    public ArrayList<Blog> getBlogList() {
         return blogList;
     }
 }
