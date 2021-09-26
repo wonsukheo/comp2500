@@ -30,19 +30,23 @@ public class Comment {
         return user;
     }
 
-    public void upVote() {
-        upvote++;
+    public void upVote(User user) {
+        if (!isAuth(user)) {
+            upvote++;
+        }
     }
 
-    public void downVote() {
-        downvote++;
+    public void downVote(User user) {
+        if (!isAuth(user)) {
+            downvote++;
+        }
     }
 
-    public void subCommentUpVote(Comment comment) {
-        comment.upVote();
+    public void subCommentUpVote(Comment comment, User user) {
+        comment.upVote(user);
     }
-    public void subCommentDownVote(Comment comment) {
-        comment.downVote();
+    public void subCommentDownVote(Comment comment, User user) {
+        comment.downVote(user);
     }
     public void subCommentSetText(Comment comment, User user, String text) {
         comment.setText(user, text);
@@ -68,6 +72,4 @@ public class Comment {
             return false;
         }
     }
-
-
 }
