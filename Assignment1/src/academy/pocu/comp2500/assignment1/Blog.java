@@ -11,12 +11,18 @@ public class Blog {
         MODIFIED_DESCENDING,
         TITLE_DESCENDING
     }
+    private User userFilter;
+    private ArrayList<String> tagFilter = new ArrayList<>();
+    private boolean tagFilterOn = false;
+    private boolean userFilterOn = false;
+
     private int blogId;
     private ArrayList<Post> postList = new ArrayList<>();
 
     public Blog(User user, int blogId) {
         if (!isExist(user, blogId)) {
             this.blogId = blogId;
+            userFilter = user;
             user.createBlog(this);
         }
     }
@@ -30,7 +36,38 @@ public class Blog {
     }
 
     public ArrayList<Post> getPostList() {
-        return getPostListSorted(SortingType.CREATED_DESCENDING);
+        ArrayList<Post> filteredList = new ArrayList<>();
+
+        if (userFilterOn) {
+            for (Post a : postList) {
+                if (a.getUser().equals(userFilter)) {
+                    filteredList.add(a);
+                }
+            }
+        }
+        if (tagFilterOn) {
+            for (Post post : postList) {
+                loop_exit:
+                for (String tagPosted : post.getTagList()) {
+                    for (String tagFiltered : tagFilter) {
+                        if (tagPosted.equals(tagFiltered)) {
+                            if (!filteredList.contains(post)) {
+                                filteredList.add(post);
+                            }
+                            break loop_exit;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (userFilterOn == false && tagFilterOn == false) {
+            for (Post p : postList) {
+                filteredList.add(p);
+            }
+        }
+        sortArticle(filteredList, SortingType.CREATED_DESCENDING);
+        return filteredList;
     }
 
     public ArrayList<Post> getPostListSorted(SortingType sortingType) {
@@ -38,40 +75,33 @@ public class Blog {
         return postList;
     }
 
-    public ArrayList<Post> getPostsFilteredTags(String tag) {
+    public void setPostsFilteredTags(String tag) {
         ArrayList<String> tagList = new ArrayList<>();
         tagList.add(tag);
-        return getPostsFilteredTags(tagList);
+        setPostsFilteredTags(tagList);
     }
 
-    public ArrayList<Post> getPostsFilteredTags(ArrayList<String> tags) {
-        ArrayList<Post> filteredList = new ArrayList<>();
-
-        for (Post a : postList) {
-            loopexit:
-            for (String tagInArticle : a.getTagList()) {
-                for (String tagInFilter : tags) {
-                    if (tagInArticle.equals(tagInFilter)) {
-                        filteredList.add(a);
-                        break loopexit;
-                    }
-                }
-            }
+    public void setPostsFilteredTags(ArrayList<String> tags) {
+        tagFilter.clear();
+        for (String tag : tags) {
+            tagFilter.add(tag);
         }
 
-        return filteredList;
+        if (tagFilterOn) {
+            tagFilterOn = false;
+        } else {
+            tagFilterOn = true;
+        }
     }
 
-    public ArrayList<Post> getPostsFilteredUser(User user) {
-        ArrayList<Post> filteredList = new ArrayList<>();
+    public void setPostsFilteredUser(User user) {
+        userFilter = user;
 
-        for (Post a : postList) {
-            if (a.getUser() == user) {
-                filteredList.add(a);
-            }
+        if (userFilterOn) {
+            userFilterOn = false;
+        } else {
+            userFilterOn = true;
         }
-
-        return filteredList;
     }
 
     private boolean isExist(User author, int blogId) {
