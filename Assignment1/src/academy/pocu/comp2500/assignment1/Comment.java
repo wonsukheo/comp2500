@@ -86,7 +86,7 @@ public class Comment {
         return subcomments;
     }
     private ArrayList<Comment> getSubcommentsRec(Comment comment, ArrayList<Comment> comments) {
-        if (comment.getSubcommentList(). size() < 1) {
+        if (comment.getSubcommentList().size() < 1) {
             return comments;
         }
         for (Comment c : comment.getSubcommentList()) {

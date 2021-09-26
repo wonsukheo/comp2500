@@ -11,7 +11,7 @@ public class Blog {
         MODIFIED_DESCENDING,
         TITLE_DESCENDING
     }
-    private User userFilter;
+    private int userFilter;
     private ArrayList<String> tagFilter = new ArrayList<>();
     private boolean tagFilterOn = false;
     private boolean userFilterOn = false;
@@ -23,7 +23,7 @@ public class Blog {
     public Blog(User user, int blogId) {
         if (!isExist(user, blogId)) {
             this.blogId = blogId;
-            userFilter = user;
+            userFilter = user.getUserId();
             user.createBlog(this);
         }
     }
@@ -41,7 +41,7 @@ public class Blog {
 
         if (userFilterOn) {
             for (Post a : postList) {
-                if (a.getUser().equals(userFilter)) {
+                if (a.getUser().getUserId() == userFilter) {
                     filteredList.add(a);
                 }
             }
@@ -99,8 +99,11 @@ public class Blog {
     public void setUserFilter(User userOrNull) {
         if (userOrNull == null) {
             userFilterOn = false;
+        } else if (userOrNull.getUserId() == userFilter) {
+            userFilterOn = false;
+            userFilter = 0;
         } else {
-            userFilter = userOrNull;
+            userFilter = userOrNull.getUserId();
             userFilterOn = true;
         }
     }
