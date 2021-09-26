@@ -3,7 +3,7 @@ package academy.pocu.comp2500.assignment1;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
-public class Article {
+public class Post {
     private static int id = 0;
     public enum Reaction {
         GREAT,
@@ -21,17 +21,17 @@ public class Article {
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
     private int blogId;
-    private int articleId;
+    private int postId;
     private int arthurId;
     private String title;
     private String text;
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
-    public Article(int blogId, int userId, String title, String text) {
+    public Post(int blogId, int userId, String title, String text) {
         this.blogId = blogId;
         arthurId = userId;
-        articleId = id++;
+        postId = id++;
         this.title = title;
         this.text = text;
         createdDateTime = OffsetDateTime.now();
@@ -68,8 +68,8 @@ public class Article {
         return arthurId;
     }
 
-    public int getArticleId() {
-        return articleId;
+    public int getPostId() {
+        return postId;
     }
 
     public OffsetDateTime getCreatedOffSetDateTime() {

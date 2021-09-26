@@ -14,8 +14,8 @@ public class Sorting {
     static void quickSortComment(ArrayList<Comment> comments) {
         quickSortComment(comments, 0, comments.size() - 1);
     }
-    static void quickSortArticle(ArrayList<Article> articles, SortingType sortingType) {
-        quickSortArticle(articles, 0, articles.size() - 1, sortingType);
+    static void quickSortArticle(ArrayList<Post> posts, SortingType sortingType) {
+        quickSortArticle(posts, 0, posts.size() - 1, sortingType);
     }
 
     private static void quickSortComment(ArrayList<Comment> commentList, int low, int high) {
@@ -25,19 +25,19 @@ public class Sorting {
             quickSortComment(commentList, p + 1, high);
         }
     }
-    private static void quickSortArticle(ArrayList<Article> articleList, int low, int high, SortingType sortingType) {
+    private static void quickSortArticle(ArrayList<Post> postList, int low, int high, SortingType sortingType) {
         if (low < high + 1) {
-            int p = partitionArticle(articleList, low, high, sortingType);
-            quickSortArticle(articleList, low, p - 1, sortingType);
-            quickSortArticle(articleList, p + 1, high, sortingType);
+            int p = partitionArticle(postList, low, high, sortingType);
+            quickSortArticle(postList, low, p - 1, sortingType);
+            quickSortArticle(postList, p + 1, high, sortingType);
         }
     }
 
     private static void swapComment(ArrayList<Comment> commentList, int index1, int index2) {
         Collections.swap(commentList, index1, index2);
     }
-    private static void swapArticle(ArrayList<Article> articleList, int index1, int index2) {
-        Collections.swap(articleList, index1, index2);
+    private static void swapArticle(ArrayList<Post> postList, int index1, int index2) {
+        Collections.swap(postList, index1, index2);
     }
 
     private static int getPivot(int low, int high) {
@@ -55,49 +55,49 @@ public class Sorting {
         swapComment(commentList, low, border - 1);
         return border - 1;
     }
-    private static int partitionArticle(ArrayList<Article> articleList, int low, int high, SortingType sortingType) {
-        swapArticle(articleList, low, getPivot(low, high));
+    private static int partitionArticle(ArrayList<Post> postList, int low, int high, SortingType sortingType) {
+        swapArticle(postList, low, getPivot(low, high));
         int border = low + 1;
 
         switch (sortingType) {
             case CREATED_ASCENDING:
                 for (int i = border; i <= high; i++) {
-                    if (articleList.get(i).getCreatedOffSetDateTime().isBefore(articleList.get(low).getCreatedOffSetDateTime())) {
-                        swapArticle(articleList, i, border++);
+                    if (postList.get(i).getCreatedOffSetDateTime().isBefore(postList.get(low).getCreatedOffSetDateTime())) {
+                        swapArticle(postList, i, border++);
                     }
                 }
                 break;
             case CREATED_DESCENDING:
                 for (int i = border; i <= high; i++) {
-                    if (articleList.get(i).getCreatedOffSetDateTime().isAfter(articleList.get(low).getCreatedOffSetDateTime())) {
-                        swapArticle(articleList, i, border++);
+                    if (postList.get(i).getCreatedOffSetDateTime().isAfter(postList.get(low).getCreatedOffSetDateTime())) {
+                        swapArticle(postList, i, border++);
                     }
                 }
                 break;
             case MODIFIED_ASCENDING:
                 for (int i = border; i <= high; i++) {
-                    if (articleList.get(i).getModifiedOffSetDateTime().isBefore(articleList.get(low).getCreatedOffSetDateTime())) {
-                        swapArticle(articleList, i, border++);
+                    if (postList.get(i).getModifiedOffSetDateTime().isBefore(postList.get(low).getCreatedOffSetDateTime())) {
+                        swapArticle(postList, i, border++);
                     }
                 }
                 break;
             case MODIFIED_DESCENDING:
                 for (int i = border; i <= high; i++) {
-                    if (articleList.get(i).getModifiedOffSetDateTime().isAfter(articleList.get(low).getCreatedOffSetDateTime())) {
-                        swapArticle(articleList, i, border++);
+                    if (postList.get(i).getModifiedOffSetDateTime().isAfter(postList.get(low).getCreatedOffSetDateTime())) {
+                        swapArticle(postList, i, border++);
                     }
                 }
                 break;
             case TITLE_DESCENDING:
                 for (int i = border; i <= high; i++) {
-                    char[] c1 = articleList.get(i).getTitle().toCharArray();
-                    char[] c2 = articleList.get(low).getTitle().toCharArray();
+                    char[] c1 = postList.get(i).getTitle().toCharArray();
+                    char[] c2 = postList.get(low).getTitle().toCharArray();
 
                     for (int j = 0; j < Math.min(c1.length, c2.length); j++) {
                         if (c1[j] - c2[j] == 0) {
                             continue;
                         } else if (c1[j] - c2[j] < 0) {
-                            swapArticle(articleList, i, border++);
+                            swapArticle(postList, i, border++);
                             break;
                         }
                     }
@@ -108,7 +108,7 @@ public class Sorting {
                 break;
         }
 
-        swapArticle(articleList, low, border - 1);
+        swapArticle(postList, low, border - 1);
         return border - 1;
     }
 }

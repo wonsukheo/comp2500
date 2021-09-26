@@ -7,7 +7,7 @@ public class Blog {
     static ArrayList<Blog> blogList = new ArrayList<>(); //public or private?
     private int arthurId; //blog owner's userId
     private int blogId;
-    private ArrayList<Article> articleList = new ArrayList<>();
+    private ArrayList<Post> postList = new ArrayList<>();
 
     public Blog(int userId) {
         arthurId = userId;
@@ -22,33 +22,33 @@ public class Blog {
         return blogId;
     }
 
-    public void createArticle(int userId, String title, String text) {
-        articleList.add(new Article(blogId, userId, title, text));
+    public void createPost(int userId, String title, String text) {
+        postList.add(new Post(blogId, userId, title, text));
     }
 
-    public ArrayList<Article> getSortedArticleListOrNull() {
-        return getSortedArticleListOrNull(Sorting.SortingType.CREATED_DESCENDING);
+    public ArrayList<Post> getSortedPostListOrNull() {
+        return getSortedPostListOrNull(Sorting.SortingType.CREATED_DESCENDING);
     }
 
-    public ArrayList<Article> getSortedArticleListOrNull(Sorting.SortingType sortingType) {
-        if (articleList.size() < 1) {
+    public ArrayList<Post> getSortedPostListOrNull(Sorting.SortingType sortingType) {
+        if (postList.size() < 1) {
             System.err.println("This Blog does not have any article");
             return null;
         }
-        Sorting.quickSortArticle(articleList, sortingType);
-        return articleList;
+        Sorting.quickSortArticle(postList, sortingType);
+        return postList;
     }
 
-    public ArrayList<Article> getArticleListTagFilteredOrNull(String tag) {
+    public ArrayList<Post> getPostListTagFilteredOrNull(String tag) {
         ArrayList<String> tagList = new ArrayList<>();
         tagList.add(tag);
-        return getArticleListTagListFilteredOrNull(tagList);
+        return getPostListTagListFilteredOrNull(tagList);
     }
 
-    public ArrayList<Article> getArticleListTagListFilteredOrNull(ArrayList<String> tags) {
-        ArrayList<Article> filteredList = new ArrayList<>();
+    public ArrayList<Post> getPostListTagListFilteredOrNull(ArrayList<String> tags) {
+        ArrayList<Post> filteredList = new ArrayList<>();
 
-        for (Article a : articleList) {
+        for (Post a : postList) {
             loopexit:
             for (String tagInArticle : a.getTagListOrNull()) {
                 for (String tagInFilter : tags) {
@@ -65,10 +65,10 @@ public class Blog {
         return filteredList;
     }
 
-    public ArrayList<Article> getArticleListArthurFiltered(int userId) {
-        ArrayList<Article> filteredList = new ArrayList<>();
+    public ArrayList<Post> getPostListArthurFiltered(int userId) {
+        ArrayList<Post> filteredList = new ArrayList<>();
 
-        for (Article a : articleList) {
+        for (Post a : postList) {
             if (a.getArthurId() == userId) {
                 filteredList.add(a);
             }
