@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Post {
-    enum Reaction {
+    public enum Reaction {
         GREAT,
         SAD,
         ANGRY,
@@ -19,17 +19,18 @@ public class Post {
     private int love;
     private OffsetDateTime createdDateTime;
     private OffsetDateTime modifiedDateTime;
-    private int userId;
+    private User user;
     private String title;
     private String text;
     private ArrayList<String> tagList = new ArrayList<>();
     private ArrayList<Comment> commentList = new ArrayList<>();
 
     public Post(User user, String title, String text) {
-        userId = user.getUserId();
+        this.user = user;
         this.title = title;
         this.text = text;
         createdDateTime = OffsetDateTime.now();
+        modifiedDateTime = createdDateTime;
     }
 
     public String getTitle() {
@@ -58,8 +59,8 @@ public class Post {
         return false;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     public OffsetDateTime getCreatedOffSetDateTime() {
@@ -167,7 +168,7 @@ public class Post {
     }
 
     private boolean isAuth(User user) {
-        if (userId == user.getUserId()) {
+        if (this.user == user) {
             return true;
         } else {
             System.err.println("you are not authorized");

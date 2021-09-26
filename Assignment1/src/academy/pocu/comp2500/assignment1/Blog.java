@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Blog {
-    enum SortingType {
+    public enum SortingType {
         CREATED_ASCENDING,
         CREATED_DESCENDING,
         MODIFIED_ASCENDING,
@@ -66,7 +66,7 @@ public class Blog {
         ArrayList<Post> filteredList = new ArrayList<>();
 
         for (Post a : postList) {
-            if (a.getUserId() == user.getUserId()) {
+            if (a.getUser() == user) {
                 filteredList.add(a);
             }
         }

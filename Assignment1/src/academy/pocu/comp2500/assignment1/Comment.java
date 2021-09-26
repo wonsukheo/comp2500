@@ -1,17 +1,16 @@
 package academy.pocu.comp2500.assignment1;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Comment {
-    private int userId;
+    private User user;
     private String text;
     private int upvote;
     private int downvote;
     private ArrayList<Comment> subCommentList = new ArrayList<>();
 
     public Comment(User user, String text) {
-        this.userId = user.getUserId();
+        this.user = user;
         this.text = text;
     }
 
@@ -25,6 +24,10 @@ public class Comment {
             return true;
         }
         return false;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public void upVote() {
@@ -58,7 +61,7 @@ public class Comment {
     }
 
     private boolean isAuth(User user) {
-        if (userId == user.getUserId()) {
+        if (this.user == user) {
             return true;
         } else {
             System.err.println("you are not authorized");
