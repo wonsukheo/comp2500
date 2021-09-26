@@ -158,16 +158,13 @@ public class Post {
     }
 
     public ArrayList<Comment> getCommentList() {
-        ArrayList<Comment> fullCommentList = new ArrayList<>();
+        ArrayList<Comment> comments = new ArrayList<>();
 
-        for (Comment comment : commentList) {
-            fullCommentList.add(comment);
-            for (Comment subcomment : comment.getSubcomments()) {
-                fullCommentList.add(subcomment);
-            }
+        for (Comment c : this.commentList) {
+            c.getSubcommentsRecursive(comments);
         }
 
-        return fullCommentList;
+        return comments;
     }
 
     public ArrayList<Comment> getCommentListSortByVote() {

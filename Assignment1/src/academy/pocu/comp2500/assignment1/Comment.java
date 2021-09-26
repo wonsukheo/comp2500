@@ -60,12 +60,24 @@ public class Comment {
         return upvote - downvote;
     }
 
-    private void addSubComment(Comment comment) {
+    public void addSubComment(Comment comment) {
         subCommentList.add(comment);
     }
 
     public ArrayList<Comment> getSubcomments() {
         return subCommentList;
+    }
+
+    public ArrayList<Comment> getSubcommentsRecursive(ArrayList<Comment> comments) {
+        comments.add(this);
+
+        if (this.subCommentList.size() < 1) {
+            return comments;
+        }
+        for (Comment c : this.getSubcomments()) {
+            c.getSubcommentsRecursive(comments);
+        }
+        return comments;
     }
 
     private boolean isAuth(User user) {
