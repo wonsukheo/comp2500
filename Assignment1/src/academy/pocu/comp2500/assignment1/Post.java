@@ -180,7 +180,7 @@ public class Post {
     }
 
     private boolean isExist(Blog blog, User user, int postId) {
-        ArrayList<Post> posts = blog.getPostListArthurFiltered(user.getUserId());
+        ArrayList<Post> posts = blog.getPostListArthurFiltered(user);
 
         for (Post p : posts) {
             if (p.getPostId() == postId) {
