@@ -1,5 +1,6 @@
 package academy.pocu.comp2500.assignment1;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Comment {
@@ -64,7 +65,7 @@ public class Comment {
         comment.setText(user, text);
     }
 
-    public ArrayList<Comment> getSubcomments() {
+    public ArrayList<Comment> getSubcommentList() {
         ArrayList<Comment> subcomments = new ArrayList<>();
 
         for (Comment c : subCommentList) {
@@ -73,12 +74,33 @@ public class Comment {
 
         return subcomments;
     }
+    public ArrayList<Comment> getSubcomments() {
+        ArrayList<Comment> subcomments = new ArrayList<>();
+
+        for (Comment c : subCommentList) {
+            subcomments.add(c);
+            getSubcommentsRec(c, subcomments);
+
+        }
+
+        return subcomments;
+    }
+    private ArrayList<Comment> getSubcommentsRec(Comment comment, ArrayList<Comment> comments) {
+        if (comment.getSubcommentList(). size() < 1) {
+            return comments;
+        }
+        for (Comment c : comment.getSubcommentList()) {
+            comments.add(c);
+            getSubcommentsRec(c, comments);
+        }
+        return comments;
+    }
 
     public ArrayList<Comment> getSubcommentsRecursive(ArrayList<Comment> comments) {
         if (this.subCommentList.size() < 1) {
             return comments;
         }
-        for (Comment c : this.getSubcomments()) {
+        for (Comment c : this.getSubcommentList()) {
             comments.add(c);
             c.getSubcommentsRecursive(comments);
         }

@@ -84,25 +84,23 @@ public class Blog {
         setTagsFilter(tagList);
     }
 
-    public void setTagsFilter(ArrayList<String> tags) {
-        tagFilter.clear();
-        for (String tag : tags) {
-            tagFilter.add(tag);
-        }
-
-        if (tagFilterOn) {
+    public void setTagsFilter(ArrayList<String> tagsOrNull) {
+        if (tagsOrNull == null) {
+            tagFilter.clear();
             tagFilterOn = false;
         } else {
-            tagFilterOn = true;
+            for (String tag : tagsOrNull) {
+                tagFilter.add(tag);
+                tagFilterOn = true;
+            }
         }
     }
 
-    public void setUserFilter(User user) {
-        userFilter = user;
-
-        if (userFilterOn) {
+    public void setUserFilter(User userOrNull) {
+        if (userOrNull == null) {
             userFilterOn = false;
         } else {
+            userFilter = userOrNull;
             userFilterOn = true;
         }
     }
