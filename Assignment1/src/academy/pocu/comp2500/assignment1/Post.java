@@ -2,7 +2,6 @@ package academy.pocu.comp2500.assignment1;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Post {
     public enum Reaction {
@@ -11,35 +10,6 @@ public class Post {
         ANGRY,
         FUN,
         LOVE
-    }
-    public class Sorting {
-        public void sortComment(ArrayList<Comment> comments) {
-            sortComment(comments, 0, comments.size() - 1);
-        }
-        private void sortComment(ArrayList<Comment> commentList, int low, int high) {
-            if (low < high + 1) {
-                int p = partitionComment(commentList, low, high);
-                sortComment(commentList, low, p - 1);
-                sortComment(commentList, p + 1, high);
-            }
-        }
-        private int getPivot(int low, int high) {
-            return (low + high) / 2;
-        }
-        private void swapComment(ArrayList<Comment> commentList, int index1, int index2) {
-            Collections.swap(commentList, index1, index2);
-        }
-        private int partitionComment(ArrayList<Comment> commentList, int low, int high) {
-            swapComment(commentList, low, getPivot(low, high));
-            int border = low + 1;
-            for (int i = border; i <= high; i++) {
-                if (commentList.get(i).getVote() < commentList.get(low).getVote()) {
-                    swapComment(commentList, i, border++);
-                }
-            }
-            swapComment(commentList, low, border - 1);
-            return border - 1;
-        }
     }
     private int great;
     private int sad;
