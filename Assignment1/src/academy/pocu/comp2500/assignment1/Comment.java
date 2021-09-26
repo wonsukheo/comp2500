@@ -65,7 +65,7 @@ public class Comment {
     }
 
     private boolean isAuth(User user) {
-        if (this.user.equals(user)) {
+        if (this.user.getUserId() == user.getUserId()) {
             return true;
         } else {
             System.err.println("you are not authorized");
