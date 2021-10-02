@@ -1,8 +1,6 @@
 package academy.pocu.comp2500.lab4;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 public class MemoryCache {
@@ -11,11 +9,11 @@ public class MemoryCache {
     private static ArrayList<MemoryCache> lastUsedInstances = new ArrayList<>();
     private static int maxInstanceCount = Integer.MAX_VALUE;
 
-    private String hardDiskName;
-    private int maxEntryCount = Integer.MAX_VALUE;
-    private EvictionPolicy evictionPolicy = EvictionPolicy.LEAST_RECENTLY_USED;
     private ArrayList<HashMap<String, String>> entrys = new ArrayList<>();
     private ArrayList<HashMap<String, String>> lastUsedEntrys = new ArrayList<>();
+    private int maxEntryCount = Integer.MAX_VALUE;
+    private String hardDiskName;
+    private EvictionPolicy evictionPolicy = EvictionPolicy.LEAST_RECENTLY_USED;
 
     private MemoryCache(String hardDiskName) {
         this.hardDiskName = hardDiskName;
@@ -38,7 +36,6 @@ public class MemoryCache {
     public static void clear() {
         for (MemoryCache instance : instances) {
             instance = null;
-            // null is enough? remove from instances? remove hardDiskName?
         }
         instances.clear();
         lastUsedInstances.clear();
@@ -46,6 +43,7 @@ public class MemoryCache {
 
     public static void setMaxInstanceCount(int maxInstanceCount) {
         MemoryCache.maxInstanceCount = maxInstanceCount;
+
         int dif = instances.size() - MemoryCache.maxInstanceCount;
 
         if (dif > 0) {
@@ -120,7 +118,7 @@ public class MemoryCache {
                 case LEAST_RECENTLY_USED:
                     entry = lastUsedEntrys.get(0);
                     break;
-                default :
+                default:
                     assert (false) : "Invalid eviction Policy";
                     break;
             }
@@ -141,7 +139,7 @@ public class MemoryCache {
         }
     }
 
-    public String getHardDiskName() {
+    private String getHardDiskName() {
         return hardDiskName;
     }
 
