@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Gladiator extends Barbarian {
     private ArrayList<Move> moves = new ArrayList<>(4);
 
-    public Gladiator(String name, int hp, int attack, int defense) {
-        super(name, hp, attack, defense);
+    public Gladiator(String name, int maxHp, int attack, int defense) {
+        super(name, maxHp, attack, defense);
     }
 
     public boolean addMove(Move move) {
@@ -15,7 +15,7 @@ public class Gladiator extends Barbarian {
         }
 
         for (Move m : moves) {
-            if (m.getName().equals(move.getName())) {
+            if (m.name.equals(move.name)) {
                 return false;
             }
         }
@@ -26,9 +26,8 @@ public class Gladiator extends Barbarian {
 
     public boolean removeMove(String moveName) {
         for (Move m : moves) {
-            if (m.getName().equals(moveName)) {
+            if (m.name.equals(moveName)) {
                 moves.remove(m);
-
                 return true;
             }
         }
@@ -37,14 +36,16 @@ public class Gladiator extends Barbarian {
     }
 
     public void attack(String moveName, Barbarian target) {
-        if (this.isAlive() && target != this) {
+        if (super.isAlive() && target != this) {
             for (Move m : moves) {
-                if (m.getName().equals(moveName)) {
-                    if (m.getPoint() > 0) {
-                        double damage = (this.getAttack() * m.getPower() / target.getDefense() / 2);
-                        target.setHp(target.getHp() - Math.max(1, (int) damage));
+                if (m.name.equals(moveName)) {
+                    if (m.point > 0) {
+                        double damage = (super.attack * m.power / target.defense / 2);
 
-                        m.setPoint(m.getPoint() - 1);
+                        int temp = target.hp - Math.max(1, (int) damage);
+                        target.hp = Math.max(0, temp);
+
+                        m.point = Math.max(0, m.point - 1);
                         break;
                     }
                 }
@@ -53,10 +54,13 @@ public class Gladiator extends Barbarian {
     }
 
     public void rest() {
-        this.setHp(this.getHp() + 10);
+        // hp? super.hp?
+        // 상속을 받았으니 이젠 내꺼? 아니면 still 부모 변수를 명시적으로 표시?
+        int temp = super.hp += 10;
+        super.hp = Math.min(hp, maxHp);
 
         for (Move m : moves) {
-            m.setPoint(m.getPoint() + 1);
+            m.point = Math.min(m.point + 1, m.maxPoint);
         }
     }
 }

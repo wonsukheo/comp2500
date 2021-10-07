@@ -3,19 +3,20 @@ package academy.pocu.comp2500.lab5;
 public class Knight extends Gladiator {
     Pet pet;
 
-    public Knight(String name, int hp, int attack, int defense) {
-        super(name, hp, attack, defense);
+    public Knight(String name, int maxHp, int attack, int defense) {
+        super(name, maxHp, attack, defense);
     }
 
     public void setPet(Pet petOrNull) {
-        this.pet = petOrNull;
+        pet = petOrNull;
     }
 
     public void attackTogether(Barbarian target) {
-        if (this.isAlive() && target != this && this.pet != null) {
-            double damage = (super.getAttack() + this.pet.getAttack() - target.getDefense()) / 2;
+        if (pet != null && super.isAlive() && target != this) {
+            double damage = (super.attack + pet.attack - target.defense) / 2;
 
-            target.setHp(target.getHp() - Math.max(1, (int) damage));
+            int temp = target.hp - Math.max(1, (int) damage);
+            target.hp = Math.max(0, temp);
         }
     }
 }
