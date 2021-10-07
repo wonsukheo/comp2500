@@ -4,11 +4,13 @@ public class Barbarian {
     private String name;
     private int attack;
     private int defense;
+    private int MAXHP;
     private int hp;
 
-    public Barbarian (String name, int hp, int attack, int defense) {
+    public Barbarian(String name, int hp, int attack, int defense) {
         this.name = name;
-        this.hp = hp;
+        MAXHP = hp;
+        this.hp = MAXHP;
         this.attack = attack;
         this.defense = defense;
     }
@@ -18,7 +20,9 @@ public class Barbarian {
     }
 
     public void setHp(int hp) {
-        this.hp = Math.max(0, hp);
+        int temp = Math.max(0, hp);
+
+        this.hp = Math.min(temp, MAXHP);
     }
 
     public int getAttack() {
@@ -30,9 +34,11 @@ public class Barbarian {
     }
 
     public void attack(Barbarian target) {
-        double damage = (attack - target.getDefense()) / 2;
+        if(isAlive() && target != this) {
+            double damage = (attack - target.defense) / 2;
 
-        target.setHp(target.getHp() - Math.max(1, (int)damage));
+            target.setHp(target.hp - Math.max(1, (int) damage));
+        }
     }
 
     public boolean isAlive() {

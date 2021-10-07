@@ -3,24 +3,26 @@ package academy.pocu.comp2500.lab5;
 public class Move {
     private String name;
     private int power;
-    private int maxPoint;
+    private int MAXPOINT;
+    private int point;
 
-    public Move (String name, int power, int maxPoint) {
+    public Move(String name, int power, int maxPoint) {
         this.name = name;
         this.power = power;
-        this.maxPoint = maxPoint;
+        this.MAXPOINT = maxPoint;
+        point = MAXPOINT;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getMaxPoint() {
-        return maxPoint;
+    public int getPoint() {
+        return point;
     }
 
-    public void setMaxPoint(int maxPoint) {
-        this.maxPoint = Math.max(0, maxPoint);
+    public void setPoint(int point) {
+        this.point = Math.min(point, this.MAXPOINT);
     }
 
     public int getPower() {
