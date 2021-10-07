@@ -23,7 +23,8 @@ public class Barbarian {
         if (isAlive() && target != this) {
             double damage = (attack - target.defense) / 2;
 
-            target.hp -= Math.max(1, (int) damage);
+            int temp = target.hp - Math.max(1, (int) damage);
+            target.hp = Math.max(0, temp);
         }
     }
 
