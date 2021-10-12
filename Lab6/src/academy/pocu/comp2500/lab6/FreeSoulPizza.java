@@ -9,4 +9,11 @@ public class FreeSoulPizza extends Pizza {
     public FreeSoulPizza() {
         super(PRICE, MAX_MEAT_COUNT, MAX_VEGGIE_COUNT, MAX_CHEESE_COUNT);
     }
+    public boolean addTopping(Topping topping) {
+        return super.addTopping(topping);
+    }
+
+    public boolean removeTopping(Topping topping) {
+        return super.removeTopping(topping);
+    }
 }

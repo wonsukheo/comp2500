@@ -35,7 +35,7 @@ public class Pizza extends Order {
         }
     }
 
-    public boolean addTopping(Topping topping) {
+    protected boolean addTopping(Topping topping) {
         if ((isMeat(topping) && meatCount >= maxMeatCount)
                 || (isVeggie(topping) && veggieCount >= maxVeggieCount)
                 || (isCheese(topping) && cheeseCount >= maxCheeseCount)) {
@@ -59,7 +59,7 @@ public class Pizza extends Order {
         return true;
     }
 
-    public boolean removeTopping(Topping topping) {
+    protected boolean removeTopping(Topping topping) {
         boolean isRemoved = toppings.remove(topping);
 
         if (isRemoved) {
