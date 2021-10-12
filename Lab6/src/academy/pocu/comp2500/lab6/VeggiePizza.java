@@ -80,4 +80,3 @@ public class VeggiePizza extends Pizza {
         return isRemoved;
     }
 }
-}
