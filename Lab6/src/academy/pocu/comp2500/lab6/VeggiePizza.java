@@ -9,9 +9,9 @@ public class VeggiePizza extends Pizza {
     public VeggiePizza() {
         super(PRICE, MAX_MEAT_COUNT, MAX_VEGGIE_COUNT, MAX_CHEESE_COUNT);
 
-        this.toppings.add(Topping.BLACK_OLIVES);
-        this.toppings.add(Topping.RED_ONIONS);
-        this.toppings.add(Topping.GREEN_PEPPERS);
+        super.toppings.add(Topping.BLACK_OLIVES);
+        super.toppings.add(Topping.RED_ONIONS);
+        super.toppings.add(Topping.GREEN_PEPPERS);
     }
 
     public boolean addMozzarellaCheese() {

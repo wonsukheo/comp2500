@@ -9,11 +9,11 @@ public class MeatLoverPizza extends Pizza {
     public MeatLoverPizza() {
         super(PRICE, MAX_MEAT_COUNT, MAX_VEGGIE_COUNT, MAX_CHEESE_COUNT);
 
-        super.addTopping(Topping.BACON);
-        super.addTopping(Topping.PEPERONI);
-        super.addTopping(Topping.HAM);
-        super.addTopping(Topping.SAUSAGES);
-        super.addTopping(Topping.CHEDDAR_CHEESE);
+        super.toppings.add(Topping.BACON);
+        super.toppings.add(Topping.PEPERONI);
+        super.toppings.add(Topping.HAM);
+        super.toppings.add(Topping.SAUSAGES);
+        super.toppings.add(Topping.CHEDDAR_CHEESE);
     }
 
     public boolean addBlackOlives() {
