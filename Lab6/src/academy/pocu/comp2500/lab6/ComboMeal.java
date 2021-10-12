@@ -3,35 +3,22 @@ package academy.pocu.comp2500.lab6;
 import java.util.ArrayList;
 
 public class ComboMeal extends Order {
-    private int maxAppetizerCount;
-    private int maxDessertCount;
-    private int maxMainCourseCount;
+    private final int maxAppetizerCount;
+    private final boolean isMainCourse;
+    private final int maxDessertCount;
 
     protected ArrayList<Appetizer> appetizers = new ArrayList<>();
     protected ArrayList<Dessert> desserts = new ArrayList<>();
     protected MainCourse mainCourse;
 
-    protected ComboMeal(int price, int maxAppetizerCount, int maxDessertCount, int maxMainCourseCount) {
+    protected ComboMeal(int price, int maxAppetizerCount, boolean isMainCourse, int maxDessertCount) {
         super(price);
 
         this.maxAppetizerCount = maxAppetizerCount;
+        this.isMainCourse = isMainCourse;
         this.maxDessertCount = maxDessertCount;
-        this.maxMainCourseCount = maxMainCourseCount;
     }
 
-    public boolean isValid() {
-        if (maxMainCourseCount == 1) {
-            if (mainCourse != null && appetizers.size() == maxAppetizerCount && desserts.size() == maxDessertCount) {
-                return true;
-            }
-        } else {
-            if (mainCourse == null && appetizers.size() == maxAppetizerCount && desserts.size() == maxDessertCount) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public ArrayList<Appetizer> getAppetizers() {
         assert (appetizers != null) : "call isValid() first!";
@@ -39,7 +26,7 @@ public class ComboMeal extends Order {
     }
 
     public MainCourse getMainCourse() {
-        assert (mainCourse != null) : "call isValid() first!";
+        assert (this.mainCourse != null) : "call isValid() first!";
         return mainCourse;
     }
 
@@ -49,9 +36,9 @@ public class ComboMeal extends Order {
     }
 
     public void setMainCourse(MainCourse mainCourse) {
-        if (maxMainCourseCount != 0) {
-            this.mainCourse = mainCourse;
-        }
+        this.mainCourse = mainCourse;
+
+        checkValidity();
     }
 
     public void setAppetizer(Appetizer appetizer) {
@@ -62,14 +49,29 @@ public class ComboMeal extends Order {
         if (appetizers.size() < maxAppetizerCount) {
             appetizers.add(appetizer);
         }
+
+        checkValidity();
     }
 
     public void setDessert(Dessert dessert) {
         if (desserts.size() == maxDessertCount) {
             desserts.clear();
         }
+
         if (desserts.size() < maxDessertCount) {
             desserts.add(dessert);
+        }
+
+        checkValidity();
+    }
+
+    private void checkValidity() {
+        super.isValid = false;
+
+        if (isMainCourse && mainCourse != null || !isMainCourse && mainCourse == null) {
+            if (maxAppetizerCount == appetizers.size() && maxDessertCount == desserts.size()) {
+                super.isValid = true;
+            }
         }
     }
 }
