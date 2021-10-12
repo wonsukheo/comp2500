@@ -1,13 +1,8 @@
 package academy.pocu.comp2500.lab6;
 
 public class HousePizza extends Pizza {
-    private static final int PRICE = 20;
-    private static final int MAX_MEAT_COUNT = 2;
-    private static final int MAX_VEGGIE_COUNT = 0;
-    private static final int MAX_CHEESE_COUNT = 0;
-
     public HousePizza() {
-        super(PRICE, MAX_MEAT_COUNT, MAX_VEGGIE_COUNT, MAX_CHEESE_COUNT);
+        super(20, 2, 0, 0);
 
         super.toppings.add(Topping.BLACK_OLIVES);
         super.toppings.add(Topping.RED_ONIONS);
@@ -16,14 +11,14 @@ public class HousePizza extends Pizza {
     }
 
     public boolean addBacon() {
-        super.checkValidity();
-
         if (isValid()) {
             return false;
         }
 
-        this.toppings.add(Topping.BACON);
+        super.toppings.add(Topping.BACON);
         ++super.meatCount;
+
+        checkValidity();
         return true;
     }
 
@@ -34,18 +29,19 @@ public class HousePizza extends Pizza {
             --super.meatCount;
         }
 
+        checkValidity();
         return isRemoved;
     }
 
     public boolean addPeperoni() {
-        super.checkValidity();
-
         if (isValid()) {
             return false;
         }
 
         super.toppings.add(Topping.PEPERONI);
         ++super.meatCount;
+
+        checkValidity();
         return true;
     }
 
@@ -56,18 +52,19 @@ public class HousePizza extends Pizza {
             --super.meatCount;
         }
 
+        checkValidity();
         return isRemoved;
     }
 
     public boolean addSausages() {
-        super.checkValidity();
-
         if (isValid()) {
             return false;
         }
 
         super.toppings.add(Topping.SAUSAGES);
         ++super.meatCount;
+
+        checkValidity();
         return true;
     }
 
@@ -78,6 +75,7 @@ public class HousePizza extends Pizza {
             --super.meatCount;
         }
 
+        checkValidity();
         return isRemoved;
     }
 }

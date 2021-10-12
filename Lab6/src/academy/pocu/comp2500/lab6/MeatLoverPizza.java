@@ -1,13 +1,8 @@
 package academy.pocu.comp2500.lab6;
 
 public class MeatLoverPizza extends Pizza {
-    private static final int PRICE = 21;
-    private static final int MAX_MEAT_COUNT = 0;
-    private static final int MAX_VEGGIE_COUNT = 1;
-    private static final int MAX_CHEESE_COUNT = 0;
-
     public MeatLoverPizza() {
-        super(PRICE, MAX_MEAT_COUNT, MAX_VEGGIE_COUNT, MAX_CHEESE_COUNT);
+        super(21, 0, 1, 0);
 
         super.toppings.add(Topping.BACON);
         super.toppings.add(Topping.PEPERONI);
@@ -17,14 +12,14 @@ public class MeatLoverPizza extends Pizza {
     }
 
     public boolean addBlackOlives() {
-        checkValidity();
-
         if (isValid()) {
             return false;
         }
 
         super.toppings.add(Topping.BLACK_OLIVES);
         ++super.veggieCount;
+
+        checkValidity();
         return true;
     }
 
@@ -35,18 +30,19 @@ public class MeatLoverPizza extends Pizza {
             --super.veggieCount;
         }
 
+        checkValidity();
         return isRemoved;
     }
 
     public boolean addRedOnions() {
-        checkValidity();
-
         if (isValid()) {
             return false;
         }
 
         super.toppings.add(Topping.RED_ONIONS);
         ++super.veggieCount;
+
+        checkValidity();
         return true;
     }
 
@@ -57,18 +53,19 @@ public class MeatLoverPizza extends Pizza {
             --super.veggieCount;
         }
 
+        checkValidity();
         return isRemoved;
     }
 
     public boolean addGreenPeppers() {
-        checkValidity();
-
         if (isValid()) {
             return false;
         }
 
         super.toppings.add(Topping.GREEN_PEPPERS);
         ++super.veggieCount;
+
+        checkValidity();
         return true;
     }
 
@@ -79,6 +76,7 @@ public class MeatLoverPizza extends Pizza {
             --super.veggieCount;
         }
 
+        checkValidity();
         return isRemoved;
     }
 }
