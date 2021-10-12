@@ -1,11 +1,10 @@
 package academy.pocu.comp2500.lab6;
 
 public class HousePizza extends Pizza {
-    private static final int PRICE = 20;
-    private static final int MAX_MEAT_COUNT = 2;
+
 
     public HousePizza() {
-        super(PRICE, MAX_MEAT_COUNT, 0, 0);
+        super(20,2, 0, 0);
 
         addTopping(Topping.BLACK_OLIVES);
         addTopping(Topping.RED_ONIONS);

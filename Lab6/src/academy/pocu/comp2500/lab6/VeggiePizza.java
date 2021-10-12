@@ -1,11 +1,9 @@
 package academy.pocu.comp2500.lab6;
 
 public class VeggiePizza extends Pizza {
-    private static final int PRICE = 17;
-    private static final int MAX_CHEESE_COUNT = 2;
 
     public VeggiePizza() {
-        super(PRICE, 0, 0, MAX_CHEESE_COUNT);
+        super(17, 0, 0, 2);
 
         super.addTopping(Topping.BLACK_OLIVES);
         super.addTopping(Topping.RED_ONIONS);
