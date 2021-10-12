@@ -17,6 +17,7 @@ public class DeathByDesserts extends ComboMeal {
         super.setDessert(dessert2);
         super.setDessert(dessert3);
         super.setDessert(dessert4);
-        this.isValid = true;
+
+        checkValidity();
     }
 }

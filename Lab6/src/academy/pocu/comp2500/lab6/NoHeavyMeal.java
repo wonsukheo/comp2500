@@ -16,5 +16,7 @@ public class NoHeavyMeal extends ComboMeal {
 
         super.appetizers.add(appetizer1);
         super.appetizers.add(appetizer2);
+
+        checkValidity();
     }
 }

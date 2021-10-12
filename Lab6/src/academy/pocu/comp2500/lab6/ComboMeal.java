@@ -21,18 +21,24 @@ public class ComboMeal extends Order {
     }
 
     public ArrayList<Appetizer> getAppetizers() {
-        assert (appetizers != null) : "call isValid() first!";
-        return appetizers;
+        if (isValid) {
+            return appetizers;
+        }
+        return null;
     }
 
     public ArrayList<MainCourse> getMainCourses() {
-        assert (mainCourses != null) : "call isValid() first!";
-        return mainCourses;
+        if (isValid) {
+            return mainCourses;
+        }
+        return null;
     }
 
     public ArrayList<Dessert> getDesserts() {
-        assert (desserts != null) : "call isValid() first!";
-        return desserts;
+        if (isValid) {
+            return desserts;
+        }
+        return null;
     }
 
     public void setDessert(Dessert dessert) {
