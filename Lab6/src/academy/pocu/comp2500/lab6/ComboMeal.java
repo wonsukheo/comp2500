@@ -49,18 +49,25 @@ public class ComboMeal extends Order {
     }
 
     public void setMainCourse(MainCourse mainCourse) {
-        if (this.mainCourse == null) {
+        if (maxMainCourseCount != 0) {
             this.mainCourse = mainCourse;
         }
     }
 
     public void setAppetizer(Appetizer appetizer) {
+        if (appetizers.size() == maxAppetizerCount) {
+            appetizers.clear();
+        }
+
         if (appetizers.size() < maxAppetizerCount) {
             appetizers.add(appetizer);
         }
     }
 
     public void setDessert(Dessert dessert) {
+        if (desserts.size() == maxDessertCount) {
+            desserts.clear();
+        }
         if (desserts.size() < maxDessertCount) {
             desserts.add(dessert);
         }

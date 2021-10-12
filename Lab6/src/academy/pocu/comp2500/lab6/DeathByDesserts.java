@@ -13,8 +13,6 @@ public class DeathByDesserts extends ComboMeal {
     }
 
     public void setDesserts(Dessert dessert1, Dessert dessert2, Dessert dessert3, Dessert dessert4) {
-        super.desserts.clear();
-
         super.setDessert(dessert1);
         super.setDessert(dessert2);
         super.setDessert(dessert3);

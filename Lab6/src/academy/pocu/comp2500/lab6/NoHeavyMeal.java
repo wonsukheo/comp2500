@@ -12,8 +12,6 @@ public class NoHeavyMeal extends ComboMeal {
     }
 
     public void setAppetizers(Appetizer appetizer1, Appetizer appetizer2) {
-        super.appetizers.clear();
-
         super.setAppetizer(appetizer1);
         super.setAppetizer(appetizer2);
     }

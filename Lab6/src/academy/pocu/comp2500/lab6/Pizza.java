@@ -19,7 +19,7 @@ public class Pizza extends Order {
         this.maxCheeseCount = maxCheeseCount;
     }
 
-    private ArrayList<Topping> getToppings() {
+    public ArrayList<Topping> getToppings() {
         return toppings;
     }
 

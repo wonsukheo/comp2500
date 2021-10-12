@@ -9,6 +9,4 @@ public class ThreeCourseMeal extends ComboMeal {
     public ThreeCourseMeal() {
         super(PRICE, MAX_APPETIZER_COUNT, MAX_DESSERT_COUNT, MAX_MAINCOURSE_COUNT);
     }
-
-    
 }
