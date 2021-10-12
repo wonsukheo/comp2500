@@ -14,7 +14,19 @@ public class ThreeCourseMeal extends ComboMeal {
             super.mainCourses.add(mainCourse);
         }
 
-        checkValidity();
+        checkValid();
+    }
+
+    public void setDessert(Dessert dessert) {
+        if (super.desserts.size() == super.maxDessertCount) {
+            super.desserts.clear();
+        }
+
+        if (super.desserts.size() < super.maxDessertCount) {
+            super.desserts.add(dessert);
+        }
+
+        super.checkValid();
     }
 
     public void setAppetizer(Appetizer appetizer) {
@@ -26,6 +38,6 @@ public class ThreeCourseMeal extends ComboMeal {
             super.appetizers.add(appetizer);
         }
 
-        checkValidity();
+        checkValid();
     }
 }

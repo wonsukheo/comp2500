@@ -1,6 +1,5 @@
 package academy.pocu.comp2500.lab6;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ComboMeal extends Order {
@@ -21,39 +20,18 @@ public class ComboMeal extends Order {
     }
 
     public ArrayList<Appetizer> getAppetizers() {
-        if (isValid) {
-            return appetizers;
-        }
-        return null;
+        return appetizers;
     }
 
     public ArrayList<MainCourse> getMainCourses() {
-        if (isValid) {
-            return mainCourses;
-        }
-        return null;
+        return mainCourses;
     }
 
     public ArrayList<Dessert> getDesserts() {
-        if (isValid) {
-            return desserts;
-        }
-        return null;
+        return desserts;
     }
 
-    public void setDessert(Dessert dessert) {
-        if (desserts.size() == maxDessertCount) {
-            desserts.clear();
-        }
-
-        if (desserts.size() < maxDessertCount) {
-            desserts.add(dessert);
-        }
-
-        checkValidity();
-    }
-
-    protected void checkValidity() {
+    protected void checkValid() {
         if (maxAppetizerCount == appetizers.size() && maxDessertCount == desserts.size() && maxMainCourseCount == mainCourses.size()) {
             super.isValid = true;
         } else {

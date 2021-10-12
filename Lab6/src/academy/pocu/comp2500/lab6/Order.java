@@ -1,7 +1,7 @@
 package academy.pocu.comp2500.lab6;
 
 public class Order {
-    private int price;
+    protected int price;
     protected boolean isValid = false;
 
     protected Order(int price) {
