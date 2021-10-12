@@ -19,7 +19,6 @@ public class ComboMeal extends Order {
         this.maxDessertCount = maxDessertCount;
     }
 
-
     public ArrayList<Appetizer> getAppetizers() {
         assert (appetizers != null) : "call isValid() first!";
         return appetizers;

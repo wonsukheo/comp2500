@@ -16,26 +16,68 @@ public class HousePizza extends Pizza {
     }
 
     public boolean addBacon() {
-        return super.addTopping(Topping.BACON);
+        super.checkValidity();
+
+        if (isValid()) {
+            return false;
+        }
+
+        this.toppings.add(Topping.BACON);
+        ++super.meatCount;
+        return true;
     }
 
     public boolean removeBacon() {
-        return super.removeTopping(Topping.BACON);
+        boolean isRemoved = super.toppings.remove(Topping.BACON);
+
+        if (isRemoved) {
+            --super.meatCount;
+        }
+
+        return isRemoved;
     }
 
     public boolean addPeperoni() {
-        return super.addTopping(Topping.PEPERONI);
+        super.checkValidity();
+
+        if (isValid()) {
+            return false;
+        }
+
+        super.toppings.add(Topping.PEPERONI);
+        ++super.meatCount;
+        return true;
     }
 
     public boolean removePeperoni() {
-        return super.removeTopping(Topping.PEPERONI);
+        boolean isRemoved = super.toppings.remove(Topping.PEPERONI);
+
+        if (isRemoved) {
+            --super.meatCount;
+        }
+
+        return isRemoved;
     }
 
     public boolean addSausages() {
-        return super.addTopping(Topping.SAUSAGES);
+        super.checkValidity();
+
+        if (isValid()) {
+            return false;
+        }
+
+        super.toppings.add(Topping.SAUSAGES);
+        ++super.meatCount;
+        return true;
     }
 
     public boolean removeSausages() {
-        return super.removeTopping(Topping.SAUSAGES);
+        boolean isRemoved = super.toppings.remove(Topping.SAUSAGES);
+
+        if (isRemoved) {
+            --super.meatCount;
+        }
+
+        return isRemoved;
     }
 }
