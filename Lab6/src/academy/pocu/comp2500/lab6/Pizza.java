@@ -3,13 +3,13 @@ package academy.pocu.comp2500.lab6;
 import java.util.ArrayList;
 
 public class Pizza extends Order {
-    private int maxMeatCount;
-    private int maxVeggieCount;
-    private int maxCheeseCount;
-    private int meatCount;
-    private int veggieCount;
-    private int cheeseCount;
-    private ArrayList<Topping> toppings = new ArrayList<>();
+    protected int maxMeatCount;
+    protected int maxVeggieCount;
+    protected int maxCheeseCount;
+    protected int meatCount;
+    protected int veggieCount;
+    protected int cheeseCount;
+    protected ArrayList<Topping> toppings = new ArrayList<>();
 
     protected Pizza(int price, int maxMeatCount, int maxVeggieCount, int maxCheeseCount) {
         super(price);
@@ -35,7 +35,7 @@ public class Pizza extends Order {
         }
     }
 
-    protected boolean addTopping(Topping topping) {
+    public boolean addTopping(Topping topping) {
         if ((isMeat(topping) && meatCount >= maxMeatCount)
                 || (isVeggie(topping) && veggieCount >= maxVeggieCount)
                 || (isCheese(topping) && cheeseCount >= maxCheeseCount)) {
@@ -59,7 +59,7 @@ public class Pizza extends Order {
         return true;
     }
 
-    protected boolean removeTopping(Topping topping) {
+    public boolean removeTopping(Topping topping) {
         boolean isRemoved = toppings.remove(topping);
 
         if (isRemoved) {
