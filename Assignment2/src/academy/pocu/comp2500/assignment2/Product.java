@@ -9,8 +9,6 @@ public class Product {
     protected int rgb;
     protected DeliveryMethod deliveryMethod;
 
-    protected ArrayList<Aperture> apertures = new ArrayList<>();
-
     protected Product(int price, int width, int height, int color) {
         this.price = price;
         this.width = width;

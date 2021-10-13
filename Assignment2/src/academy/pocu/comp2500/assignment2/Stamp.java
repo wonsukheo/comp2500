@@ -8,7 +8,7 @@ public class Stamp extends Product {
     public Stamp(StampSize size, StampColor color, TextAperture textAperture) {
         super(REGULAR_SIZE_PRICE, size.width, size.height, color.rgba);
 
-        this.textAperture = textAperture;
+        setTextAperture(textAperture);
 
         if (size.width == 70) {
             super.price += 300;
@@ -19,7 +19,12 @@ public class Stamp extends Product {
         return textAperture;
     }
 
-    public void setTextAperture(TextAperture textAperture) {
-        this.textAperture = textAperture;
+    public boolean setTextAperture(TextAperture textAperture) {
+        if (textAperture.x >= 0 && textAperture.x <= super.width && textAperture.y >= 0 && textAperture.y <= super.height) {
+            this.textAperture = textAperture;
+            return true;
+        } else {
+            return false;
+        }
     }
 }
