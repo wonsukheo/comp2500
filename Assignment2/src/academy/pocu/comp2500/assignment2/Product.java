@@ -34,16 +34,16 @@ public class Product {
         return rgba;
     }
 
-    public byte getRed() {
-        return (byte) (rgba >> 24);
+    public int getRed() {
+        return (int) (rgba >> 24);
     }
 
-    public byte getGreen() {
-        return (byte) (rgba >> 16);
+    public int getGreen() {
+        return (int) (rgba >> 16);
     }
 
-    public byte getBlue() {
-        return (byte) (rgba >> 8);
+    public int getBlue() {
+        return (int) (rgba >> 8);
     }
 
     public DeliveryMethod getDeliveryMethod() {
