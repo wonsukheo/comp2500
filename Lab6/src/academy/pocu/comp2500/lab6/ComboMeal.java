@@ -31,7 +31,7 @@ public class ComboMeal extends Order {
         return desserts;
     }
 
-    protected void checkValid() {
+    protected void checkValidity() {
         if (maxAppetizerCount == appetizers.size() && maxDessertCount == desserts.size() && maxMainCourseCount == mainCourses.size()) {
             super.isValid = true;
         } else {

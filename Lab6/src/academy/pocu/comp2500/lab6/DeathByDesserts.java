@@ -13,6 +13,6 @@ public class DeathByDesserts extends ComboMeal {
         super.desserts.add(dessert3);
         super.desserts.add(dessert4);
 
-        checkValid();
+        checkValidity();
     }
 }

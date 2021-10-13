@@ -14,7 +14,7 @@ public class ThreeCourseMeal extends ComboMeal {
             super.mainCourses.add(mainCourse);
         }
 
-        checkValid();
+        checkValidity();
     }
 
     public void setDessert(Dessert dessert) {
@@ -26,7 +26,7 @@ public class ThreeCourseMeal extends ComboMeal {
             super.desserts.add(dessert);
         }
 
-        super.checkValid();
+        super.checkValidity();
     }
 
     public void setAppetizer(Appetizer appetizer) {
@@ -38,6 +38,6 @@ public class ThreeCourseMeal extends ComboMeal {
             super.appetizers.add(appetizer);
         }
 
-        checkValid();
+        checkValidity();
     }
 }

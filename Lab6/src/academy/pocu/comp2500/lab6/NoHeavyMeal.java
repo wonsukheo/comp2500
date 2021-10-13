@@ -14,7 +14,7 @@ public class NoHeavyMeal extends ComboMeal {
             super.desserts.add(dessert);
         }
 
-        super.checkValid();
+        super.checkValidity();
     }
 
     public void setAppetizers(Appetizer appetizer1, Appetizer appetizer2) {
@@ -23,6 +23,6 @@ public class NoHeavyMeal extends ComboMeal {
         super.appetizers.add(appetizer1);
         super.appetizers.add(appetizer2);
 
-        checkValid();
+        checkValidity();
     }
 }
