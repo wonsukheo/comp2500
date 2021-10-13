@@ -9,11 +9,12 @@ public class Product {
     protected int rgb;
     protected DeliveryMethod deliveryMethod;
 
-    protected Product(int price, int width, int height, int color) {
+    protected Product(int price, int width, int height, int color, DeliveryMethod deliveryMethod) {
         this.price = price;
         this.width = width;
         this.height = height;
         this.rgb = color;
+        this.deliveryMethod = deliveryMethod;
     }
 
     public int getPrice() {

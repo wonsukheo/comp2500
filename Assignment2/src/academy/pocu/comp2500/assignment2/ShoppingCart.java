@@ -8,9 +8,8 @@ public class ShoppingCart {
     public ShoppingCart() {
     }
 
-    public void addProduct(Product product, DeliveryMethod deliveryMethod) {
+    public void addProduct(Product product) {
         products.add(product);
-        product.deliveryMethod = deliveryMethod;
     }
 
     public boolean removeProduct(Product product) {

@@ -2,13 +2,13 @@ package academy.pocu.comp2500.assignment2;
 
 import java.util.ArrayList;
 
-public class Personalized extends Product {
+public class ProductAperture extends Product {
     private Orientation orientation;
     private ArrayList<TextAperture> textApertures;
     private ArrayList<ImageAperture> imageApertures;
 
-    protected Personalized(int price, int width, int height, int color, Orientation orientation) {
-        super(price, width, height, color);
+    protected ProductAperture(int price, int width, int height, int color, Orientation orientation, DeliveryMethod deliveryMethod) {
+        super(price, width, height, color, deliveryMethod);
 
         this.orientation = orientation;
     }

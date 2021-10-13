@@ -3,8 +3,8 @@ package academy.pocu.comp2500.assignment2;
 public class Calender extends Product {
     private static final int RGBA = 0;
 
-    public Calender(CalenderType type) {
-        super(1000, 400, 400, RGBA);
+    public Calender(CalenderType type, DeliveryMethod deliveryMethod) {
+        super(1000, 400, 400, RGBA, deliveryMethod);
 
         switch (type) {
             case DESK:

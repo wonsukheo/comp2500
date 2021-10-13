@@ -1,14 +1,14 @@
 package academy.pocu.comp2500.assignment2;
 
-public class BusinessCard extends Personalized {
+public class BusinessCard extends ProductAperture {
     private static final int WIDTH = 90;
     private static final int HEIGHT = 50;
     private static final int SINGLE_SIDE_REGULAR_PRICE = 100;
 
     private BusinessCardSide sides;
 
-    public BusinessCard(BusinessCardType type, BusinessCardSide sides, BusinessCardColor color, Orientation orientation) {
-        super(SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.rgba, orientation);
+    public BusinessCard(BusinessCardType type, BusinessCardSide sides, BusinessCardColor color, Orientation orientation, DeliveryMethod deliveryMethod) {
+        super(SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.rgba, orientation, deliveryMethod);
 
         this.sides = sides;
 
