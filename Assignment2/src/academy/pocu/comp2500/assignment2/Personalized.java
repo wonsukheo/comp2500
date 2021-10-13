@@ -7,8 +7,8 @@ public class Personalized extends Product {
     private ArrayList<TextAperture> textApertures;
     private ArrayList<ImageAperture> imageApertures;
 
-    public Personalized(int price, int width, int height, int rgba, Orientation orientation) {
-        super(price, width, height, rgba);
+    protected Personalized(int price, int width, int height, int color, Orientation orientation) {
+        super(price, width, height, color);
 
         this.orientation = orientation;
     }

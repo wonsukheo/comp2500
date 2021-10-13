@@ -6,7 +6,7 @@ public class Product {
     protected int price;
     protected int width;
     protected int height;
-    protected int rgba;
+    protected int rgb;
     protected DeliveryMethod deliveryMethod;
 
     protected ArrayList<Aperture> apertures = new ArrayList<>();
@@ -15,7 +15,7 @@ public class Product {
         this.price = price;
         this.width = width;
         this.height = height;
-        this.rgba = color;
+        this.rgb = color;
     }
 
     public int getPrice() {
@@ -30,20 +30,26 @@ public class Product {
         return height;
     }
 
-    public int getRgba() {
-        return rgba;
+    public int getRgb() {
+        return rgb;
     }
 
     public int getRed() {
-        return (int) (rgba >> 24);
+        return rgb >>> 24;
     }
 
     public int getGreen() {
-        return (int) (rgba >> 16);
+        int mask = 0x00FF0000;
+        int result = mask & rgb;
+
+        return result >>> 16;
     }
 
     public int getBlue() {
-        return (int) (rgba >> 8);
+        int mask = 0x0000FF00;
+        int result = mask & rgb;
+
+        return result >>> 8;
     }
 
     public DeliveryMethod getDeliveryMethod() {
