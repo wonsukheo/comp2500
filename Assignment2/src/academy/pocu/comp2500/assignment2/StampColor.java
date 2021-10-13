@@ -5,9 +5,9 @@ public enum StampColor {
     GREEN(0x0000FF00),
     BLUE(0x00800000);
 
-    protected final int value;
+    protected final int rgba;
 
-    StampColor(int value) {
-        this.value = value;
+    StampColor(int rgba) {
+        this.rgba = rgba;
     }
 }

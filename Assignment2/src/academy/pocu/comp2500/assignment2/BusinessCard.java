@@ -1,20 +1,18 @@
 package academy.pocu.comp2500.assignment2;
 
-import java.util.ArrayList;
-
 public class BusinessCard extends Personalized {
     private static final int WIDTH = 90;
     private static final int HEIGHT = 50;
     private static final int SINGLE_SIDE_REGULAR_PRICE = 100;
 
-    private BusinessCardSide side;
+    private BusinessCardSide sides;
 
-    public BusinessCard(BusinessCardType type, BusinessCardSide side, BusinessCardColor color, Orientation orientation) {
-        super(SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.value, orientation);
+    public BusinessCard(BusinessCardType type, BusinessCardSide sides, BusinessCardColor color, Orientation orientation) {
+        super(SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.rgba, orientation);
 
-        this.side = side;
+        this.sides = sides;
 
-        if (side == BusinessCardSide.DOUBLE) {
+        if (sides == BusinessCardSide.DOUBLE) {
             super.price += 30;
         }
 
@@ -32,11 +30,11 @@ public class BusinessCard extends Personalized {
         }
     }
 
-    public BusinessCardSide getSide() {
-        return side;
+    public BusinessCardSide getSides() {
+        return sides;
     }
 
-    public void setSide(BusinessCardSide side) {
-        this.side = side;
+    public void setSides(BusinessCardSide sides) {
+        this.sides = sides;
     }
 }

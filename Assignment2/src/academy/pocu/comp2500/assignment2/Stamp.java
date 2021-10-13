@@ -6,7 +6,7 @@ public class Stamp extends Product {
     private TextAperture textAperture;
 
     public Stamp(StampSize size, StampColor color, TextAperture textAperture) {
-        super(REGULAR_SIZE_PRICE, size.width, size.height, color.value);
+        super(REGULAR_SIZE_PRICE, size.width, size.height, color.rgba);
 
         this.textAperture = textAperture;
 
