@@ -5,19 +5,19 @@ import academy.pocu.comp2500.assignment2.registry.Registry;
 public class App {
     public App(Registry registry) {
         // register your classes or methods here
-        registry.registerRedStampCreator("Stamp");
-        registry.registerBlueStampCreator("Stamp");
-        registry.registerGreenStampCreator("Stamp");
+        registry.registerRedStampCreator("Stamp", "Stamp");
+        registry.registerBlueStampCreator("Stamp", "Stamp");
+        registry.registerGreenStampCreator("Stamp", "Stamp");
 
-        registry.registerWallCalendarCreator("Calender");
-        registry.registerMagnetCalendarCreator("Calender");
-        registry.registerDeskCalendarCreator("Calender");
+        registry.registerWallCalendarCreator("Calender", "Calender");
+        registry.registerMagnetCalendarCreator("Calender", "Calender");
+        registry.registerDeskCalendarCreator("Calender", "Calender");
 
-        registry.registerLandscapeBannerCreator("Banner");
-        registry.registerPortraitBannerCreator("Banner");;
-        registry.registerGlossBannerCreator("Banner");;
-        registry.registerScrimBannerCreator("Banner");
-        registry.registerMeshBannerCreator("Banner");
+        registry.registerLandscapeBannerCreator("Banner", "Banner");
+        registry.registerPortraitBannerCreator("Banner", "Banner");;
+        registry.registerGlossBannerCreator("Banner", "Banner");;
+        registry.registerScrimBannerCreator("Banner", "Banner");
+        registry.registerMeshBannerCreator("Banner", "Banner");
 
         registry.registerLandscapeBusinessCardCreator("BusinessCard");
         registry.registerPortraitBusinessCardCreator("BusinessCard");
