@@ -27,21 +27,23 @@ public class Stamp extends Product {
         return color;
     }
 
+    public String getText() {
+        return text;
+    }
+
+
+
+    /* If you want to change color | size
+       make new Object
+
     public void setColor(StampColor color) {
         this.color = color;
         super.rgb = color.rgb;
     }
 
-    public String getText() {
-        return text;
-    }
-
     public void changeText(String text) {
         this.text = text;
     }
-
-    /* If you want to change color | size
-       make new Object
 
 
     public void setSize(StampSize size) {

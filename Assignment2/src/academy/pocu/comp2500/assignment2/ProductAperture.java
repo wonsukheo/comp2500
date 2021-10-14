@@ -1,5 +1,8 @@
 package academy.pocu.comp2500.assignment2;
 
+import org.w3c.dom.Text;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ProductAperture extends Product {
@@ -57,7 +60,19 @@ public class ProductAperture extends Product {
         return orientation;
     }
 
+    public ArrayList<TextAperture> getTextApertures() {
+        return textApertures;
+    }
+
+    public ArrayList<ImageAperture> getImageApertures() {
+        return imageApertures;
+    }
+
+    /*
     public void changeOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
+
+
+     */
 }

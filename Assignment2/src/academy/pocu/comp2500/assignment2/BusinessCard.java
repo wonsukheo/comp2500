@@ -38,6 +38,33 @@ public class BusinessCard extends ProductAperture {
         return type;
     }
 
+    public BusinessCardColor getColor() {
+        return color;
+    }
+
+    public BusinessCardSide getSides() {
+        return sides;
+    }
+
+    /*
+    public void setSides(BusinessCardSide sides) {
+        if (this.sides == BusinessCardSide.SINGLE && sides == BusinessCardSide.DOUBLE) {
+            super.price += 30;
+        }
+
+        if (this.sides == BusinessCardSide.DOUBLE && sides == BusinessCardSide.SINGLE) {
+            super.price -= 30;
+        }
+
+        this.sides = sides;
+    }
+
+    public void changeColor(BusinessCardColor color) {
+        this.color = color;
+
+        super.rgb = color.rgb;
+    }
+
     public void setType(BusinessCardType type) {
         if (this.type == BusinessCardType.LINEN) {
             if (type == BusinessCardType.LAID) {
@@ -63,30 +90,5 @@ public class BusinessCard extends ProductAperture {
 
         this.type = type;
     }
-
-    public BusinessCardColor getColor() {
-        return color;
-    }
-
-    public void changeColor(BusinessCardColor color) {
-        this.color = color;
-
-        super.rgb = color.rgb;
-    }
-
-    public BusinessCardSide getSides() {
-        return sides;
-    }
-
-    public void setSides(BusinessCardSide sides) {
-        if (this.sides == BusinessCardSide.SINGLE && sides == BusinessCardSide.DOUBLE) {
-            super.price += 30;
-        }
-
-        if (this.sides == BusinessCardSide.DOUBLE && sides == BusinessCardSide.SINGLE) {
-            super.price -= 30;
-        }
-
-        this.sides = sides;
-    }
+     */
 }

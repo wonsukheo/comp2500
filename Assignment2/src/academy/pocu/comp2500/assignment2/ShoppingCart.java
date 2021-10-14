@@ -13,7 +13,11 @@ public class ShoppingCart {
         productDeliveryMethodHashMap.put(product, deliveryMethod);
     }
 
-    public void changeDeliveryMethods(Product product, DeliveryMethod deliveryMethod) {
+    public DeliveryMethod getDeliveryMethod(Product product) {
+        return productDeliveryMethodHashMap.get(product);
+    }
+
+    public void changeDeliveryMethod(Product product, DeliveryMethod deliveryMethod) {
         productDeliveryMethodHashMap.put(product, deliveryMethod);
     }
 
