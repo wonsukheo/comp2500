@@ -4,48 +4,38 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class ShoppingCart {
-    private HashMap<Product, DeliveryMethod> productDeliveryMethodHashMap = new HashMap<>();
+    private ArrayList<Product> products = new ArrayList<>();
 
     public ShoppingCart() {
     }
 
-    public void addProduct(Product product, DeliveryMethod deliveryMethod) {
-        productDeliveryMethodHashMap.put(product, deliveryMethod);
-    }
-
-    public boolean removeProduct(Product product) {
-        if (productDeliveryMethodHashMap.get(product) == null) {
-            return false;
+    public boolean addProduct(Product product) {
+        for (Product p : products) {
+            if (p == product) {
+                return false;
+            }
         }
-        productDeliveryMethodHashMap.remove(product);
+
+        products.add(product);
+
         return true;
     }
 
-    public DeliveryMethod getDeliveryMethod(Product product) {
-        return productDeliveryMethodHashMap.get(product);
-    }
-
-    public void changeDeliveryMethod(Product product, DeliveryMethod deliveryMethod) {
-        productDeliveryMethodHashMap.put(product, deliveryMethod);
+    public void removeProduct(Product product) {
+        products.remove(product);
     }
 
     public int getTotalPrice() {
         int totalPrice = 0;
 
-        for (Product p : productDeliveryMethodHashMap.keySet().toArray(new Product[0])) {
-            totalPrice += p.price;
+        for (Product p : products) {
+            totalPrice += p.getPrice();
         }
 
         return totalPrice;
     }
 
     public ArrayList<Product> getProducts() {
-        ArrayList<Product> products = new ArrayList<>();
-
-        for (Product p : productDeliveryMethodHashMap.keySet().toArray(new Product[0])) {
-            products.add(p);
-        }
-
         return products;
     }
 }
