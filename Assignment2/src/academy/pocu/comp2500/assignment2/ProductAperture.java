@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ProductAperture extends Product {
     private Orientation orientation;
-    private ArrayList<Aperture> apertures;
+    private ArrayList<Aperture> apertures = new ArrayList<>();
 
     protected ProductAperture(String displayName, int price, int width, int height, int color, Orientation orientation) {
         super(displayName, price, width, height, color);
@@ -13,7 +13,13 @@ public class ProductAperture extends Product {
     }
 
     public boolean addAperture(Aperture aperture) {
-        if (aperture.x + aperture.width < super.width && aperture.y + aperture.height < super.height && aperture.x > 0 && aperture.y > 0) {
+        if (aperture.x + aperture.width < super.width && aperture.y + aperture.height < super.height && aperture.x >= 0 && aperture.y >= 0) {
+            for (Aperture a : apertures) {
+                if (a == aperture) {
+                    return false;
+                }
+            }
+
             apertures.add(aperture);
             super.price += 5;
 
