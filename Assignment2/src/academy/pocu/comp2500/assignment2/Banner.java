@@ -17,6 +17,10 @@ public class Banner extends ProductAperture {
         } else if (type == BannerType.MESH) {
             super.displayName = "Mesh Banner";
         }
+
+        if (size == BannerSize.BANNER_2000X500) {
+            super.price -= 100;
+        }
     }
 
     public BannerType getType() {
