@@ -8,13 +8,15 @@ public class Product {
     protected int width;
     protected int height;
     protected int rgb;
+    protected DeliveryMethod deliveryMethod;
 
-    protected Product(String displayName, int price, int width, int height, int rgb) {
+    protected Product(String displayName, int price, int width, int height, int rgb, DeliveryMethod deliveryMethod) {
         this.displayName = displayName;
         this.width = width;
         this.height = height;
         this.price = price;
         this.rgb = rgb;
+        this.deliveryMethod = deliveryMethod;
     }
 
     public String getDisplayName() {

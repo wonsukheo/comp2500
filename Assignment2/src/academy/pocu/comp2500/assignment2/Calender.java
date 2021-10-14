@@ -5,8 +5,8 @@ public class Calender extends Product {
     private CalenderType type;
     private CalenderSize size;
 
-    public Calender(CalenderType type) {
-        super("Wall Calender", 1000, 400, 400, 0);
+    public Calender(CalenderType type, DeliveryMethod deliveryMethod) {
+        super("Wall Calender", 1000, 400, 400, 0, deliveryMethod);
 
         this.type = type;
         size = CalenderSize.CALENDER_400X400;

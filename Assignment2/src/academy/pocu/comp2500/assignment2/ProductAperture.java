@@ -6,10 +6,15 @@ public class ProductAperture extends Product {
     private Orientation orientation;
     private ArrayList<Aperture> apertures = new ArrayList<>();
 
-    protected ProductAperture(String displayName, int price, int width, int height, int color, Orientation orientation) {
-        super(displayName, price, width, height, color);
+    protected ProductAperture(String displayName, int price, int width, int height, int color, Orientation orientation, DeliveryMethod deliveryMethod) {
+        super(displayName, price, width, height, color, deliveryMethod);
 
         this.orientation = orientation;
+        if (orientation == Orientation.PORTRAIT) {
+            int temp = super.width;
+            super.width = super.height;
+            super.height = temp;
+        }
     }
 
     public boolean addAperture(Aperture aperture) {
@@ -35,9 +40,6 @@ public class ProductAperture extends Product {
     public ArrayList<Aperture> getApertures() {
         return apertures;
     }
-
-
-
 
     /*
     public void changeOrientation(Orientation orientation) {

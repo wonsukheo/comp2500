@@ -6,8 +6,8 @@ public class Banner extends ProductAperture {
     private BannerType type;
     private BannerSize size;
 
-    public Banner(BannerType type, BannerSize size, BannerColor color, Orientation orientation) {
-        super("Scrim Banner", REGULAR_PRICE + (int) ((size.width + size.height - 1500) * 0.4), size.width, size.height, color.rgb, orientation);
+    public Banner(BannerType type, BannerSize size, BannerColor color, Orientation orientation, DeliveryMethod deliveryMethod) {
+        super("Scrim Banner", REGULAR_PRICE + (int) ((size.width + size.height - 1500) * 0.4), size.width, size.height, color.rgb, orientation, deliveryMethod);
 
         this.size = size;
         this.type = type;
@@ -18,6 +18,9 @@ public class Banner extends ProductAperture {
         } else if (type == BannerType.MESH) {
             super.displayName = "Mesh Banner";
         }
+
+        String displayNameSize = String.format(super.displayName + " (" + super.width + " mm x " + super.height + " mm)");
+        super.displayName = displayNameSize;
 
         if (size == BannerSize.BANNER_2000X500) {
             super.price -= 100;
