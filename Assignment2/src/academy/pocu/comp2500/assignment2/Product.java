@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class Product {
     protected String displayName;
     protected int price;
+    protected int width;
+    protected int height;
     protected int rgb;
 
-    protected Product(String displayName, int price, int rgb) {
+    protected Product(String displayName, int price, int width, int height, int rgb) {
         this.displayName = displayName;
+        this.width = width;
+        this.height = height;
         this.price = price;
         this.rgb = rgb;
     }
@@ -19,6 +23,14 @@ public class Product {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public int getRed() {
@@ -38,20 +50,4 @@ public class Product {
 
         return result >>> 8;
     }
-
-    /*
-    protected int width;
-    protected int height;
-
-    public int getRgb() {
-        return rgb;
-    }
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-     */
 }

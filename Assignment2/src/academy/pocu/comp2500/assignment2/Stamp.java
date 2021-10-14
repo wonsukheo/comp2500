@@ -8,7 +8,7 @@ public class Stamp extends Product {
     private StampColor color;
 
     public Stamp(StampSize size, StampColor color, String text) {
-        super("Stamp (50 mm x 20 mm)", REGULAR_SIZE_PRICE, color.rgb);
+        super("Stamp (50 mm x 20 mm)", REGULAR_SIZE_PRICE, size.width, size.height, color.rgb);
 
         this.size = size;
         this.color = color;
