@@ -7,9 +7,14 @@ public class Banner extends ProductAperture {
     private BannerSize size;
 
     public Banner(BannerType type, BannerSize size, BannerColor color, Orientation orientation, DeliveryMethod deliveryMethod) {
-        super("Scrim Banner", REGULAR_PRICE + (int) ((size.width + size.height - 1500) * 0.4), size.width, size.height, color.rgb, orientation, deliveryMethod);
+        super("Scrim Banner", size.width, size.height, color.rgb, REGULAR_PRICE + (int) ((size.width + size.height - 1500) * 0.4), orientation, deliveryMethod);
 
         this.size = size;
+
+        if (size == BannerSize.BANNER_2000X500) {
+            super.price -= 100;
+        }
+
         this.type = type;
 
         if (type == BannerType.GLOSS) {
@@ -20,10 +25,6 @@ public class Banner extends ProductAperture {
         }
 
         super.displayName = String.format(super.displayName + " (" + super.width + " mm x " + super.height + " mm)");
-
-        if (size == BannerSize.BANNER_2000X500) {
-            super.price -= 100;
-        }
     }
 
     public BannerType getType() {

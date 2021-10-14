@@ -8,18 +8,17 @@ public class Stamp extends Product {
     private StampColor color;
 
     public Stamp(StampSize size, StampColor color, String text, DeliveryMethod deliveryMethod) {
-        super("Stamp", REGULAR_SIZE_PRICE, size.width, size.height, color.rgb, deliveryMethod);
+        super("Stamp", size.width, size.height, color.rgb, REGULAR_SIZE_PRICE, deliveryMethod);
 
         this.size = size;
-        this.color = color;
-        this.text = text;
 
         if (size == StampSize.STAMP_70X40) {
-            super.displayName = "Stamp";
             super.price += 300;
-        } else if (size == StampSize.STAMP_40X30) {
-            super.displayName = "Stamp";
         }
+
+        this.color = color;
+
+        this.text = text;
 
         super.displayName = String.format(super.displayName + " (" + super.width + " mm x " + super.height + " mm)");
     }

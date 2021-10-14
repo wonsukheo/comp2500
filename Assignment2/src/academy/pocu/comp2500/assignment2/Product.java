@@ -10,12 +10,12 @@ public class Product {
     protected int rgb;
     protected DeliveryMethod deliveryMethod;
 
-    protected Product(String displayName, int price, int width, int height, int rgb, DeliveryMethod deliveryMethod) {
+    protected Product(String displayName, int width, int height, int rgb, int price, DeliveryMethod deliveryMethod) {
         this.displayName = displayName;
         this.width = width;
         this.height = height;
-        this.price = price;
         this.rgb = rgb;
+        this.price = price;
         this.deliveryMethod = deliveryMethod;
     }
 
@@ -25,6 +25,14 @@ public class Product {
 
     public int getPrice() {
         return price;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public int getRed() {
@@ -49,12 +57,7 @@ public class Product {
         return deliveryMethod;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
+    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
+    } 
 }
