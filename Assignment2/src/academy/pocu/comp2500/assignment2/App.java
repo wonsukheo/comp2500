@@ -67,8 +67,8 @@ public class App {
         registry.registerSmoothBusinessCardTextApertureAdder("ProductAperture", "addTextAperture");
         registry.registerSmoothBusinessCardImageApertureAdder("ProductAperture", "addImageAperture");
 
-        registry.registerSingleSidedBusinessCardTextApertureAdder("BusinessCard", "addTextAperture");
-        registry.registerSingleSidedBusinessCardImageApertureAdder("BusinessCard", "addImageAperture");
+        registry.registerSingleSidedBusinessCardTextApertureAdder("ProductAperture", "addTextAperture");
+        registry.registerSingleSidedBusinessCardImageApertureAdder("ProductAperture", "addImageAperture");
         registry.registerDoubleSidedBusinessCardTextApertureAdder("ProductAperture", "addTextAperture");
         registry.registerDoubleSidedBusinessCardImageApertureAdder("ProductAperture", "addImageAperture");
     }

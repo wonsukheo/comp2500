@@ -27,6 +27,11 @@ public class Stamp extends Product {
         return color;
     }
 
+    public void setColor(StampColor color) {
+        this.color = color;
+        super.rgb = color.rgb;
+    }
+
     public String getText() {
         return text;
     }
@@ -38,8 +43,6 @@ public class Stamp extends Product {
     /* If you want to change color | size
        make new Object
 
-    public void setColor(StampColor color) {
-        this.color = color;
 
     public void setSize(StampSize size) {
         if (this.size == StampSize.STAMP_7x4 && size != StampSize.STAMP_7x4) {
