@@ -3,13 +3,9 @@ package academy.pocu.comp2500.assignment2;
 import java.util.ArrayList;
 
 public class ShoppingCart {
-    private static ArrayList<ShoppingCart> shoppingCarts = new ArrayList<>();
-
     private ArrayList<Product> products = new ArrayList<>();
-    private int totalPrice = 0;
 
     public ShoppingCart() {
-        shoppingCarts.add(this);
     }
 
     public boolean addProduct(Product product) {
@@ -20,18 +16,15 @@ public class ShoppingCart {
         }
 
         products.add(product);
-        totalPrice += product.getPrice();
         return true;
     }
 
     public void removeProduct(Product product) {
-        if (products.remove(product)) {
-            totalPrice -= product.getPrice();
-        }
+        products.remove(product);
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
+    public ArrayList<Product> getProducts() {
+        return products;
     }
 
     public Product getProductOrNull(Product product) {
@@ -41,11 +34,17 @@ public class ShoppingCart {
         return null;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public Product getProductOrNull(int index) {
+        return products.get(index);
     }
 
-    public ShoppingCart getShoppingCartOrNull(ShoppingCart cart) {
-        return shoppingCarts.get(shoppingCarts.indexOf(cart));
+    public int getTotalPrice() {
+        int totalPrice = 0;
+
+        for (Product p : products) {
+            totalPrice += p.getPrice();
+        }
+
+        return totalPrice;
     }
 }
