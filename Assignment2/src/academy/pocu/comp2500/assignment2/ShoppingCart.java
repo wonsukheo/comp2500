@@ -3,10 +3,13 @@ package academy.pocu.comp2500.assignment2;
 import java.util.ArrayList;
 
 public class ShoppingCart {
+    private static ArrayList<ShoppingCart> shoppingCarts = new ArrayList<>();
+
     private ArrayList<Product> products = new ArrayList<>();
     private int totalPrice = 0;
 
     public ShoppingCart() {
+        shoppingCarts.add(this);
     }
 
     public boolean addProduct(Product product) {
@@ -40,5 +43,9 @@ public class ShoppingCart {
 
     public ArrayList<Product> getProducts() {
         return products;
+    }
+
+    public ShoppingCart getShoppingCartOrNull(ShoppingCart cart) {
+        return shoppingCarts.get(shoppingCarts.indexOf(cart));
     }
 }
