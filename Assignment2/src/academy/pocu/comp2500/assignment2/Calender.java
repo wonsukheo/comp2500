@@ -9,14 +9,14 @@ public class Calender extends Product {
         super("Wall Calender", 1000, 400, 400, 0);
 
         this.type = type;
-        size = CalenderSize.CALENDER_400x400;
+        size = CalenderSize.CALENDER_400X400;
 
         switch (type) {
             case DESK:
                 super.displayName = "Desk Calender";
                 super.width = 200;
                 super.height = 150;
-                size = CalenderSize.CALENDER_200x150;
+                size = CalenderSize.CALENDER_200X150;
                 break;
 
             case MAGNET:
@@ -24,7 +24,7 @@ public class Calender extends Product {
                 super.price = 1500;
                 super.width = 100;
                 super.height = 200;
-                size = CalenderSize.CALENDER_100x200;
+                size = CalenderSize.CALENDER_100X200;
                 break;
 
             default:
