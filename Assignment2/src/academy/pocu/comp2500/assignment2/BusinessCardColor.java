@@ -5,9 +5,9 @@ public enum BusinessCardColor {
     IVORY(0xFFFFF000),
     WHITE(0xFFFFFF00);
 
-    protected final int rgba;
+    protected final int rgb;
 
-    BusinessCardColor(int rgba) {
-        this.rgba = rgba;
+    BusinessCardColor(int rgb) {
+        this.rgb = rgb;
     }
 }

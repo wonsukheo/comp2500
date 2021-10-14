@@ -8,11 +8,11 @@ public class Product {
     protected int height;
     protected int rgb;
 
-    protected Product(int price, int width, int height, int color) {
+    protected Product(int price, int width, int height, int rgb) {
         this.price = price;
         this.width = width;
         this.height = height;
-        this.rgb = color;
+        this.rgb = rgb;
     }
 
     public int getPrice() {

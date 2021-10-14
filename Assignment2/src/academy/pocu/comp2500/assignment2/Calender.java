@@ -1,10 +1,8 @@
 package academy.pocu.comp2500.assignment2;
 
 public class Calender extends Product {
-    private static final int RGBA = 0;
-
     public Calender(CalenderType type) {
-        super(1000, 400, 400, RGBA);
+        super(1000, 400, 400, 0);
 
         switch (type) {
             case DESK:
@@ -19,6 +17,7 @@ public class Calender extends Product {
                 break;
 
             default:
+                assert (false) : "wrong CalenderType";
                 break;
         }
     }

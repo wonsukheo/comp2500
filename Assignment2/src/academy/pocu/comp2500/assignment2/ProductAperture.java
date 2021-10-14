@@ -57,7 +57,7 @@ public class ProductAperture extends Product {
         return orientation;
     }
 
-    public void setOrientation(Orientation orientation) {
+    public void changeOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
 }

@@ -5,19 +5,19 @@ import academy.pocu.comp2500.assignment2.registry.Registry;
 public class App {
     public App(Registry registry) {
         // register your classes or methods here
-        registry.registerRedStampCreator("Stamp", "Stamp");
-        registry.registerBlueStampCreator("Stamp", "Stamp");
-        registry.registerGreenStampCreator("Stamp", "Stamp");
+        registry.registerRedStampCreator("Stamp");
+        registry.registerBlueStampCreator("Stamp");
+        registry.registerGreenStampCreator("Stamp");
 
-        registry.registerWallCalendarCreator("Calender", "Calender");
-        registry.registerMagnetCalendarCreator("Calender", "Calender");
-        registry.registerDeskCalendarCreator("Calender", "Calender");
+        registry.registerWallCalendarCreator("Calender");
+        registry.registerMagnetCalendarCreator("Calender");
+        registry.registerDeskCalendarCreator("Calender");
 
-        registry.registerLandscapeBannerCreator("Banner", "Banner");
-        registry.registerPortraitBannerCreator("Banner", "Banner");;
-        registry.registerGlossBannerCreator("Banner", "Banner");;
-        registry.registerScrimBannerCreator("Banner", "Banner");
-        registry.registerMeshBannerCreator("Banner", "Banner");
+        registry.registerLandscapeBannerCreator("Banner");
+        registry.registerPortraitBannerCreator("Banner");;
+        registry.registerGlossBannerCreator("Banner");;
+        registry.registerScrimBannerCreator("Banner");
+        registry.registerMeshBannerCreator("Banner");
 
         registry.registerLandscapeBusinessCardCreator("BusinessCard");
         registry.registerPortraitBusinessCardCreator("BusinessCard");
@@ -25,11 +25,11 @@ public class App {
         registry.registerGrayBusinessCardCreator("BusinessCard");
         registry.registerWhiteBusinessCardCreator("BusinessCard");
 
-        registry.registerLaidBusinessCardCreator("Banner");
-        registry.registerLinenBusinessCardCreator("Banner");
-        registry.registerSmoothBusinessCardCreator("Banner");
-        registry.registerSingleSidedBusinessCardCreator("Banner");
-        registry.registerDoubleSidedBusinessCardCreator("Banner");
+        registry.registerLaidBusinessCardCreator("BusinessCard");
+        registry.registerLinenBusinessCardCreator("BusinessCard");
+        registry.registerSmoothBusinessCardCreator("BusinessCard");
+        registry.registerSingleSidedBusinessCardCreator("BusinessCard");
+        registry.registerDoubleSidedBusinessCardCreator("BusinessCard");
 
         registry.registerCartCreator("ShoppingCart");
         registry.registerProductAdder("ShoppingCart", "addProduct");
@@ -67,8 +67,8 @@ public class App {
         registry.registerSmoothBusinessCardTextApertureAdder("ProductAperture", "addTextAperture");
         registry.registerSmoothBusinessCardImageApertureAdder("ProductAperture", "addImageAperture");
 
-        registry.registerSingleSidedBusinessCardTextApertureAdder("ProductAperture", "addTextAperture");
-        registry.registerSingleSidedBusinessCardImageApertureAdder("ProductAperture", "addImageAperture");
+        registry.registerSingleSidedBusinessCardTextApertureAdder("BusinessCard", "addTextAperture");
+        registry.registerSingleSidedBusinessCardImageApertureAdder("BusinessCard", "addImageAperture");
         registry.registerDoubleSidedBusinessCardTextApertureAdder("ProductAperture", "addTextAperture");
         registry.registerDoubleSidedBusinessCardImageApertureAdder("ProductAperture", "addImageAperture");
     }
