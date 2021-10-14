@@ -7,8 +7,8 @@ public class ProductAperture extends Product {
     private ArrayList<TextAperture> textApertures;
     private ArrayList<ImageAperture> imageApertures;
 
-    protected ProductAperture(int price, int width, int height, int color, Orientation orientation, DeliveryMethod deliveryMethod) {
-        super(price, width, height, color, deliveryMethod);
+    protected ProductAperture(int price, int width, int height, int color, Orientation orientation) {
+        super(price, width, height, color);
 
         this.orientation = orientation;
     }

@@ -5,8 +5,8 @@ public class Stamp extends Product {
 
     private String text;
 
-    public Stamp(StampSize size, StampColor color, String text, DeliveryMethod deliveryMethod) {
-        super(REGULAR_SIZE_PRICE, size.width, size.height, color.rgb, deliveryMethod);
+    public Stamp(StampSize size, StampColor color, String text) {
+        super(REGULAR_SIZE_PRICE, size.width, size.height, color.rgb);
 
         if (size.width == 70) {
             super.price += 300;

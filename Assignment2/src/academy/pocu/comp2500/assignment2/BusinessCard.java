@@ -7,8 +7,8 @@ public class BusinessCard extends ProductAperture {
 
     private BusinessCardSide sides;
 
-    public BusinessCard(BusinessCardType type, BusinessCardSide sides, BusinessCardColor color, Orientation orientation, DeliveryMethod deliveryMethod) {
-        super(SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.rgba, orientation, deliveryMethod);
+    public BusinessCard(BusinessCardType type, BusinessCardSide sides, BusinessCardColor color, Orientation orientation) {
+        super(SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.rgba, orientation);
 
         this.sides = sides;
 

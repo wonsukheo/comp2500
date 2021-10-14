@@ -7,14 +7,12 @@ public class Product {
     protected int width;
     protected int height;
     protected int rgb;
-    protected DeliveryMethod deliveryMethod;
 
-    protected Product(int price, int width, int height, int color, DeliveryMethod deliveryMethod) {
+    protected Product(int price, int width, int height, int color) {
         this.price = price;
         this.width = width;
         this.height = height;
         this.rgb = color;
-        this.deliveryMethod = deliveryMethod;
     }
 
     public int getPrice() {
@@ -49,13 +47,5 @@ public class Product {
         int result = mask & rgb;
 
         return result >>> 8;
-    }
-
-    public DeliveryMethod getDeliveryMethod() {
-        return deliveryMethod;
-    }
-
-    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
     }
 }
