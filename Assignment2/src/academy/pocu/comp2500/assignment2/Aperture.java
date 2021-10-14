@@ -1,8 +1,8 @@
 package academy.pocu.comp2500.assignment2;
 
 public class Aperture {
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
     protected int x;
     protected int y;
 
