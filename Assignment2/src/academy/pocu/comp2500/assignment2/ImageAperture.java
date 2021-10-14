@@ -12,7 +12,8 @@ public class ImageAperture extends Aperture {
         return imagePath;
     }
 
+    /*
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
+    }*/
 }
