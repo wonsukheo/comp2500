@@ -59,5 +59,5 @@ public class Product {
 
     public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
         this.deliveryMethod = deliveryMethod;
-    } 
+    }
 }
