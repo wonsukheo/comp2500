@@ -8,18 +8,20 @@ public class Stamp extends Product {
     private StampColor color;
 
     public Stamp(StampSize size, StampColor color, String text, DeliveryMethod deliveryMethod) {
-        super("Stamp (50 mm x 20 mm)", REGULAR_SIZE_PRICE, size.width, size.height, color.rgb, deliveryMethod);
+        super("Stamp", REGULAR_SIZE_PRICE, size.width, size.height, color.rgb, deliveryMethod);
 
         this.size = size;
         this.color = color;
         this.text = text;
 
         if (size == StampSize.STAMP_70X40) {
-            super.displayName = "Stamp (70 mm x 40 mm)";
+            super.displayName = "Stamp";
             super.price += 300;
         } else if (size == StampSize.STAMP_40X30) {
-            super.displayName = "Stamp (40 mm x 30 mm)";
+            super.displayName = "Stamp";
         }
+
+        super.displayName = String.format(super.displayName + " (" + super.width + " mm x " + super.height + " mm)");
     }
 
     public StampSize getSize() {
@@ -46,30 +48,4 @@ public class Stamp extends Product {
                 return null;
         }
     }
-
-    /* If you want to change color | size
-       make new Object
-
-    public void setColor(StampColor color) {
-        this.color = color;
-        super.rgb = color.rgb;
-    }
-
-    public void changeText(String text) {
-        this.text = text;
-    }
-
-
-    public void setSize(StampSize size) {
-        if (this.size == StampSize.STAMP_7x4 && size != StampSize.STAMP_7x4) {
-            super.price -= 300;
-        }
-
-        if (this.size != StampSize.STAMP_7x4 && size == StampSize.STAMP_7x4) {
-            super.price += 300;
-        }
-
-        this.size = size;
-    }
-    }*/
 }

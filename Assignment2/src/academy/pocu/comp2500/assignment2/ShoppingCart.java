@@ -33,7 +33,7 @@ public class ShoppingCart {
         int totalPrice = 0;
 
         for (Product p : productDeliveryMethodHashMap.keySet().toArray(new Product[0])) {
-            totalPrice += p.getPrice();
+            totalPrice += p.price;
         }
 
         return totalPrice;

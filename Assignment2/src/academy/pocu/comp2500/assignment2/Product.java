@@ -27,14 +27,6 @@ public class Product {
         return price;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     public int getRed() {
         return rgb >>> 24;
     }
@@ -52,4 +44,17 @@ public class Product {
 
         return result >>> 8;
     }
+
+    public DeliveryMethod getDeliveryMethod() {
+        return deliveryMethod;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
 }

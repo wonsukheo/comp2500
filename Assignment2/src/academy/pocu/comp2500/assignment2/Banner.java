@@ -19,8 +19,7 @@ public class Banner extends ProductAperture {
             super.displayName = "Mesh Banner";
         }
 
-        String displayNameSize = String.format(super.displayName + " (" + super.width + " mm x " + super.height + " mm)");
-        super.displayName = displayNameSize;
+        super.displayName = String.format(super.displayName + " (" + super.width + " mm x " + super.height + " mm)");
 
         if (size == BannerSize.BANNER_2000X500) {
             super.price -= 100;
