@@ -1,10 +1,10 @@
 package academy.pocu.comp2500.assignment2;
 
-import java.util.HashMap;
 import java.util.ArrayList;
 
 public class ShoppingCart {
     private ArrayList<Product> products = new ArrayList<>();
+    private int totalPrice = 0;
 
     public ShoppingCart() {
     }
@@ -17,22 +17,25 @@ public class ShoppingCart {
         }
 
         products.add(product);
-
+        totalPrice += product.getPrice();
         return true;
     }
 
     public void removeProduct(Product product) {
-        products.remove(product);
+        if (products.remove(product)) {
+            totalPrice -= product.getPrice();
+        }
     }
 
     public int getTotalPrice() {
-        int totalPrice = 0;
-
-        for (Product p : products) {
-            totalPrice += p.getPrice();
-        }
-
         return totalPrice;
+    }
+
+    public Product getProductOrNull(Product product) {
+        if (products.contains(product)) {
+            return product;
+        }
+        return null;
     }
 
     public ArrayList<Product> getProducts() {
