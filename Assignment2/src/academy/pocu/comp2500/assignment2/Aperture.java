@@ -9,11 +9,17 @@ public class Aperture {
         this.y = y;
     }
 
-    protected int getX() {
+    public int getX() {
         return x;
     }
 
-    protected boolean setX(int x) {
+    public int getY() {
+        return y;
+    }
+
+    /*
+
+    public boolean setX(int x) {
         if (x < 0) {
             return false;
         } else {
@@ -22,11 +28,8 @@ public class Aperture {
         }
     }
 
-    protected int getY() {
-        return y;
-    }
 
-    protected boolean setY(int y) {
+    public boolean setY(int y) {
         if (y < 0) {
             return false;
         } else {
@@ -34,4 +37,5 @@ public class Aperture {
             return true;
         }
     }
+     */
 }

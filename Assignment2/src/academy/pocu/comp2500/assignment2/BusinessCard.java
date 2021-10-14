@@ -10,7 +10,7 @@ public class BusinessCard extends ProductAperture {
     private BusinessCardType type;
 
     public BusinessCard(BusinessCardType type, BusinessCardSide sides, BusinessCardColor color, Orientation orientation) {
-        super(SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.rgb, orientation);
+        super("Smooth Business Card", SINGLE_SIDE_REGULAR_PRICE, WIDTH, HEIGHT, color.rgb, orientation);
 
         this.sides = sides;
         this.color = color;
@@ -22,10 +22,12 @@ public class BusinessCard extends ProductAperture {
 
         switch (type) {
             case LINEN:
+                super.displayName = "Linen Business Card";
                 super.price += 10;
                 break;
 
             case LAID:
+                super.displayName = "Laid Business Card";
                 super.price += 20;
                 break;
 

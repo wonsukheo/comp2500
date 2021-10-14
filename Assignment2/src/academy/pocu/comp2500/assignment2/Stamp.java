@@ -8,14 +8,17 @@ public class Stamp extends Product {
     private StampColor color;
 
     public Stamp(StampSize size, StampColor color, String text) {
-        super(REGULAR_SIZE_PRICE, size.width, size.height, color.rgb);
+        super("Stamp (50 mm x 20 mm)", REGULAR_SIZE_PRICE, size.width, size.height, color.rgb);
 
         this.size = size;
         this.color = color;
         this.text = text;
 
-        if (size == StampSize.STAMP_70x40) {
+        if (size == StampSize.STAMP_70X40) {
+            super.displayName = "Stamp (70 mm x 40 mm)";
             super.price += 300;
+        } else if (size == StampSize.STAMP_40X30) {
+            super.displayName = "Stamp (40 mm x 30 mm)";
         }
     }
 
@@ -30,8 +33,6 @@ public class Stamp extends Product {
     public String getText() {
         return text;
     }
-
-
 
     /* If you want to change color | size
        make new Object

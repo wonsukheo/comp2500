@@ -1,8 +1,5 @@
 package academy.pocu.comp2500.assignment2;
 
-import org.w3c.dom.Text;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 public class ProductAperture extends Product {
@@ -10,8 +7,8 @@ public class ProductAperture extends Product {
     private ArrayList<TextAperture> textApertures;
     private ArrayList<ImageAperture> imageApertures;
 
-    protected ProductAperture(int price, int width, int height, int color, Orientation orientation) {
-        super(price, width, height, color);
+    protected ProductAperture(String displayName, int price, int width, int height, int color, Orientation orientation) {
+        super(displayName, price, width, height, color);
 
         this.orientation = orientation;
     }

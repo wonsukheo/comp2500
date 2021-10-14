@@ -14,8 +14,8 @@ public class App {
         registry.registerDeskCalendarCreator("Calender");
 
         registry.registerLandscapeBannerCreator("Banner");
-        registry.registerPortraitBannerCreator("Banner");;
-        registry.registerGlossBannerCreator("Banner");;
+        registry.registerPortraitBannerCreator("Banner");
+        registry.registerGlossBannerCreator("Banner");
         registry.registerScrimBannerCreator("Banner");
         registry.registerMeshBannerCreator("Banner");
 
