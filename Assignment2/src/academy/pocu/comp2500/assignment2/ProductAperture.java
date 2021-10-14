@@ -13,22 +13,24 @@ public class ProductAperture extends Product {
         this.orientation = orientation;
     }
 
-    public boolean addTextAperture(String text, int x, int y) {
-        if (x < 0 || x > super.width || y < 0 || y > super.height) {
-            textApertures.add(new TextAperture(x, y, text));
-            return true;
+    public boolean addTextAperture(String text, int width, int height, int x, int y) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height || width < 0 || width > super.width || height < 0 || height > super.height) {
+            return false;
         }
 
-        return false;
+        textApertures.add(new TextAperture(text, width, height, x, y));
+        super.price += 5;
+        return true;
     }
 
-    public boolean addImageAperture(String imagePath, int x, int y) {
-        if (x < 0 || x > super.width || y < 0 || y > super.height) {
-            imageApertures.add(new ImageAperture(x, y, imagePath));
-            return true;
+    public boolean addImageAperture(String imagePath, int width, int height, int x, int y) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height || width < 0 || width > super.width || height < 0 || height > super.height) {
+            return false;
         }
 
-        return false;
+        imageApertures.add(new ImageAperture(imagePath, width, height, x, y));
+        super.price += 5;
+        return true;
     }
 
     public Orientation getOrientation() {
@@ -41,11 +43,6 @@ public class ProductAperture extends Product {
 
     public ArrayList<ImageAperture> getImageApertures() {
         return imageApertures;
-    }
-
-    /*
-    public void changeOrientation(Orientation orientation) {
-        this.orientation = orientation;
     }
 
     public boolean removeTextAperture(TextAperture textAperture) {
@@ -68,6 +65,13 @@ public class ProductAperture extends Product {
 
         return isRemoved;
     }
+
+    /*
+    public void changeOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
+
 
 
      */
