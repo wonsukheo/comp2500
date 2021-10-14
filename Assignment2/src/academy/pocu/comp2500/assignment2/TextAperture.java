@@ -8,10 +8,6 @@ public class TextAperture extends Aperture {
         this.text = text;
     }
 
-    public TextAperture(String text) {
-        this(0, 0, text);
-    }
-
     public String getText() {
         return text;
     }

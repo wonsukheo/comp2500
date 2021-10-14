@@ -25,10 +25,6 @@ public class Product {
         return price;
     }
 
-    public int getRgb() {
-        return rgb;
-    }
-
     public int getRed() {
         return rgb >>> 24;
     }
@@ -48,6 +44,10 @@ public class Product {
     }
 
     /*
+
+    public int getRgb() {
+        return rgb;
+    }
     public int getWidth() {
         return width;
     }

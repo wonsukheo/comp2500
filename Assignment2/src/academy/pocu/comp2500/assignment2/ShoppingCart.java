@@ -13,16 +13,20 @@ public class ShoppingCart {
         productDeliveryMethodHashMap.put(product, deliveryMethod);
     }
 
+    public boolean removeProduct(Product product) {
+        if (productDeliveryMethodHashMap.get(product) == null) {
+            return false;
+        }
+        productDeliveryMethodHashMap.remove(product);
+        return true;
+    }
+
     public DeliveryMethod getDeliveryMethod(Product product) {
         return productDeliveryMethodHashMap.get(product);
     }
 
     public void changeDeliveryMethod(Product product, DeliveryMethod deliveryMethod) {
         productDeliveryMethodHashMap.put(product, deliveryMethod);
-    }
-
-    public void removeProduct(Product product) {
-        productDeliveryMethodHashMap.remove(product);
     }
 
     public int getTotalPrice() {

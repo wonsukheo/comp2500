@@ -34,6 +34,19 @@ public class Stamp extends Product {
         return text;
     }
 
+    public StampType getType() {
+        switch (color) {
+            case RED:
+                return StampType.RED_STAMP;
+            case GREEN:
+                return StampType.GREEN_STAMP;
+            case BLUE:
+                return StampType.BLUE_STAMP;
+            default:
+                return null;
+        }
+    }
+
     /* If you want to change color | size
        make new Object
 

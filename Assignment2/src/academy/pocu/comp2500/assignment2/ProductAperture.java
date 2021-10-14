@@ -13,44 +13,22 @@ public class ProductAperture extends Product {
         this.orientation = orientation;
     }
 
-    public boolean addTextAperture(TextAperture textAperture) {
-        if (textAperture.x >= 0 && textAperture.x <= super.width && textAperture.y >= 0 && textAperture.y <= super.height) {
-            textApertures.add(textAperture);
-            price += 5;
+    public boolean addTextAperture(String text, int x, int y) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height) {
+            textApertures.add(new TextAperture(x, y, text));
             return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean removeTextAperture(TextAperture textAperture) {
-        boolean isRemoved = textApertures.remove(textAperture);
-
-        if (isRemoved) {
-            price -= 5;
         }
 
-        return isRemoved;
+        return false;
     }
 
-    public boolean addImageAperture(ImageAperture imageAperture) {
-        if (imageAperture.x >= 0 && imageAperture.x <= super.width && imageAperture.y >= 0 && imageAperture.y <= super.height) {
-            imageApertures.add(imageAperture);
-            price += 5;
+    public boolean addImageAperture(String imagePath, int x, int y) {
+        if (x < 0 || x > super.width || y < 0 || y > super.height) {
+            imageApertures.add(new ImageAperture(x, y, imagePath));
             return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean removeImageAperture(ImageAperture imageAperture) {
-        boolean isRemoved = imageApertures.remove(imageAperture);
-
-        if (isRemoved) {
-            price -= 5;
         }
 
-        return isRemoved;
+        return false;
     }
 
     public Orientation getOrientation() {
@@ -68,6 +46,27 @@ public class ProductAperture extends Product {
     /*
     public void changeOrientation(Orientation orientation) {
         this.orientation = orientation;
+    }
+
+    public boolean removeTextAperture(TextAperture textAperture) {
+        boolean isRemoved = textApertures.remove(textAperture);
+
+        if (isRemoved) {
+            price -= 5;
+        }
+
+        return isRemoved;
+    }
+
+
+    public boolean removeImageAperture(ImageAperture imageAperture) {
+        boolean isRemoved = imageApertures.remove(imageAperture);
+
+        if (isRemoved) {
+            price -= 5;
+        }
+
+        return isRemoved;
     }
 
 
