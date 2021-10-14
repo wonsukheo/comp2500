@@ -5,15 +5,11 @@ import java.util.ArrayList;
 public class Product {
     protected String displayName;
     protected int price;
-    protected int width;
-    protected int height;
     protected int rgb;
 
-    protected Product(String displayName, int price, int width, int height, int rgb) {
+    protected Product(String displayName, int price, int rgb) {
         this.displayName = displayName;
         this.price = price;
-        this.width = width;
-        this.height = height;
         this.rgb = rgb;
     }
 
@@ -44,6 +40,8 @@ public class Product {
     }
 
     /*
+    protected int width;
+    protected int height;
 
     public int getRgb() {
         return rgb;

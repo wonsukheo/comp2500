@@ -7,7 +7,7 @@ public class Banner extends ProductAperture {
     private BannerType type;
 
     public Banner(BannerType type, BannerSize size, BannerColor color, Orientation orientation) {
-        super("Scrim Banner", REGULAR_PRICE + (int) ((size.width + size.height - 1500) * 0.4), size.width, size.height, color.rgb, orientation);
+        super("Scrim Banner", REGULAR_PRICE + (int) ((size.width + size.height - 1500) * 0.4), color.rgb, orientation);
 
         this.size = size;
         this.type = type;

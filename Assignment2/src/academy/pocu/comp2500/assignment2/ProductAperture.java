@@ -1,26 +1,23 @@
 package academy.pocu.comp2500.assignment2;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductAperture extends Product {
     private Orientation orientation;
     private HashMap<Aperture, Vector> apertures = new HashMap<>();
 
-    protected ProductAperture(String displayName, int price, int width, int height, int color, Orientation orientation) {
-        super(displayName, price, width, height, color);
+    protected ProductAperture(String displayName, int price, int color, Orientation orientation) {
+        super(displayName, price, color);
 
         this.orientation = orientation;
     }
 
-    public void addTextAperture(String text, int width, int height, int x, int y) {
-        apertures.put(new TextAperture(text, width, height), new Vector(x, y));
+    public void addTextAperture(TextAperture textAperture, int x, int y) {
+        apertures.put(textAperture, new Vector(x, y));
     }
 
-    public void addImageAperture(String imagePath, int width, int height, int x, int y) {
-        apertures.put(new ImageAperture(imagePath, width, height), new Vector(x, y));
+    public void addImageAperture(ImageAperture imageAperture, int x, int y) {
+        apertures.put(imageAperture, new Vector(x, y));
     }
 
     public Orientation getOrientation() {

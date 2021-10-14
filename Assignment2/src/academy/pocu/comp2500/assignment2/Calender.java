@@ -6,7 +6,7 @@ public class Calender extends Product {
     private CalenderSize size;
 
     public Calender(CalenderType type) {
-        super("Wall Calender", 1000, 400, 400, 0);
+        super("Wall Calender", 1000, 0);
 
         this.type = type;
         size = CalenderSize.CALENDER_400X400;
@@ -14,16 +14,12 @@ public class Calender extends Product {
         switch (type) {
             case DESK:
                 super.displayName = "Desk Calender";
-                super.width = 200;
-                super.height = 150;
                 size = CalenderSize.CALENDER_200X150;
                 break;
 
             case MAGNET:
                 super.displayName = "Magnet Calender";
                 super.price = 1500;
-                super.width = 100;
-                super.height = 200;
                 size = CalenderSize.CALENDER_100X200;
                 break;
 
