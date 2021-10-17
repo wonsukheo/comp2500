@@ -4,6 +4,7 @@ public class BannerColor {
     protected int rgb;
 
     public BannerColor(int r, int g, int b) {
+        /*
         if (r > 255) {
             r = 255;
         } else if (r < 0) {
@@ -20,7 +21,7 @@ public class BannerColor {
             b = 255;
         } else if (b < 0) {
             b = 0;
-        }
+        } */
         rgb = (r << 24 | g << 16 | b << 8);
     }
 }
