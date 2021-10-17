@@ -31,6 +31,7 @@ public class ShoppingCart {
         if (products.contains(product)) {
             return product;
         }
+
         return null;
     }
 
