@@ -27,14 +27,6 @@ public class ShoppingCart {
         return products;
     }
 
-    public Product getProductOrNull(Product product) {
-        if (products.contains(product)) {
-            return product;
-        }
-
-        return null;
-    }
-
     public Product getProductOrNull(int index) {
         return products.get(index);
     }
