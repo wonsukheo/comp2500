@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 public final class Bookshelf {
     private final int maxBookCount;
-    private ArrayList<Book> books = new ArrayList<>();
+    private ArrayList<Book> books;
 
     public Bookshelf(int maxBookCount) {
         this.maxBookCount = maxBookCount;
+        books = new ArrayList<>(maxBookCount - 1);
     }
 
     public boolean add(Book book) {
-        if (book == null) {
+        if (book == null || books.size() == maxBookCount) {
             return false;
         }
 

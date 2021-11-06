@@ -21,7 +21,7 @@ public final class ReadingList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        int i = 0;
+        int i = 1;
 
         for (Book book : bookList) {
             sb.append(String.format("%d. %s%s", i++, book.toString(), System.lineSeparator()));
@@ -59,8 +59,10 @@ public final class ReadingList {
     public int hashCode() {
         int hash = 0;
 
-        for (Book book : bookList) {
-            hash += hash * 31 + book.hashCode();
+        int i = 0;
+
+        for (Book book : this.bookList) {
+            hash = hash * 31 + book.hashCode() * i++;
         }
 
         return hash + this.name.hashCode();
