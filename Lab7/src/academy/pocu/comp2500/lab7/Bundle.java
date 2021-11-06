@@ -18,7 +18,7 @@ public final class Bundle {
         }
 
         if (bookSet.containsKey(book)) {
-            bookSet.put(book, bookSet.get(book) + 1);
+            bookSet.replace(book, bookSet.get(book) + 1);
         } else {
             bookSet.put(book, 1);
         }
@@ -35,7 +35,7 @@ public final class Bundle {
         if (bookSet.get(book) == 1) {
             bookSet.remove(book);
         } else {
-            bookSet.put(book, bookSet.get(book) - 1);
+            bookSet.replace(book, bookSet.get(book) - 1);
         }
 
         count--;
