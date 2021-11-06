@@ -23,7 +23,7 @@ public final class Bundle {
             bookSet.put(book, 1);
         }
 
-        count++;
+        ++count;
         return true;
     }
 

@@ -35,7 +35,7 @@ public final class ReadingList {
             return true;
         }
 
-        if (obj == null || !(obj instanceof Book) || this.hashCode() != obj.hashCode()) {
+        if (obj == null || !(obj instanceof ReadingList) || this.hashCode() != obj.hashCode()) {
             return false;
         }
 

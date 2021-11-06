@@ -34,7 +34,7 @@ public final class Bookshelf {
             return true;
         }
 
-        if (obj == null || !(obj instanceof Book) || this.hashCode() != obj.hashCode()) {
+        if (obj == null || !(obj instanceof Bookshelf) || this.hashCode() != obj.hashCode()) {
             return false;
         }
 
@@ -57,10 +57,12 @@ public final class Bookshelf {
     public int hashCode() {
         int hash = 0;
 
+        int i = 0;
+
         for (Book book : books) {
-            hash += hash * 31 + book.hashCode();
+            hash = hash * 31 + book.hashCode() * i;
         }
 
-        return hash + this.books.size();
+        return hash + super.hashCode();
     }
 }
