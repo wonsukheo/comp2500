@@ -13,7 +13,7 @@ public final class Bundle {
     }
 
     public boolean add(Book book) {
-        if (book == null || count == 4) {
+        if (book == null) {
             return false;
         }
 
