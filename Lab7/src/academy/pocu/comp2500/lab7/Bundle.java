@@ -1,15 +1,14 @@
 package academy.pocu.comp2500.lab7;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public final class Bundle {
     private final String name;
-    private HashMap<Book, Integer> bookSet = new HashMap<>();
-    private int count;
+    private HashSet<Book> bookSet = new HashSet<>();
 
     public Bundle(String name) {
         this.name = name;
-        count = 0;
     }
 
     public boolean add(Book book) {
@@ -17,29 +16,15 @@ public final class Bundle {
             return false;
         }
 
-        if (bookSet.containsKey(book)) {
-            bookSet.replace(book, bookSet.get(book) + 1);
-        } else {
-            bookSet.put(book, 1);
-        }
-
-        ++count;
-        return true;
+        return this.bookSet.add(book);
     }
 
     public boolean remove(Book book) {
-        if (book == null || !(bookSet.containsKey(book))) {
+        if (book == null || !bookSet.contains(book)) {
             return false;
         }
 
-        if (bookSet.get(book) == 1) {
-            bookSet.remove(book);
-        } else {
-            bookSet.replace(book, bookSet.get(book) - 1);
-        }
-
-        count--;
-        return true;
+        return bookSet.remove(book);
     }
 
     public boolean equals(Object obj) {
@@ -57,13 +42,7 @@ public final class Bundle {
             return false;
         }
 
-        for (Book book : this.bookSet.keySet()) {
-            if (this.bookSet.get(book) != bundle.bookSet.get(book)) {
-                return false;
-            }
-        }
-
-        return true;
+        return this.bookSet.containsAll(bundle.bookSet);
     }
 
 
@@ -72,7 +51,7 @@ public final class Bundle {
 
         int i = 0;
 
-        for (Book book : this.bookSet.keySet()) {
+        for (Book book : this.bookSet) {
             hash = hash * 31 + book.hashCode() * i++;
         }
 
