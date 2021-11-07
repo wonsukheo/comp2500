@@ -18,7 +18,7 @@ public final class Author {
             return true;
         }
 
-        if (obj == null || !(obj instanceof Author)) {
+        if (obj == null || !(obj instanceof Author || this.hashCode() != obj.hashCode())) {
             return false;
         }
 

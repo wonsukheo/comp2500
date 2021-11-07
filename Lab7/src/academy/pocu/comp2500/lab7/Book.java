@@ -25,6 +25,7 @@ public final class Book {
         if (obj == null || !(obj instanceof Book) || this.hashCode() != obj.hashCode()) {
             return false;
         }
+
         Book book = (Book) obj;
 
         return this.title.equals(book.title) && this.author.equals(book.author) && this.publicationDate == book.publicationDate && this.genre == book.genre;

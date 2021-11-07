@@ -11,11 +11,17 @@ public final class ReadingList {
     }
 
     public void add(Book book) {
-        bookList.add(book);
+        if (book != null) {
+            bookList.add(book);
+        }
     }
 
     public boolean remove(Book book) {
-        return bookList.remove(book);
+        if (book != null && bookList.contains(book)) {
+            return bookList.remove(book);
+        }
+
+        return false;
     }
 
     public String toString() {
