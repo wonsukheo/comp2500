@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class Marine extends Unit implements IMoveable, IThinkable {
     private static final char SYMBOL = 'M';
-    private static final UnitType UNIT_TYPE= UnitType.GROUND;
+    private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 2;
     private static final byte AOE = 0;
     private static final byte MAX_HP = 35;
@@ -18,7 +18,7 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
         this.position = position;
     }
 
-    public ArrayList<IntVector2D> getTargetablePositions(){
+    public ArrayList<IntVector2D> getTargetablePositions() {
         // tile range check??
         ArrayList<IntVector2D> positions = new ArrayList<>();
 
@@ -118,7 +118,7 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
 
         attackIntent.setAttackUnit(this);
 
-        attackIntent.addTarget(targetPosition, this.AP);
+        attackIntent.addTarget(targetPosition, AP);
 
         return attackIntent;
     }

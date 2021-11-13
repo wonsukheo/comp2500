@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class Wraith extends Unit implements IMoveable, IThinkable {
     private static final char SYMBOL = 'W';
-    private static final UnitType UNIT_TYPE= UnitType.AIR;
+    private static final UnitType UNIT_TYPE = UnitType.AIR;
     private static final byte VISION = 4;
     private static final byte AOE = 0;
     private static final byte MAX_HP = 80;
@@ -14,17 +14,17 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND, UnitType.AIR);
     //can detect both AIR & GROUND withtin vision
 
-    private final IntVector2D InitialPosition;
+    private final IntVector2D initialPosition;
     private boolean bShield = true;
     private boolean bAttacked = false;
 
     public Wraith(IntVector2D position) {
         super(SYMBOL, UNIT_TYPE, VISION, AOE, MAX_HP, AP, TARGETABLE);
         this.position = position;
-        this.InitialPosition = position;
+        this.initialPosition = position;
     }
 
-    public ArrayList<IntVector2D> getTargetablePositions(){
+    public ArrayList<IntVector2D> getTargetablePositions() {
         // tile range check??
         ArrayList<IntVector2D> positions = new ArrayList<>();
 
@@ -69,7 +69,7 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
 
     public IntVector2D moveLogic(ArrayList<Unit> unitsInVision) {
         if (unitsInVision == null) {
-            return moveAI(this.InitialPosition);
+            return moveAI(this.initialPosition);
         }
 
         ArrayList<Unit> airUnits = new ArrayList<>();
@@ -166,7 +166,7 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
 
         attackIntent.setAttackUnit(this);
 
-        attackIntent.addTarget(targetPosition, this.AP);
+        attackIntent.addTarget(targetPosition, AP);
 
         return attackIntent;
     }

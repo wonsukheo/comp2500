@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class Tank extends Unit implements IMoveable, IThinkable {
     private static final char SYMBOL = 'T';
-    private static final UnitType UNIT_TYPE= UnitType.GROUND;
+    private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 3;
     private static final byte AOE = 1;
     private static final byte MAX_HP = 85;
@@ -22,7 +22,7 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
         moveEast = true;
     }
 
-    public ArrayList<IntVector2D> getTargetablePositions(){
+    public ArrayList<IntVector2D> getTargetablePositions() {
         // tile range check??
         ArrayList<IntVector2D> positions = new ArrayList<>();
 
@@ -111,10 +111,10 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
 
         attackIntent.setAttackUnit(this);
 
-        attackIntent.addTarget(targetPosition, this.AP);
+        attackIntent.addTarget(targetPosition, AP);
 
         ArrayList<IntVector2D> aoePosition = new ArrayList<>();
-        double aoeDamage = this.AP * (1 - 1 / (double) (AOE + 1));
+        double aoeDamage = AP * (1 - 1 / (double) (AOE + 1));
         int x = targetPosition.getX();
         int y = targetPosition.getY();
 
@@ -128,7 +128,7 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
         aoePosition.add(new IntVector2D(x - 1, y + 1));
 
         for (IntVector2D position : aoePosition) {
-            attackIntent.addTarget(position, (int)aoeDamage);
+            attackIntent.addTarget(position, (int) aoeDamage);
         }
 
         return attackIntent;

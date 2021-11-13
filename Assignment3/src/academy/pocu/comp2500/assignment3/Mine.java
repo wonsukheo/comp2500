@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Mine extends Unit {
+public class Mine extends Unit implements ICollisionable {
     private static final char SYMBOL = 'N';
-    private static final UnitType UNIT_TYPE= UnitType.GROUND;
+    private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 0;
     private static final byte AOE = 0;
     private static final byte MAX_HP = 1;
     private static final byte AP = 10;
-    private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND);
+    private static final List<UnitType> TARGET_TYPE = Arrays.asList(UnitType.GROUND);
+    private static final UnitAction unitAction = UnitAction.NONE;
 
     private int detonateCount;
     private ArrayList<Unit> unitsOnTopLast = new ArrayList<>();
@@ -21,14 +22,22 @@ public class Mine extends Unit {
         this(SYMBOL, VISION, AOE, AP, position, detonateCount);
     }
 
-    public Mine(char symbol, byte vision, byte aoe, byte ap, IntVector2D position, int detonateCount) {
-        super(symbol, UNIT_TYPE, vision, aoe, MAX_HP, ap, TARGETABLE);
+    protected Mine(char symbol, byte vision, byte aoe, byte ap, IntVector2D position, int detonateCount) {
+        super(symbol, UNIT_TYPE, vision, aoe, MAX_HP, ap, TARGET_TYPE);
+
         this.position = position;
         this.detonateCount = detonateCount;
     }
 
-    public ArrayList<IntVector2D> getTargetablePositions(){
-        // tile range check??
+    public int getDetonateCount() {
+        return detonateCount;
+    }
+
+    public boolean isDetonate() {
+        return isDetonate;
+    }
+
+    public ArrayList<IntVector2D> getTargetablePositions() {
         ArrayList<IntVector2D> positions = new ArrayList<>();
 
         positions.add(this.position);
@@ -36,11 +45,11 @@ public class Mine extends Unit {
         return positions;
     }
 
-    protected ArrayList<Unit> getTargetableUnitsOrNull(ArrayList<Unit> unitsOnMap) {
-        return  null;
+    public ArrayList<Unit> getTargetableUnitsOrNull(ArrayList<Unit> unitsOnMap) {
+        return null;
     }
 
-    public void checkDetonateCount(ArrayList<Unit> unitsOnMap) {
+    public void updateDetonateCount(ArrayList<Unit> unitsOnMap) {
         ArrayList<Unit> unitsOnTop = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
@@ -59,7 +68,7 @@ public class Mine extends Unit {
 
         detonateCount -= count;
 
-        if (detonateCount < 0) {
+        if (detonateCount <= 0) {
             isDetonate = true;
         } else {
             unitsOnTopLast = unitsOnTop;
@@ -71,7 +80,7 @@ public class Mine extends Unit {
 
         attackIntent.setAttackUnit(this);
 
-        attackIntent.addTarget(this.position, this.AP);
+        attackIntent.addTarget(this.position, AP);
 
         return attackIntent;
     }

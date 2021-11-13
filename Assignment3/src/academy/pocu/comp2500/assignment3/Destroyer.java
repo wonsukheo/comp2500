@@ -18,7 +18,7 @@ public class Destroyer extends Unit {
         this.position = position;
     }
 
-    public ArrayList<IntVector2D> getTargetablePositions(){
+    public ArrayList<IntVector2D> getTargetablePositions() {
         // tile range check??
         ArrayList<IntVector2D> positions = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class Destroyer extends Unit {
         attackIntent.setAttackUnit(this);
 
         for (IntVector2D position : getTargetablePositions()) {
-            attackIntent.addTarget(position, this.AP);
+            attackIntent.addTarget(position, AP);
         }
 
 

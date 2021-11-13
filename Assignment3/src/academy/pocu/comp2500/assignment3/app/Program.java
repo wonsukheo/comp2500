@@ -1,14 +1,6 @@
 package academy.pocu.comp2500.assignment3.app;
 
-import academy.pocu.comp2500.assignment3.App;
-import academy.pocu.comp2500.assignment3.SimulationManager;
-import academy.pocu.comp2500.assignment3.IntVector2D;
-import academy.pocu.comp2500.assignment3.Marine;
-import academy.pocu.comp2500.assignment3.Mine;
-import academy.pocu.comp2500.assignment3.Tank;
-import academy.pocu.comp2500.assignment3.Turret;
-import academy.pocu.comp2500.assignment3.Unit;
-import academy.pocu.comp2500.assignment3.Wraith;
+import academy.pocu.comp2500.assignment3.*;
 import academy.pocu.comp2500.assignment3.registry.Registry;
 
 import java.io.BufferedReader;
@@ -22,9 +14,8 @@ import academy.pocu.comp2500.assignment3.registry.Registry;
 public class Program {
 
     public static void main(String[] args) {
-        Registry registry = new Registry();
-        App app = new App(registry);
-        registry.validate();
+        Mine mine = new Mine( new IntVector2D(0,0), 5);
+        SmartMine smartmine = new SmartMine( new IntVector2D(2,0), 5, 10);
     }
 }
         /*

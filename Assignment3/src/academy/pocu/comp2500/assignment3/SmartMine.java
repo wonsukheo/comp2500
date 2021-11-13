@@ -4,28 +4,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class SmartMine extends Mine {
+public final class SmartMine extends Mine implements ICollisionable {
     private static final char SYMBOL = 'A';
-    private static final UnitType UNIT_TYPE= UnitType.GROUND;
+    private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 1;
     private static final byte AOE = 1;
     private static final byte MAX_HP = 1;
     private static final byte AP = 15;
-    private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND);
+    private static final List<UnitType> TARGET_TYPE = Arrays.asList(UnitType.GROUND);
 
     private final int autoDetonateCount;
 
     public SmartMine(IntVector2D position, int detonateCount, int autoDetonateCount) {
         super(SYMBOL, VISION, AOE, AP, position, detonateCount);
+
         this.autoDetonateCount = autoDetonateCount;
     }
 
-    public void checkAutoDetonateCount(ArrayList<Unit> units) {
-        checkDetonateCount(units);
-        int count = getUnitsInVisionOrNull(units).size();
+    public void updateDetonateCount(ArrayList<Unit> units) {
+        super.updateDetonateCount(units);
+
+        int count = 0;
+        if (getUnitsInVisionOrNull(units) != null) {
+            count = getUnitsInVisionOrNull(units).size();
+        }
 
         if (count >= autoDetonateCount) {
-            isDetonate = true;
+            this.isDetonate = true;
         }
     }
 
@@ -34,10 +39,10 @@ public final class SmartMine extends Mine {
 
         attackIntent.setAttackUnit(this);
 
-        attackIntent.addTarget(this.position, this.AP);
+        attackIntent.addTarget(this.position, AP);
 
         ArrayList<IntVector2D> aoePosition = new ArrayList<>();
-        double aoeDamage = this.AP * (1 - 1 / (double) (AOE + 1));
+        double aoeDamage = AP * (1 - 1 / (double) (AOE + 1));
         int x = this.position.getX();
         int y = this.position.getY();
 

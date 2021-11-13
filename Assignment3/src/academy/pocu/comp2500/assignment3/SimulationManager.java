@@ -82,7 +82,7 @@ public final class SimulationManager {
         ArrayList<AttackIntent> attacks = new ArrayList<>();
         // 2. collision event
         for (Unit unit : this.collisionListenerUnits) {
-            ((Mine) unit). checkDetonateCount(units);
+            ((Mine) unit).updateDetonateCount(units);
 
             if (((Mine) unit).isDetonate) {
                 attacks.add(unit.attack());

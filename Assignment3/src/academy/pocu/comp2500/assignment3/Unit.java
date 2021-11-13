@@ -18,13 +18,13 @@ public abstract class Unit {
     protected UnitAction unitAction = UnitAction.NONE;
     protected boolean isAvailable;
 
-    public Unit(char symbol, UnitType unitType, int vision, int AOE, int maxHP, int AP, List<UnitType> targetable) {
+    public Unit(char symbol, UnitType unitType, int vision, int aoe, int maxHp, int ap, List<UnitType> targetable) {
         this.symbol = symbol;
         this.unitType = unitType;
         this.vision = vision;
-        this.AOE = AOE;
-        this.maxHP = maxHP;
-        this.AP = AP;
+        this.AOE = aoe;
+        this.maxHP = maxHp;
+        this.AP = ap;
         this.targetable = targetable; //needs deep copy if can be changed.
         position = new IntVector2D(0, 0);
         hp = maxHP;
@@ -74,10 +74,7 @@ public abstract class Unit {
         this.hp = Math.max(0, this.hp - damage);
     }
 
-    public void onSpawn() {
-        this.instance = SimulationManager.getInstance();
-        this.instance.addUnit(this);
-    }
+    public abstract void onSpawn();
 
     protected ArrayList<Unit> getUnitsInVisionOrNull(ArrayList<Unit> unitsOnMap) {
         int x = this.position.getX();
