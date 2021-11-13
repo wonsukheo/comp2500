@@ -48,4 +48,9 @@ public class Destroyer extends Unit {
 
         return attackIntent;
     }
+
+    public void onSpawn() {
+        this.instance = SimulationManager.getInstance();
+        this.instance.addUnit(this);
+    }
 }

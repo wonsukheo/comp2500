@@ -1,0 +1,28 @@
+diff a/Assignment3/src/academy/pocu/comp2500/assignment3/Mine.java b/Assignment3/src/academy/pocu/comp2500/assignment3/Mine.java	(rejected hunks)
+@@ -21,14 +22,22 @@
+         this(SYMBOL, VISION, AOE, AP, position, detonateCount);
+     }
+ 
+-    public Mine(char symbol, byte vision, byte aoe, byte ap, IntVector2D position, int detonateCount) {
+-        super(symbol, UNIT_TYPE, vision, aoe, MAX_HP, ap, TARGETABLE);
++    protected Mine(char symbol, byte vision, byte aoe, byte ap, IntVector2D position, int detonateCount) {
++        super(symbol, UNIT_TYPE, vision, aoe, MAX_HP, ap, TARGET_TYPE);
++
+         this.position = position;
+         this.detonateCount = detonateCount;
+     }
+ 
+-    public ArrayList<IntVector2D> getTargetablePositions(){
+-        // tile range check??
++    public int getDetonateCount() {
++        return detonateCount;
++    }
++
++    public boolean isDetonate() {
++        return isDetonate;
++    }
++
++    public ArrayList<IntVector2D> getTargetablePositions() {
+         ArrayList<IntVector2D> positions = new ArrayList<>();
+ 
+         positions.add(this.position);
