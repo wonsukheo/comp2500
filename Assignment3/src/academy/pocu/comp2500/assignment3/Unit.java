@@ -35,18 +35,6 @@ public abstract class Unit {
         return position;
     }
 
-    public boolean setPosition(IntVector2D newPosition) {
-        int x = newPosition.getX();
-        int y = newPosition.getY();
-
-        if (x < 0 || x > 15 || y < 0 || y > 7) {
-            return false;
-        }
-
-        this.position = newPosition;
-        return true;
-    }
-
     public int getHp() {
         return hp;
     }
@@ -81,6 +69,7 @@ public abstract class Unit {
 
         for (Unit unit : unitsOnMap) {
             if (Math.abs(unit.position.getX() - x) <= this.vision && Math.abs(unit.position.getY() - y) <= this.vision && this.targetable.contains(unit.unitType)) {
+                // same address = same object
                 if (unit == this) {
                     continue;
                 }
@@ -104,7 +93,8 @@ public abstract class Unit {
         ArrayList<Unit> targetableUnitList = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (unit.equals(this)) {
+            //same unit no
+            if (unit == this) {
                 continue;
             }
 

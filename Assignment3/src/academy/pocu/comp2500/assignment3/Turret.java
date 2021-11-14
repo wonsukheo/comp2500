@@ -21,8 +21,6 @@ public final class Turret extends Unit implements IThinkable {
     public void updateAction() {
         if (getTargetableUnits(instance.getUnits()).size() > 0) {
             action = UnitAction.ATTACK;
-        } else if (getUnitsInVision(instance.getUnits()).size() > 0) {
-            action = UnitAction.MOVE;
         } else {
             action = UnitAction.NONE;
         }

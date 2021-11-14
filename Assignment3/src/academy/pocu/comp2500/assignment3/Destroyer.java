@@ -10,7 +10,7 @@ public class Destroyer extends Unit {
     private static final byte VISION = Byte.MAX_VALUE;
     private static final byte AOE = 0;
     private static final int MAX_HP = Integer.MAX_VALUE / 2;
-    private static final int AP = Byte.MAX_VALUE * 2;
+    private static final int AP = 150;
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND, UnitType.AIR);
 
     public Destroyer(IntVector2D position) {
