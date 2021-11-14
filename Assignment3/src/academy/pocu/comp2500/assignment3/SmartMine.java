@@ -65,10 +65,10 @@ public final class SmartMine extends Mine implements ICollisionable {
                 if (unit == this) {
                     continue;
                 }
-                /*
+
                 if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
                     continue;
-                }*/
+                }
 
                 unitsInVision.add(unit);
             }
