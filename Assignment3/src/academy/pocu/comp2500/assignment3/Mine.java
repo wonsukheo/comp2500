@@ -29,10 +29,6 @@ public class Mine extends Unit implements ICollisionable {
         this.detonateCount = detonateCount;
     }
 
-    public int getDetonateCount() {
-        return detonateCount;
-    }
-
     public boolean isDetonate() {
         return isDetonate;
     }
@@ -53,8 +49,10 @@ public class Mine extends Unit implements ICollisionable {
         ArrayList<Unit> unitsOnTop = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (unit.getPosition().equals(this.position) && unit.unitType == UnitType.GROUND) {
-                unitsOnTop.add(unit);
+            if (unit.getPosition().equals(this.position) && unit != this) {
+                if (unit.unitType == UnitType.GROUND) {
+                    unitsOnTop.add(unit);
+                }
             }
         }
 
@@ -63,30 +61,11 @@ public class Mine extends Unit implements ICollisionable {
         if (detonateCount <= 0) {
             isDetonate = true;
         }
-        /*
-        int count = unitsOnTop.size();
-
-        for (Unit unit : unitsOnTop) {
-            if (unitsOnTopLast.contains(unit)) {
-                count--;
-            }
-        }
-
-        detonateCount -= count;
-
-        if (detonateCount <= 0) {
-            isDetonate = true;
-        } else {
-            unitsOnTopLast = unitsOnTop;
-        }
-
-         */
     }
 
     public boolean setPosition(IntVector2D newPosition) {
         return false;
     }
-
 
     public AttackIntent attack() {
         AttackIntent attackIntent = new AttackIntent();
@@ -98,10 +77,39 @@ public class Mine extends Unit implements ICollisionable {
         return attackIntent;
     }
 
+    public void updateAction() {
+        if (isDetonate) {
+            this.action = UnitAction.ATTACK;
+        }
+    }
+
     public void onSpawn() {
         this.instance = SimulationManager.getInstance();
 
         this.instance.addUnit(this);
         this.instance.registerCollisionEventListener(this);
+    }
+
+    public ArrayList<Unit> getUnitsInVision(ArrayList<Unit> unitsOnMap) {
+        int x = this.position.getX();
+        int y = this.position.getY();
+
+        ArrayList<Unit> unitsInVision = new ArrayList<>();
+
+        for (Unit unit : unitsOnMap) {
+            if (Math.abs(unit.position.getX() - x) <= this.vision && Math.abs(unit.position.getY() - y) <= this.vision && this.targetable.contains(unit.unitType)) {
+                if (unit == this) {
+                    continue;
+                }
+                // Mine is not detectable
+                if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
+                    continue;
+                }
+
+                unitsInVision.add(unit);
+            }
+        }
+
+        return unitsInVision;
     }
 }

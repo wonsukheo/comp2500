@@ -37,18 +37,20 @@ public final class SmartMine extends Mine implements ICollisionable {
         attackIntent.addTarget(this.position, AP);
 
         ArrayList<IntVector2D> aoePosition = new ArrayList<>();
+
         double aoeDamage = AP * (1 - 1 / (double) (AOE + 1));
+
         int x = this.position.getX();
         int y = this.position.getY();
 
-        aoePosition.add(new IntVector2D(x - 1, y));
-        aoePosition.add(new IntVector2D(x, y - 1));
-        aoePosition.add(new IntVector2D(x + 1, y - 1));
-        aoePosition.add(new IntVector2D(x + 1, y + 1));
-        aoePosition.add(new IntVector2D(x + 1, y));
-        aoePosition.add(new IntVector2D(x, y + 1));
-        aoePosition.add(new IntVector2D(x - 1, y - 1));
-        aoePosition.add(new IntVector2D(x - 1, y + 1));
+        for (int i = x - 1; i < x + 2; i++) {
+            for (int j = y - 1; j < y + 2; j++) {
+                if (i == x && j == y) {
+                    continue;
+                }
+                aoePosition.add(new IntVector2D(i, j));
+            }
+        }
 
         for (IntVector2D position : aoePosition) {
             attackIntent.addTarget(position, (int) aoeDamage);

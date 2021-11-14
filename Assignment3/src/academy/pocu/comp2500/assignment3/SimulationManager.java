@@ -67,6 +67,7 @@ public final class SimulationManager {
                 attackIntents.add(((Unit) unit).attack());
             }
         }
+
         // attack - destroyer
         for (Unit unit : units) {
             if (unit.getSymbol() == 'D') {
@@ -75,8 +76,6 @@ public final class SimulationManager {
         }
 
         // 2. collision event
-
-
         for (ICollisionable unit : collisionListenerUnits) {
             unit.updateDetonateCount(units);
 
@@ -84,8 +83,6 @@ public final class SimulationManager {
                 attackIntents.add(((Unit) unit).attack());
             }
         }
-
-
 
         //move
         for (IMovable unit : movableUnits.keySet()) {
@@ -95,7 +92,6 @@ public final class SimulationManager {
         }
 
         // 4. dmg
-
         for (AttackIntent attack : attackIntents) {
             HashMap<IntVector2D, Integer> targetPosition = attack.getTargetPositions();
 

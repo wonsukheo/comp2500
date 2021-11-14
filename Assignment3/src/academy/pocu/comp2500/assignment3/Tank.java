@@ -102,6 +102,7 @@ public final class Tank extends Unit implements IMovable, IThinkable {
         } else if (units.size() == 1) {
             return units.get(0).position;
         }
+
         return getUnitXyOrNull(units).position;
     }
 
