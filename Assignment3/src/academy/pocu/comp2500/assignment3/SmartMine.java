@@ -36,8 +36,6 @@ public final class SmartMine extends Mine implements ICollisionable {
 
         attackIntent.addTarget(this.position, AP);
 
-        ArrayList<IntVector2D> aoePosition = new ArrayList<>();
-
         double aoeDamage = AP * (1 - 1 / (double) (AOE + 1));
 
         int x = this.position.getX();
@@ -48,14 +46,34 @@ public final class SmartMine extends Mine implements ICollisionable {
                 if (i == x && j == y) {
                     continue;
                 }
-                aoePosition.add(new IntVector2D(i, j));
+
+                attackIntent.addTarget(new IntVector2D(i, j), (int) aoeDamage);
             }
         }
 
-        for (IntVector2D position : aoePosition) {
-            attackIntent.addTarget(position, (int) aoeDamage);
+        return attackIntent;
+    }
+
+    public ArrayList<Unit> getUnitsInVision(ArrayList<Unit> unitsOnMap) {
+        int x = this.position.getX();
+        int y = this.position.getY();
+
+        ArrayList<Unit> unitsInVision = new ArrayList<>();
+
+        for (Unit unit : unitsOnMap) {
+            if ((Math.abs(unit.position.getX() - x) <= this.vision) && (Math.abs(unit.position.getY() - y) <= this.vision) && (unit.unitType == UnitType.GROUND)) {
+                if (unit == this) {
+                    continue;
+                }
+                /*
+                if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
+                    continue;
+                }*/
+
+                unitsInVision.add(unit);
+            }
         }
 
-        return attackIntent;
+        return unitsInVision;
     }
 }

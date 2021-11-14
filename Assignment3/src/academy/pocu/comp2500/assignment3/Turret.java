@@ -56,9 +56,7 @@ public final class Turret extends Unit implements IThinkable {
             }
         }
 
-        Unit targetUnit = getUnitXyOrNull(units);
-
-        return targetUnit == null ? null : targetUnit.position;
+        return getUnitXyOrNull(units).position;
     }
 
     public AttackIntent attack() {

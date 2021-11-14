@@ -89,13 +89,14 @@ public class Mine extends Unit implements ICollisionable {
         ArrayList<Unit> unitsInVision = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (Math.abs(unit.position.getX() - x) <= this.vision && Math.abs(unit.position.getY() - y) <= this.vision && unit.unitType == UnitType.GROUND) {
+            if ((Math.abs(unit.position.getX() - x) <= this.vision) && (Math.abs(unit.position.getY() - y) <= this.vision) && (unit.unitType == UnitType.GROUND)) {
                 if (unit == this) {
                     continue;
                 }
+                /*
                 if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
                     continue;
-                }
+                }*/
 
                 unitsInVision.add(unit);
             }

@@ -96,12 +96,6 @@ public final class Wraith extends Unit implements IMovable, IThinkable {
     }
 
     public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPosition) {
-        if (unitsInTargetPosition.size() < 1) {
-            return null;
-        } else if (unitsInTargetPosition.size() == 1) {
-            return unitsInTargetPosition.get(0).position;
-        }
-
         ArrayList<Unit> airUnits = new ArrayList<>();
         ArrayList<Unit> groundUnits = new ArrayList<>();
 
@@ -134,9 +128,7 @@ public final class Wraith extends Unit implements IMovable, IThinkable {
             }
         }
 
-        Unit targetUnit = getUnitXyOrNull(units);
-
-        return (targetUnit == null) ? null : targetUnit.position;
+        return getUnitXyOrNull(units).position;
     }
 
     public AttackIntent attack() {

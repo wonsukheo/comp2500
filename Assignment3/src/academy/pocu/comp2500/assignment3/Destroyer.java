@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Destroyer extends Unit {
     private static final char SYMBOL = 'D';
-    private static final UnitType UNIT_TYPE = UnitType.AIR;
+    private static final UnitType UNIT_TYPE = UnitType.UNKNOWN;
     private static final byte VISION = Byte.MAX_VALUE;
     private static final byte AOE = 0;
     private static final int MAX_HP = Integer.MAX_VALUE / 2;
-    private static final int AP = 150;
+    private static final int AP = Integer.MAX_VALUE / 2;
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND, UnitType.AIR);
 
     public Destroyer(IntVector2D position) {
