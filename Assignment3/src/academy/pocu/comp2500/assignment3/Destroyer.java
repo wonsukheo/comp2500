@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Destroyer extends Unit {
     private static final char SYMBOL = 'D';
-    private static final UnitType UNIT_TYPE = UnitType.UNKNOWN;
+    private static final UnitType UNIT_TYPE = UnitType.AIR;
     private static final byte VISION = Byte.MAX_VALUE;
     private static final byte AOE = 0;
     private static final byte MAX_HP = Byte.MAX_VALUE;
