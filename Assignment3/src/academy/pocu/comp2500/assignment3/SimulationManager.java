@@ -124,6 +124,10 @@ public final class SimulationManager {
                     movableUnits.remove(unit);
                 }
 
+                if (collisionListenerUnits.contains(unit)) {
+                    collisionListenerUnits.remove(unit);
+                }
+
                 unit.action = UnitAction.NONE;
                 updateDead.add(unit);
             }
@@ -132,14 +136,15 @@ public final class SimulationManager {
         ArrayList<Unit> updateDetonate = new ArrayList<>();
 
         for (ICollisionable unit : collisionListenerUnits) {
-            if (unit.isDetonate() || ((Unit) unit).getHp() <= 0) {
+            if (unit.isDetonate()) {
                 updateDetonate.add((Unit) unit);
             }
         }
 
         collisionListenerUnits.removeAll(updateDetonate);
+        units.removeAll(updateDetonate);
 
         units.removeAll(updateDead);
-        units.removeAll(updateDetonate);
+
     }
 }
