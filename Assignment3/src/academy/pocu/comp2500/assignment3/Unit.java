@@ -15,7 +15,7 @@ public abstract class Unit {
     protected IntVector2D position;
     protected int hp;
     protected SimulationManager instance;
-    protected UnitAction unitAction = UnitAction.NONE;
+    protected UnitAction action = UnitAction.NONE;
     protected boolean isAvailable;
 
     public Unit(char symbol, UnitType unitType, int vision, int aoe, int maxHp, int ap, List<UnitType> targetable) {
@@ -55,13 +55,13 @@ public abstract class Unit {
         return symbol;
     }
 
-    public void setUnitAction() {
-        if (getTargetableUnitsOrNull(instance.getUnits()) != null) {
-            unitAction = UnitAction.ATTACK;
-        } else if (getUnitsInVisionOrNull(instance.getUnits()) != null) {
-            unitAction = UnitAction.MOVE;
+    public void updateAction() {
+        if (getTargetableUnits(instance.getUnits()).size() > 0) {
+            action = UnitAction.ATTACK;
+        } else if (getUnitsInVision(instance.getUnits()).size() > 0) {
+            action = UnitAction.MOVE;
         } else {
-            unitAction = UnitAction.NONE;
+            action = UnitAction.NONE;
         }
     }
 
@@ -76,27 +76,32 @@ public abstract class Unit {
 
     public abstract void onSpawn();
 
-    protected ArrayList<Unit> getUnitsInVisionOrNull(ArrayList<Unit> unitsOnMap) {
+    public ArrayList<Unit> getUnitsInVision(ArrayList<Unit> unitsOnMap) {
         int x = this.position.getX();
         int y = this.position.getY();
 
         ArrayList<Unit> unitsInVision = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (unit != this && Math.abs(unit.position.getX() - x) <= this.vision && Math.abs(unit.position.getY() - y) <= this.vision && this.targetable.contains(unit.unitType)) {
+            if (Math.abs(unit.position.getX() - x) <= this.vision && Math.abs(unit.position.getY() - y) <= this.vision && this.targetable.contains(unit.unitType)) {
+                if (unit == this) {
+                    continue;
+                }
+                // Mine is not detectable
                 if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
                     continue;
                 }
+
                 unitsInVision.add(unit);
             }
         }
 
-        return (unitsInVision.size() < 1) ? null : unitsInVision;
+        return unitsInVision;
     }
 
-    protected abstract ArrayList<IntVector2D> getTargetablePositions();
+    public abstract ArrayList<IntVector2D> getTargetablePositions();
 
-    protected ArrayList<Unit> getTargetableUnitsOrNull(ArrayList<Unit> unitsOnMap) {
+    public ArrayList<Unit> getTargetableUnits(ArrayList<Unit> unitsOnMap) {
         ArrayList<IntVector2D> targetablePositions = this.getTargetablePositions();
 
         ArrayList<Unit> targetableUnitList = new ArrayList<>();
@@ -114,14 +119,14 @@ public abstract class Unit {
             }
         }
 
-        return (targetableUnitList.size() == 0) ? null : targetableUnitList;
+        return targetableUnitList;
     }
 
-    protected ArrayList<Unit> getUnitsClosest(ArrayList<Unit> unitsInVision) {
+    public ArrayList<Unit> getUnitsClosest(ArrayList<Unit> unitsInVision) {
         int x = this.position.getX();
         int y = this.position.getY();
 
-        ArrayList<Unit> closestUnitList = new ArrayList<>();
+        ArrayList<Unit> closestUnits = new ArrayList<>();
 
         int closestDistance = Integer.MAX_VALUE;
 
@@ -129,83 +134,82 @@ public abstract class Unit {
             int unitX = unit.position.getX();
             int unitY = unit.position.getY();
 
-            int distance = Math.abs(x - unitX) + Math.abs(y - unitY);
+            int ManhattanDistance = Math.abs(x - unitX) + Math.abs(y - unitY);
 
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestUnitList.add(unit);
+            if (ManhattanDistance < closestDistance) {
+                closestDistance = ManhattanDistance;
+                closestUnits.add(unit);
             }
         }
-        ArrayList<Unit> toRemoved = new ArrayList<>();
 
-        for (Unit unit : closestUnitList) {
-            int unitX = unit.position.getX();
-            int unitY = unit.position.getY();
+        ArrayList<Unit> removeUnits = new ArrayList<>();
 
-            int distance = Math.abs(x - unitX) + Math.abs(y - unitY);
+        for (Unit unit : closestUnits) {
+            int otherX = unit.position.getX();
+            int otherY = unit.position.getY();
+
+            int distance = Math.abs(x - otherX) + Math.abs(y - otherY);
 
             if (distance > closestDistance) {
-                toRemoved.add(unit);
+                removeUnits.add(unit);
             }
         }
 
-        closestUnitList.removeAll(toRemoved);
+        closestUnits.removeAll(removeUnits);
 
-        return closestUnitList;
+        return closestUnits;
     }
 
-    protected ArrayList<Unit> getUnitsLowHP(ArrayList<Unit> units) {
+    public ArrayList<Unit> getUnitsLowHP(ArrayList<Unit> units) {
         int lowHP = Integer.MAX_VALUE;
 
         ArrayList<Unit> unitsLowHP = new ArrayList<>();
 
-            for (Unit unit : units) {
+        for (Unit unit : units) {
             if (unit.getHp() < lowHP) {
                 lowHP = unit.getHp();
                 unitsLowHP.add(unit);
             }
         }
 
+        ArrayList<Unit> removeUnits = new ArrayList<>();
+
         for (Unit unit : unitsLowHP) {
             if (unit.getHp() > lowHP) {
-                unitsLowHP.remove(unit);
+                removeUnits.add(unit);
             }
         }
+
+        unitsLowHP.removeAll(removeUnits);
 
         return unitsLowHP;
     }
 
-    protected Unit getUnitsXY(ArrayList<Unit> units) {
-        Unit target = null;
-
+    public Unit getUnitXyOrNull(ArrayList<Unit> units) {
         for (Unit unit : units) {
             if (unit.position.getY() < this.position.getY()) {
-                target = unit;
-                return target;
+                return unit;
             }
         }
 
         for (Unit unit : units) {
             if (unit.position.getX() > this.position.getX()) {
-                target = unit;
-                return target;
+                return unit;
             }
         }
 
         for (Unit unit : units) {
             if (unit.position.getY() > this.position.getY()) {
-                target = unit;
-                return target;
+                return unit;
             }
         }
 
         for (Unit unit : units) {
             if (unit.position.getX() < this.position.getX()) {
-                target = unit;
-                return target;
+                return unit;
             }
         }
 
-        return target;
+        return null;
     }
 }

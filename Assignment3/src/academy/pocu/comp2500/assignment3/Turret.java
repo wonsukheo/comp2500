@@ -44,37 +44,29 @@ public final class Turret extends Unit implements IThinkable {
         return positions;
     }
 
-    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPositionOrNull) {
+    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPosition) {
+        ArrayList<Unit> units = getUnitsLowHP(unitsInTargetPosition);
 
-        if (unitsInTargetPositionOrNull == null) {
+        if (units.size() < 1) {
             return null;
-        }
-
-        ArrayList<Unit> units = getUnitsLowHP(unitsInTargetPositionOrNull);
-
-
-        if (units.size() < 2) {
+        } else if (units.size() == 1) {
             return units.get(0).position;
         }
 
-        Unit target = null;
-
         for (Unit unit : units) {
             if (unit.position.equals(this.position)) {
-                target = unit;
+                return this.position;
             }
         }
 
-        if (target != null) {
-            return target.position;
-        } else {
-            return getUnitsXY(units).position;
-        }
+        Unit targetUnit = getUnitXyOrNull(units);
+
+        return targetUnit == null ? null : targetUnit.position;
     }
 
     public AttackIntent attack() {
         AttackIntent attackIntent = new AttackIntent();
-        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnitsOrNull(this.instance.getUnits()));
+        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnits(this.instance.getUnits()));
 
         if (targetPosition == null) {
             return null;
@@ -89,8 +81,8 @@ public final class Turret extends Unit implements IThinkable {
 
     public void onSpawn() {
         this.instance = SimulationManager.getInstance();
-        this.instance.addUnit(this);
 
+        this.instance.addUnit(this);
         this.instance.registerThinkable(this);
     }
 }

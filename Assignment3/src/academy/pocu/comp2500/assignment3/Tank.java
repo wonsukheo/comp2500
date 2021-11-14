@@ -50,7 +50,22 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
         return positions;
     }
 
-    public IntVector2D moveAI(IntVector2D destinationOrNull) {
+    public void updateAction() {
+        if (getTargetableUnits(instance.getUnits()).size() > 0) {
+            action = UnitAction.ATTACK;
+        } else {
+            action = UnitAction.MOVE;
+        }
+    }
+
+    public IntVector2D moveLogic(ArrayList<Unit> unitsInVision) {
+        // pre- req: arg.size() > 0
+
+        if (this.mode == TankMode.SIEGE_MODE) {
+            this.mode = TankMode.TANK_MODE;
+            return this.position;
+        }
+
         int x = this.position.getX();
         int y = this.position.getY();
 
@@ -67,43 +82,28 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
         }
     }
 
-    public IntVector2D moveLogic(ArrayList<Unit> unitsInVision) {
-        if (unitsInVision == null) {
-            if (this.mode == TankMode.TANK_MODE) {
-                return moveAI(null);
-            } else {
-                this.mode = TankMode.TANK_MODE;
-                return this.position;
-            }
-        } else {
-            this.mode = TankMode.SIEGE_MODE;
-            return this.position;
-        }
-    }
-
-    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPositionOrNull) {
-        if (unitsInTargetPositionOrNull == null) {
-            return null;
-        }
-
+    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPosition) {
         if (this.mode == TankMode.TANK_MODE) {
             this.mode = TankMode.SIEGE_MODE;
 
             return null;
         }
 
-        ArrayList<Unit> units = getUnitsLowHP(unitsInTargetPositionOrNull);
+        ArrayList<Unit> units = getUnitsLowHP(unitsInTargetPosition);
 
-        if (units.size() < 2) {
+        if (units.size() < 1) {
+            return null;
+        } else if (units.size() == 1) {
             return units.get(0).position;
         }
+        Unit targetUnit = getUnitXyOrNull(units);
 
-        return getUnitsXY(units).position;
+        return targetUnit == null ? null : targetUnit.position;
     }
 
     public AttackIntent attack() {
         AttackIntent attackIntent = new AttackIntent();
-        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnitsOrNull(this.instance.getUnits()));
+        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnits(this.instance.getUnits()));
 
         if (targetPosition == null) {
             return null;
@@ -144,8 +144,8 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
 
     public void onSpawn() {
         this.instance = SimulationManager.getInstance();
-        this.instance.addUnit(this);
 
+        this.instance.addUnit(this);
         this.instance.registerMovable(this);
         this.instance.registerThinkable(this);
     }

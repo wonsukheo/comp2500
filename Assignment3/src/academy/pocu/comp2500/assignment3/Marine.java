@@ -25,7 +25,7 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
         int x = this.position.getX();
         int y = this.position.getY();
 
-        positions.add(new IntVector2D(x, y));
+        positions.add(this.position);
 
         int i = 1;
         positions.add(new IntVector2D(x + i, y));
@@ -36,7 +36,7 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
         return positions;
     }
 
-    public IntVector2D moveAI(IntVector2D destination) {
+    private IntVector2D moveAI(IntVector2D destination) {
         int x = this.position.getX();
         int y = this.position.getY();
 
@@ -50,6 +50,7 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
                 return new IntVector2D(x, y - 1);
             }
         }
+
         if (destX != x) {
             if (destX > x) {
                 return new IntVector2D(x + 1, y);
@@ -62,55 +63,37 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
     }
 
     public IntVector2D moveLogic(ArrayList<Unit> unitsInVision) {
-        //func pre-req : enemy in vision true;
-        if (unitsInVision == null) {
-            return this.position;
-        }
-        ArrayList<Unit> units = getUnitsClosest(unitsInVision);
+        // pre- req: arg.size() > 0
+        ArrayList<Unit> units = getUnitsLowHP(getUnitsClosest(unitsInVision));
 
-        if (units.size() < 2) {
-            return moveAI(units.get(0).position);
-        }
-
-        units = getUnitsLowHP(units);
-
-        if (units.size() < 2) {
-            return moveAI(units.get(0).position);
-        }
-
-        Unit target = getUnitsXY(units);
+        Unit target = getUnitXyOrNull(units);
 
         return moveAI(target.position);
     }
 
-    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPositionOrNull) {
-        if (unitsInTargetPositionOrNull == null) {
-            return null;
-        }
-        ArrayList<Unit> units = getUnitsLowHP(unitsInTargetPositionOrNull);
+    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPosition) {
+        ArrayList<Unit> units = getUnitsLowHP(unitsInTargetPosition);
 
-        if (units.size() < 2) {
+        if (units.size() < 1) {
+            return null;
+        } else if (units.size() == 1) {
             return units.get(0).position;
         }
 
-        Unit target = null;
-
         for (Unit unit : units) {
             if (unit.position.equals(this.position)) {
-                target = unit;
+                return unit.position;
             }
         }
 
-        if (target != null) {
-            return target.position;
-        } else {
-            return getUnitsXY(units).position;
-        }
+        Unit targetUnit = getUnitXyOrNull(units);
+
+        return targetUnit == null ? null : targetUnit.position;
     }
 
     public AttackIntent attack() {
         AttackIntent attackIntent = new AttackIntent();
-        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnitsOrNull(this.instance.getUnits()));
+        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnits(this.instance.getUnits()));
 
         if (targetPosition == null) {
             return null;
@@ -125,8 +108,8 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
 
     public void onSpawn() {
         this.instance = SimulationManager.getInstance();
-        this.instance.addUnit(this);
 
+        this.instance.addUnit(this);
         this.instance.registerMovable(this);
         this.instance.registerThinkable(this);
     }

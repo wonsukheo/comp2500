@@ -31,7 +31,7 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
         int x = this.position.getX();
         int y = this.position.getY();
 
-        positions.add(new IntVector2D(x, y));
+        positions.add(this.position);
 
         int i = 1;
         positions.add(new IntVector2D(x + i, y));
@@ -42,7 +42,7 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
         return positions;
     }
 
-    public IntVector2D moveAI(IntVector2D destination) {
+    private IntVector2D moveAI(IntVector2D destination) {
         int x = this.position.getX();
         int y = this.position.getY();
 
@@ -68,7 +68,7 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
     }
 
     public IntVector2D moveLogic(ArrayList<Unit> unitsInVision) {
-        if (unitsInVision == null) {
+        if (unitsInVision.size() < 1) {
             return moveAI(this.initialPosition);
         }
 
@@ -83,42 +83,28 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
             }
         }
 
-        ArrayList<Unit> closestUnits = new ArrayList<>();
+        ArrayList<Unit> targetUnits = new ArrayList<>();
 
-        if (airUnits.size() > 1) {
-            closestUnits = getUnitsClosest(airUnits);
+        if (airUnits.size() > 0) {
+            targetUnits = getUnitsClosest(airUnits);
         } else {
-            closestUnits = getUnitsClosest(groundUnits);
+            targetUnits = getUnitsClosest(groundUnits);
         }
 
-        ArrayList<Unit> lowHPUnits = new ArrayList<>();
-
-        if (closestUnits.size() > 1) {
-            lowHPUnits = getUnitsLowHP(closestUnits);
-        } else {
-            return moveAI(closestUnits.get(0).position);
-        }
-
-        Unit target = null;
-
-        if (lowHPUnits.size() > 1) {
-            target = getUnitsXY(lowHPUnits);
-        } else {
-            return moveAI(lowHPUnits.get(0).position);
-        }
-
-        return moveAI(target.position);
+        return moveAI(getUnitXyOrNull(getUnitsLowHP(targetUnits)).position);
     }
 
-    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPositionOrNull) {
-        if (unitsInTargetPositionOrNull == null) {
+    public IntVector2D targetLogicOrNull(ArrayList<Unit> unitsInTargetPosition) {
+        if (unitsInTargetPosition.size() < 1) {
             return null;
+        } else if (unitsInTargetPosition.size() == 1) {
+            return unitsInTargetPosition.get(0).position;
         }
 
         ArrayList<Unit> airUnits = new ArrayList<>();
         ArrayList<Unit> groundUnits = new ArrayList<>();
 
-        for (Unit unit : unitsInTargetPositionOrNull) {
+        for (Unit unit : unitsInTargetPosition) {
             if (unit.unitType == UnitType.AIR) {
                 airUnits.add(unit);
             } else {
@@ -141,24 +127,20 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
             return units.get(0).position;
         }
 
-        Unit target = null;
-
         for (Unit unit : units) {
             if (unit.position.equals(this.position)) {
-                target = unit;
+                return this.position;
             }
         }
 
-        if (target != null) {
-            return target.position;
-        } else {
-            return getUnitsXY(units).position;
-        }
+        Unit targetUnit = getUnitXyOrNull(units);
+
+        return targetUnit == null ? null : targetUnit.position;
     }
 
     public AttackIntent attack() {
         AttackIntent attackIntent = new AttackIntent();
-        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnitsOrNull(this.instance.getUnits()));
+        IntVector2D targetPosition = targetLogicOrNull(getTargetableUnits(this.instance.getUnits()));
 
         if (targetPosition == null) {
             return null;
@@ -180,25 +162,25 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
         this.hp = Math.max(0, this.hp - damage);
     }
 
-    public void setUnitAction() {
-        if (bAttacked) {
+    public void updateAction() {
+        if (bAttacked && bShield) {
             bShield = false;
         }
-        if (getTargetableUnitsOrNull(instance.getUnits()) != null) {
-            unitAction = UnitAction.ATTACK;
-        } else if (getUnitsInVisionOrNull(instance.getUnits()) != null) {
-            unitAction = UnitAction.MOVE;
+
+        if (getTargetableUnits(instance.getUnits()).size() > 0) {
+            action = UnitAction.ATTACK;
+        } else if (getUnitsInVision(instance.getUnits()).size() > 0) {
+            action = UnitAction.MOVE;
         } else {
-            unitAction = UnitAction.NONE;
+            action = UnitAction.NONE;
         }
     }
 
     public void onSpawn() {
         this.instance = SimulationManager.getInstance();
-        this.instance.addUnit(this);
 
+        this.instance.addUnit(this);
         this.instance.registerMovable(this);
         this.instance.registerThinkable(this);
     }
-
 }

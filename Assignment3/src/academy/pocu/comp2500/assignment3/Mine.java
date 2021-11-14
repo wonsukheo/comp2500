@@ -45,8 +45,8 @@ public class Mine extends Unit implements ICollisionable {
         return positions;
     }
 
-    public ArrayList<Unit> getTargetableUnitsOrNull(ArrayList<Unit> unitsOnMap) {
-        return null;
+    public ArrayList<Unit> getTargetableUnits(ArrayList<Unit> unitsOnMap) {
+        return new ArrayList<>();
     }
 
     public void updateDetonateCount(ArrayList<Unit> unitsOnMap) {
@@ -87,8 +87,8 @@ public class Mine extends Unit implements ICollisionable {
 
     public void onSpawn() {
         this.instance = SimulationManager.getInstance();
-        this.instance.addUnit(this);
 
+        this.instance.addUnit(this);
         this.instance.registerCollisionEventListener(this);
     }
 }

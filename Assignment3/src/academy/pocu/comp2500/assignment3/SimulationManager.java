@@ -23,12 +23,6 @@ public final class SimulationManager {
     }
 
     public ArrayList<Unit> getUnits() {
-        for (Unit unit : units) {
-            /*if (unit.getHp() <= 0) {
-                units.remove(unit);
-            }*/
-        }
-
         return units;
     }
 
@@ -57,23 +51,24 @@ public final class SimulationManager {
             if (unit.getHp() == 0) {
                 continue;
             }
-            unit.setUnitAction();
+
+            unit.updateAction();
         }
 
         // 1. move set
         for (Unit unit : movableUnits.keySet()) {
-            if (unit.unitAction == UnitAction.MOVE) {
+            if (unit.action == UnitAction.MOVE) {
                 char symbol = unit.getSymbol();
 
                 switch (symbol) {
                     case 'M':
-                        movableUnits.put(unit, ((Marine) unit).moveLogic(unit.getUnitsInVisionOrNull(units)));
+                        movableUnits.put(unit, ((Marine) unit).moveLogic(unit.getUnitsInVision(units)));
                         break;
                     case 'T':
-                        movableUnits.put(unit, ((Tank) unit).moveLogic(unit.getUnitsInVisionOrNull(units)));
+                        movableUnits.put(unit, ((Tank) unit).moveLogic(unit.getUnitsInVision(units)));
                         break;
                     case 'W':
-                        movableUnits.put(unit, ((Wraith) unit).moveLogic(unit.getUnitsInVisionOrNull(units)));
+                        movableUnits.put(unit, ((Wraith) unit).moveLogic(unit.getUnitsInVision(units)));
                         break;
                 }
             }
@@ -92,7 +87,7 @@ public final class SimulationManager {
         // 3. attack
 
         for (Unit unit : thinkableUnits) {
-            if (unit.unitAction == UnitAction.ATTACK) {
+            if (unit.action == UnitAction.ATTACK) {
                 attacks.add(unit.attack());
             }
         }
@@ -105,7 +100,7 @@ public final class SimulationManager {
 
         //move
         for (Unit unit : movableUnits.keySet()) {
-            if (unit.unitAction == UnitAction.MOVE) {
+            if (unit.action == UnitAction.MOVE) {
                 unit.position = movableUnits.get(unit);
             }
         }
@@ -149,7 +144,7 @@ public final class SimulationManager {
                     collisionListenerUnits.remove(unit);
                 }
 
-                unit.unitAction = UnitAction.NONE;
+                unit.action = UnitAction.NONE;
                 updateDead.add(unit);
             }
         }
