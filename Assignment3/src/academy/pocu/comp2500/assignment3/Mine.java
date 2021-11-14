@@ -9,10 +9,9 @@ public class Mine extends Unit implements ICollisionable {
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 0;
     private static final byte AOE = 0;
-    private static final byte MAX_HP = 1;
-    private static final byte AP = 10;
+    private static final int MAX_HP = 1;
+    private static final int AP = 10;
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND);
-    private static final UnitAction UNIT_ACTION = UnitAction.NONE;
 
     private int detonateCount;
     protected boolean isDetonate;
@@ -21,7 +20,7 @@ public class Mine extends Unit implements ICollisionable {
         this(SYMBOL, VISION, AOE, AP, position, detonateCount);
     }
 
-    protected Mine(char symbol, byte vision, byte aoe, byte ap, IntVector2D position, int detonateCount) {
+    protected Mine(char symbol, byte vision, int aoe, int ap, IntVector2D position, int detonateCount) {
         super(symbol, UNIT_TYPE, vision, aoe, MAX_HP, ap, TARGETABLE);
 
         this.position = position;
@@ -45,18 +44,13 @@ public class Mine extends Unit implements ICollisionable {
     }
 
     public void updateDetonateCount(ArrayList<Unit> unitsOnMap) {
-        ArrayList<Unit> unitsOnTop = new ArrayList<>();
-
         for (Unit unit : unitsOnMap) {
             if (unit.getPosition().equals(this.position) && unit != this) {
                 if (unit.unitType == UnitType.GROUND) {
-                    unitsOnTop.add(unit);
+                    detonateCount--;
                 }
             }
         }
-
-        detonateCount -= unitsOnTop.size();
-
         if (detonateCount <= 0) {
             isDetonate = true;
         }
@@ -77,9 +71,6 @@ public class Mine extends Unit implements ICollisionable {
     }
 
     public void updateAction() {
-        if (isDetonate) {
-            this.action = UnitAction.ATTACK;
-        }
     }
 
     public void onSpawn() {
@@ -100,7 +91,7 @@ public class Mine extends Unit implements ICollisionable {
                 if (unit == this) {
                     continue;
                 }
-                if (unit.getSymbol() == 'N' && unit.getSymbol() == 'A') {
+                if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
                     continue;
                 }
 

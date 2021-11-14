@@ -9,8 +9,8 @@ public final class Wraith extends Unit implements IMovable, IThinkable {
     private static final UnitType UNIT_TYPE = UnitType.AIR;
     private static final byte VISION = 4;
     private static final byte AOE = 0;
-    private static final byte MAX_HP = 80;
-    private static final byte AP = 6;
+    private static final int MAX_HP = 80;
+    private static final int AP = 6;
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND, UnitType.AIR);
     //can detect both AIR & GROUND withtin vision
 

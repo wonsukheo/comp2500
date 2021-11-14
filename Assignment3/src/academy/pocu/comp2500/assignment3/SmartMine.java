@@ -9,8 +9,8 @@ public final class SmartMine extends Mine implements ICollisionable {
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 1;
     private static final byte AOE = 1;
-    private static final byte MAX_HP = 1;
-    private static final byte AP = 15;
+    private static final int MAX_HP = 1;
+    private static final int AP = 15;
     private static final List<UnitType> TARGET_TYPE = Arrays.asList(UnitType.GROUND);
 
     private final int autoDetonateCount;

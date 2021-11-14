@@ -9,8 +9,8 @@ public final class Tank extends Unit implements IMovable, IThinkable {
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 3;
     private static final byte AOE = 1;
-    private static final byte MAX_HP = 85;
-    private static final byte AP = 8;
+    private static final int MAX_HP = 85;
+    private static final int AP = 8;
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND);
 
     private TankMode mode = TankMode.TANK_MODE;

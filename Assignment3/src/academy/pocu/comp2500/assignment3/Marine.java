@@ -9,8 +9,8 @@ public final class Marine extends Unit implements IMovable, IThinkable {
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 2;
     private static final byte AOE = 0;
-    private static final byte MAX_HP = 35;
-    private static final byte AP = 6;
+    private static final int MAX_HP = 35;
+    private static final int AP = 6;
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND, UnitType.AIR);
 
     public Marine(IntVector2D position) {
