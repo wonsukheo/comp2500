@@ -102,7 +102,9 @@ public final class SimulationManager {
                             continue;
                         }
 
-                        unit.onAttacked(targetPosition.get(tPosition));
+                        if (attack.getAttackUnit().targetable.contains(unit.unitType)) {
+                            unit.onAttacked(targetPosition.get(tPosition));
+                        }
                     }
                 }
             }

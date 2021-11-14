@@ -139,10 +139,10 @@ public abstract class Unit {
             int unitX = unit.position.getX();
             int unitY = unit.position.getY();
 
-            int ManhattanDistance = Math.abs(x - unitX) + Math.abs(y - unitY);
+            int manhattanDistance = Math.abs(x - unitX) + Math.abs(y - unitY);
 
-            if (ManhattanDistance <= closestDistance) {
-                closestDistance = ManhattanDistance;
+            if (manhattanDistance <= closestDistance) {
+                closestDistance = manhattanDistance;
                 closestUnits.add(unit);
             }
         }
@@ -168,7 +168,7 @@ public abstract class Unit {
     public ArrayList<Unit> getUnitsLowHP(ArrayList<Unit> units) {
         int lowHP = Integer.MAX_VALUE;
 
-            ArrayList<Unit> unitsLowHP = new ArrayList<>();
+        ArrayList<Unit> unitsLowHP = new ArrayList<>();
 
         for (Unit unit : units) {
             if (unit.getHp() <= lowHP) {

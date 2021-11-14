@@ -12,7 +12,7 @@ public class Mine extends Unit implements ICollisionable {
     private static final byte MAX_HP = 1;
     private static final byte AP = 10;
     private static final List<UnitType> TARGET_TYPE = Arrays.asList(UnitType.GROUND);
-    private static final UnitAction unitAction = UnitAction.NONE;
+    private static final UnitAction UNIT_ACTION = UnitAction.NONE;
 
     private int detonateCount;
     private ArrayList<Unit> unitsOnTopLast = new ArrayList<>();
