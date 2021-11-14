@@ -58,6 +58,12 @@ public class Mine extends Unit implements ICollisionable {
             }
         }
 
+        detonateCount -= unitsOnTop.size();
+
+        if (detonateCount <= 0) {
+            isDetonate = true;
+        }
+        /*
         int count = unitsOnTop.size();
 
         for (Unit unit : unitsOnTop) {
@@ -73,6 +79,8 @@ public class Mine extends Unit implements ICollisionable {
         } else {
             unitsOnTopLast = unitsOnTop;
         }
+
+         */
     }
 
     public boolean setPosition(IntVector2D newPosition) {

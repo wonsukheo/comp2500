@@ -65,9 +65,7 @@ public abstract class Unit {
         }
     }
 
-    public AttackIntent attack() {
-        return null;
-    }
+    public abstract AttackIntent attack();
 
     public void onAttacked(int damage) {
         this.hp = Math.max(0, this.hp - damage);
@@ -110,7 +108,7 @@ public abstract class Unit {
                 continue;
             }
 
-            if (!this.targetable.contains(unit.unitType)) {
+            if (!(this.targetable.contains(unit.unitType))) {
                 continue;
             }
 

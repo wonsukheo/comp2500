@@ -7,7 +7,7 @@ public final class SimulationManager {
     private static SimulationManager instance;
 
     private ArrayList<Unit> units = new ArrayList<>();
-    private ArrayList<Unit> thinkableUnits = new ArrayList<>();
+    private ArrayList<IThinkable> thinkableUnits = new ArrayList<>();
     private HashMap<IMovable, IntVector2D> movableUnits = new HashMap<>();
     private ArrayList<ICollisionable> collisionListenerUnits = new ArrayList<>();
 
@@ -34,7 +34,7 @@ public final class SimulationManager {
         unit.onSpawn();
     }
 
-    public void registerThinkable(Unit thinkable) {
+    public void registerThinkable(IThinkable thinkable) {
         this.thinkableUnits.add(thinkable);
     }
 
@@ -49,10 +49,6 @@ public final class SimulationManager {
     public void update() {
         // 0. update
         for (Unit unit : this.units) {
-            if (unit.getHp() == 0) {
-                continue;
-            }
-
             unit.updateAction();
         }
 
@@ -63,8 +59,23 @@ public final class SimulationManager {
             }
         }
 
-        // 2. collision event
+        // 3. attack
         ArrayList<AttackIntent> attackIntents = new ArrayList<>();
+
+        for (IThinkable unit : thinkableUnits) {
+            if (((Unit) unit).action == UnitAction.ATTACK) {
+                attackIntents.add(((Unit) unit).attack());
+            }
+        }
+        // attack - destroyer
+        for (Unit unit : units) {
+            if (unit.getSymbol() == 'D') {
+                attackIntents.add(unit.attack());
+            }
+        }
+
+        // 2. collision event
+
 
         for (ICollisionable unit : collisionListenerUnits) {
             unit.updateDetonateCount(units);
@@ -74,19 +85,7 @@ public final class SimulationManager {
             }
         }
 
-        // 3. attack
 
-        for (Unit unit : thinkableUnits) {
-            if (unit.action == UnitAction.ATTACK) {
-                attackIntents.add(unit.attack());
-            }
-        }
-        // attack - destroyer
-        for (Unit unit : units) {
-            if (unit.getSymbol() == 'D') {
-                attackIntents.add(unit.attack());
-            }
-        }
 
         //move
         for (IMovable unit : movableUnits.keySet()) {
@@ -125,10 +124,6 @@ public final class SimulationManager {
 
                 if (movableUnits.containsKey(unit)) {
                     movableUnits.remove(unit);
-                }
-
-                if (collisionListenerUnits.contains(unit)) {
-                    collisionListenerUnits.remove(unit);
                 }
 
                 unit.action = UnitAction.NONE;

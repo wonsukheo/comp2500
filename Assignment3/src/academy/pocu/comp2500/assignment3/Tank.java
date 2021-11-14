@@ -94,17 +94,7 @@ public final class Tank extends Unit implements IMovable, IThinkable {
 
             return null;
         }
-        /*
-        ArrayList<Unit> removedUnit = new ArrayList<>();
 
-        for (Unit unit : unitsInTargetPosition) {
-            if (unit.unitType == UnitType.AIR) {
-                removedUnit.add(unit);
-            }
-        }
-
-        unitsInTargetPosition.removeAll(removedUnit);
-        */
         ArrayList<Unit> units = getUnitsLowHP(unitsInTargetPosition);
 
         if (units.size() < 1) {

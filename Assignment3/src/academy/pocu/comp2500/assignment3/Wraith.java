@@ -116,7 +116,7 @@ public final class Wraith extends Unit implements IMovable, IThinkable {
         ArrayList<Unit> units = new ArrayList<>();
         if (airUnits.size() == 1) {
             return airUnits.get(0).position;
-        } else if (airUnits.size() <= 0) {
+        } else if (airUnits.size() < 1) {
             units = groundUnits;
         } else {
             units = airUnits;
@@ -136,7 +136,7 @@ public final class Wraith extends Unit implements IMovable, IThinkable {
 
         Unit targetUnit = getUnitXyOrNull(units);
 
-        return targetUnit == null ? null : targetUnit.position;
+        return (targetUnit == null) ? null : targetUnit.position;
     }
 
     public AttackIntent attack() {
@@ -170,10 +170,8 @@ public final class Wraith extends Unit implements IMovable, IThinkable {
 
         if (getTargetableUnits(instance.getUnits()).size() > 0) {
             action = UnitAction.ATTACK;
-        } else if (getUnitsInVision(instance.getUnits()).size() > 0) {
-            action = UnitAction.MOVE;
         } else {
-            action = UnitAction.NONE;
+            action = UnitAction.MOVE;
         }
     }
 
