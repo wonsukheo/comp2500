@@ -132,7 +132,7 @@ public final class SimulationManager {
         ArrayList<Unit> updateDetonate = new ArrayList<>();
 
         for (ICollisionable unit : collisionListenerUnits) {
-            if (unit.isDetonate()) {
+            if (unit.isDetonate() || ((Unit) unit).getHp() <= 0) {
                 updateDetonate.add((Unit) unit);
             }
         }

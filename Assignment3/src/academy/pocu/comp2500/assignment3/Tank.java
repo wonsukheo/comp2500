@@ -51,7 +51,7 @@ public final class Tank extends Unit implements IMovable, IThinkable {
     }
 
     public void updateAction() {
-        if (getTargetableUnits(instance.getUnits()).size() > 0) {
+        if (getUnitsInVision(instance.getUnits()).size() > 0) {
             action = UnitAction.ATTACK;
         } else if (getUnitsInVision(instance.getUnits()).size() == 0) {
             action = UnitAction.MOVE;
