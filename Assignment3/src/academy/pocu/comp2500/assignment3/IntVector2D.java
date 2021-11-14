@@ -39,7 +39,11 @@ public class IntVector2D {
 
         IntVector2D that = (IntVector2D) obj;
 
-        return x == that.x && y == that.y;
+        if (x == that.x && y == that.y) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

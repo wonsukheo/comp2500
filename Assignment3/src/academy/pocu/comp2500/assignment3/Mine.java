@@ -51,6 +51,7 @@ public class Mine extends Unit implements ICollisionable {
                 }
             }
         }
+
         if (detonateCount <= 0) {
             isDetonate = true;
         }
@@ -71,6 +72,7 @@ public class Mine extends Unit implements ICollisionable {
     }
 
     public void updateAction() {
+        action = UnitAction.NONE;
     }
 
     public void onSpawn() {
