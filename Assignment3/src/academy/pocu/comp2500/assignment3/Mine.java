@@ -11,7 +11,7 @@ public class Mine extends Unit implements ICollisionable {
     private static final byte AOE = 0;
     private static final byte MAX_HP = 1;
     private static final byte AP = 10;
-    private static final List<UnitType> TARGET_TYPE = Arrays.asList(UnitType.GROUND);
+    private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND);
     private static final UnitAction UNIT_ACTION = UnitAction.NONE;
 
     private int detonateCount;
@@ -22,7 +22,7 @@ public class Mine extends Unit implements ICollisionable {
     }
 
     protected Mine(char symbol, byte vision, byte aoe, byte ap, IntVector2D position, int detonateCount) {
-        super(symbol, UNIT_TYPE, vision, aoe, MAX_HP, ap, TARGET_TYPE);
+        super(symbol, UNIT_TYPE, vision, aoe, MAX_HP, ap, TARGETABLE);
 
         this.position = position;
         this.detonateCount = detonateCount;
@@ -96,7 +96,7 @@ public class Mine extends Unit implements ICollisionable {
         ArrayList<Unit> unitsInVision = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (unit.position == this.position && unit.unitType == UNIT_TYPE.GROUND) {
+            if (unit.position == this.position && this.targetable.contains(unit.unitType)) {
                 if (unit == this) {
                     continue;
                 }

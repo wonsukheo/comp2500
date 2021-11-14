@@ -129,12 +129,15 @@ public final class SimulationManager {
             }
         }
 
+        ArrayList<Unit> updateDetonate = new ArrayList<>();
+
         for (ICollisionable unit : collisionListenerUnits) {
             if (unit.isDetonate()) {
-                collisionListenerUnits.remove(unit);
-                updateDead.add((Unit) unit);
+                updateDetonate.add((Unit) unit);
             }
         }
+
+        collisionListenerUnits.removeAll(updateDetonate);
 
         units.removeAll(updateDead);
     }
