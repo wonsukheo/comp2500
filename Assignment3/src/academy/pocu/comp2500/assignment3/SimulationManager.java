@@ -140,5 +140,6 @@ public final class SimulationManager {
         collisionListenerUnits.removeAll(updateDetonate);
 
         units.removeAll(updateDead);
+        units.removeAll(updateDetonate);
     }
 }

@@ -96,7 +96,7 @@ public class Mine extends Unit implements ICollisionable {
         ArrayList<Unit> unitsInVision = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (unit.position == this.position && this.targetable.contains(unit.unitType)) {
+            if (Math.abs(unit.position.getX() - x) <= this.vision && Math.abs(unit.position.getY() - y) <= this.vision && this.targetable.contains(unit.unitType)) {
                 if (unit == this) {
                     continue;
                 }
