@@ -66,7 +66,6 @@ public abstract class Unit {
     }
 
     public AttackIntent attack() {
-
         return null;
     }
 

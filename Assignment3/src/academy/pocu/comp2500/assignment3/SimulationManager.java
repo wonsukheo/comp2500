@@ -8,7 +8,7 @@ public final class SimulationManager {
 
     private ArrayList<Unit> units = new ArrayList<>();
     private ArrayList<Unit> thinkableUnits = new ArrayList<>();
-    private HashMap<Unit, IntVector2D> movableUnits = new HashMap<>();
+    private HashMap<IMovable, IntVector2D> movableUnits = new HashMap<>();
     private ArrayList<Unit> collisionListenerUnits = new ArrayList<>();
 
     public static SimulationManager getInstance() {
@@ -38,8 +38,8 @@ public final class SimulationManager {
         this.thinkableUnits.add(thinkable);
     }
 
-    public void registerMovable(Unit movable) {
-        this.movableUnits.put(movable, movable.position);
+    public void registerMovable(IMovable movable) {
+        this.movableUnits.put(movable, ((Unit) movable).position);
     }
 
     public void registerCollisionEventListener(Unit listener) {
@@ -56,6 +56,12 @@ public final class SimulationManager {
         }
 
         // 1. move set
+        for (IMovable unit : movableUnits.keySet()) {
+            if (((Unit) unit).action == UnitAction.MOVE) {
+                movableUnits.put(unit, unit.moveLogic(((Unit) unit).getUnitsInVision(units)));
+            }
+        }
+        /*
         for (Unit unit : movableUnits.keySet()) {
             if (unit.action == UnitAction.MOVE) {
                 char symbol = unit.getSymbol();
@@ -73,7 +79,7 @@ public final class SimulationManager {
                 }
             }
         }
-
+*/
         ArrayList<AttackIntent> attacks = new ArrayList<>();
         // 2. collision event
         for (Unit unit : this.collisionListenerUnits) {
@@ -99,28 +105,25 @@ public final class SimulationManager {
         }
 
         //move
-        for (Unit unit : movableUnits.keySet()) {
-            if (unit.action == UnitAction.MOVE) {
-                unit.position = movableUnits.get(unit);
+        for (IMovable unit : movableUnits.keySet()) {
+            if (((Unit) unit).action == UnitAction.MOVE) {
+                ((Unit) unit).position = movableUnits.get(unit);
             }
         }
 
         // 4. dmg
 
         for (AttackIntent attack : attacks) {
-            if (attack == null) {
-                continue;
-            }
-
             HashMap<IntVector2D, Integer> targetPosition = attack.getTargetPositions();
 
-            for (IntVector2D position : targetPosition.keySet()) {
+            for (IntVector2D tPosition : targetPosition.keySet()) {
                 for (Unit unit : units) {
-                    if (unit.position.equals(position)) {
+                    if (unit.position.equals(tPosition)) {
                         if (unit.equals(attack.getAttackUnit())) {
                             continue;
                         }
-                        unit.onAttacked(targetPosition.get(position));
+
+                        unit.onAttacked(targetPosition.get(tPosition));
                     }
                 }
             }

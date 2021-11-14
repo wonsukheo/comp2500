@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Tank extends Unit implements IMoveable, IThinkable {
+public final class Tank extends Unit implements IMovable, IThinkable {
     private static final char SYMBOL = 'T';
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 3;
@@ -53,13 +53,19 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
     public void updateAction() {
         if (getTargetableUnits(instance.getUnits()).size() > 0) {
             action = UnitAction.ATTACK;
-        } else {
+        } else if (getUnitsInVision(instance.getUnits()).size() == 0) {
             action = UnitAction.MOVE;
         }
     }
 
     public IntVector2D moveLogic(ArrayList<Unit> unitsInVision) {
-        // pre- req: arg.size() > 0
+        // pre- req: arg.size() >= 0
+        if (unitsInVision.size() < 1) {
+            if (this.mode == TankMode.SIEGE_MODE) {
+                this.mode = TankMode.TANK_MODE;
+                return this.position;
+            }
+        }
 
         if (this.mode == TankMode.SIEGE_MODE) {
             this.mode = TankMode.TANK_MODE;
@@ -96,9 +102,7 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
         } else if (units.size() == 1) {
             return units.get(0).position;
         }
-        Unit targetUnit = getUnitXyOrNull(units);
-
-        return targetUnit == null ? null : targetUnit.position;
+        return getUnitXyOrNull(units).position;
     }
 
     public AttackIntent attack() {
@@ -106,7 +110,7 @@ public final class Tank extends Unit implements IMoveable, IThinkable {
         IntVector2D targetPosition = targetLogicOrNull(getTargetableUnits(this.instance.getUnits()));
 
         if (targetPosition == null) {
-            return null;
+            return new AttackIntent();
         }
 
         attackIntent.setAttackUnit(this);

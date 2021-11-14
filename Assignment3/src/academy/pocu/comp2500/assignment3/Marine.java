@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Marine extends Unit implements IMoveable, IThinkable {
+public final class Marine extends Unit implements IMovable, IThinkable {
     private static final char SYMBOL = 'M';
     private static final UnitType UNIT_TYPE = UnitType.GROUND;
     private static final byte VISION = 2;
@@ -86,9 +86,7 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
             }
         }
 
-        Unit targetUnit = getUnitXyOrNull(units);
-
-        return targetUnit == null ? null : targetUnit.position;
+        return getUnitXyOrNull(units).position;
     }
 
     public AttackIntent attack() {
@@ -96,7 +94,7 @@ public final class Marine extends Unit implements IMoveable, IThinkable {
         IntVector2D targetPosition = targetLogicOrNull(getTargetableUnits(this.instance.getUnits()));
 
         if (targetPosition == null) {
-            return null;
+            return new AttackIntent();
         }
 
         attackIntent.setAttackUnit(this);

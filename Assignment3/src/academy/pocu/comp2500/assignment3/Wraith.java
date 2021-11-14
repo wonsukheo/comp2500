@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Wraith extends Unit implements IMoveable, IThinkable {
+public final class Wraith extends Unit implements IMovable, IThinkable {
     private static final char SYMBOL = 'W';
     private static final UnitType UNIT_TYPE = UnitType.AIR;
     private static final byte VISION = 4;
@@ -143,7 +143,7 @@ public final class Wraith extends Unit implements IMoveable, IThinkable {
         IntVector2D targetPosition = targetLogicOrNull(getTargetableUnits(this.instance.getUnits()));
 
         if (targetPosition == null) {
-            return null;
+            return new AttackIntent();
         }
 
         attackIntent.setAttackUnit(this);
