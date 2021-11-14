@@ -24,12 +24,7 @@ public final class SmartMine extends Mine implements ICollisionable {
     public void updateDetonateCount(ArrayList<Unit> units) {
         super.updateDetonateCount(units);
 
-        int count = 0;
-        if (getUnitsInVision(units).size() > 0) {
-            count = getUnitsInVision(units).size();
-        }
-
-        if (count >= autoDetonateCount) {
+        if (getUnitsInVision(units).size() >= autoDetonateCount) {
             this.isDetonate = true;
         }
     }

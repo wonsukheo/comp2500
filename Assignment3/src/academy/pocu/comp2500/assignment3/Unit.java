@@ -110,6 +110,14 @@ public abstract class Unit {
                 continue;
             }
 
+            if (!this.targetable.contains(unit.unitType)) {
+                continue;
+            }
+
+            if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
+                continue;
+            }
+
             for (IntVector2D position : targetablePositions) {
                 if (unit.position.equals(position)) {
                     targetableUnitList.add(unit);

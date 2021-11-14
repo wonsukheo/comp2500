@@ -53,7 +53,7 @@ public class Mine extends Unit implements ICollisionable {
         ArrayList<Unit> unitsOnTop = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (unit.getPosition().equals(this.position)) {
+            if (unit.getPosition().equals(this.position) && unit.unitType == UnitType.GROUND) {
                 unitsOnTop.add(unit);
             }
         }
@@ -74,6 +74,11 @@ public class Mine extends Unit implements ICollisionable {
             unitsOnTopLast = unitsOnTop;
         }
     }
+
+    public boolean setPosition(IntVector2D newPosition) {
+        return false;
+    }
+
 
     public AttackIntent attack() {
         AttackIntent attackIntent = new AttackIntent();

@@ -25,13 +25,14 @@ public final class Marine extends Unit implements IMovable, IThinkable {
         int x = this.position.getX();
         int y = this.position.getY();
 
-        positions.add(this.position);
-
-        int i = 1;
-        positions.add(new IntVector2D(x + i, y));
-        positions.add(new IntVector2D(x, y + i));
-        positions.add(new IntVector2D(x - i, y));
-        positions.add(new IntVector2D(x, y - i));
+        for (int i = x - 1; i < x + 2; i++) {
+            for (int j = y - 1; j < y + 2; j++) {
+                if (i != x && j != y) {
+                    continue;
+                }
+                positions.add(new IntVector2D(i, j));
+            }
+        }
 
         return positions;
     }

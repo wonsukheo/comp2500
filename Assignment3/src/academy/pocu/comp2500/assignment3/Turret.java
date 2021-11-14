@@ -18,26 +18,25 @@ public final class Turret extends Unit implements IThinkable {
         this.position = position;
     }
 
+    public void updateAction() {
+        if (getTargetableUnits(instance.getUnits()).size() > 0) {
+            action = UnitAction.ATTACK;
+        } else if (getUnitsInVision(instance.getUnits()).size() > 0) {
+            action = UnitAction.MOVE;
+        } else {
+            action = UnitAction.NONE;
+        }
+    }
+
     public ArrayList<IntVector2D> getTargetablePositions() {
-        // tile range check??
         ArrayList<IntVector2D> positions = new ArrayList<>();
 
         int x = this.position.getX();
         int y = this.position.getY();
 
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 1; j++) {
-                if (i == 0 && j == 0) {
-                    positions.add(this.position);
-                } else {
-                    positions.add(new IntVector2D(x + i, y + i));
-                    positions.add(new IntVector2D(x - i, y - i));
-
-                    if (i == 1 && j == 1) {
-                        positions.add(new IntVector2D(x + i, y - i));
-                        positions.add(new IntVector2D(x - i, y + i));
-                    }
-                }
+        for (int i = x - 1; i < x + 2; i++) {
+            for (int j = y - 1; j < y + 2; j++) {
+                positions.add(new IntVector2D(i, j));
             }
         }
 

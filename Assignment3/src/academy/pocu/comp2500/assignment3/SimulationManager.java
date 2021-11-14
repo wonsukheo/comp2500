@@ -9,7 +9,7 @@ public final class SimulationManager {
     private ArrayList<Unit> units = new ArrayList<>();
     private ArrayList<Unit> thinkableUnits = new ArrayList<>();
     private HashMap<IMovable, IntVector2D> movableUnits = new HashMap<>();
-    private ArrayList<Unit> collisionListenerUnits = new ArrayList<>();
+    private ArrayList<ICollisionable> collisionListenerUnits = new ArrayList<>();
 
     public static SimulationManager getInstance() {
         if (instance == null) {
@@ -42,11 +42,12 @@ public final class SimulationManager {
         this.movableUnits.put(movable, ((Unit) movable).position);
     }
 
-    public void registerCollisionEventListener(Unit listener) {
+    public void registerCollisionEventListener(ICollisionable listener) {
         this.collisionListenerUnits.add(listener);
     }
 
     public void update() {
+        // 0. update
         for (Unit unit : this.units) {
             if (unit.getHp() == 0) {
                 continue;
@@ -55,38 +56,21 @@ public final class SimulationManager {
             unit.updateAction();
         }
 
-        // 1. move set
+        // 1. set move
         for (IMovable unit : movableUnits.keySet()) {
             if (((Unit) unit).action == UnitAction.MOVE) {
                 movableUnits.put(unit, unit.moveLogic(((Unit) unit).getUnitsInVision(units)));
             }
         }
-        /*
-        for (Unit unit : movableUnits.keySet()) {
-            if (unit.action == UnitAction.MOVE) {
-                char symbol = unit.getSymbol();
 
-                switch (symbol) {
-                    case 'M':
-                        movableUnits.put(unit, ((Marine) unit).moveLogic(unit.getUnitsInVision(units)));
-                        break;
-                    case 'T':
-                        movableUnits.put(unit, ((Tank) unit).moveLogic(unit.getUnitsInVision(units)));
-                        break;
-                    case 'W':
-                        movableUnits.put(unit, ((Wraith) unit).moveLogic(unit.getUnitsInVision(units)));
-                        break;
-                }
-            }
-        }
-*/
-        ArrayList<AttackIntent> attacks = new ArrayList<>();
         // 2. collision event
-        for (Unit unit : this.collisionListenerUnits) {
-            ((Mine) unit).updateDetonateCount(units);
+        ArrayList<AttackIntent> attackIntents = new ArrayList<>();
 
-            if (((Mine) unit).isDetonate) {
-                attacks.add(unit.attack());
+        for (ICollisionable unit : collisionListenerUnits) {
+            unit.updateDetonateCount(units);
+
+            if (unit.isDetonate()) {
+                attackIntents.add(((Unit) unit).attack());
             }
         }
 
@@ -94,13 +78,13 @@ public final class SimulationManager {
 
         for (Unit unit : thinkableUnits) {
             if (unit.action == UnitAction.ATTACK) {
-                attacks.add(unit.attack());
+                attackIntents.add(unit.attack());
             }
         }
         // attack - destroyer
         for (Unit unit : units) {
             if (unit.getSymbol() == 'D') {
-                attacks.add(unit.attack());
+                attackIntents.add(unit.attack());
             }
         }
 
@@ -113,7 +97,7 @@ public final class SimulationManager {
 
         // 4. dmg
 
-        for (AttackIntent attack : attacks) {
+        for (AttackIntent attack : attackIntents) {
             HashMap<IntVector2D, Integer> targetPosition = attack.getTargetPositions();
 
             for (IntVector2D tPosition : targetPosition.keySet()) {
@@ -152,10 +136,10 @@ public final class SimulationManager {
             }
         }
 
-        for (Unit unit : collisionListenerUnits) {
-            if (((Mine) unit).isDetonate) {
+        for (ICollisionable unit : collisionListenerUnits) {
+            if (unit.isDetonate()) {
                 collisionListenerUnits.remove(unit);
-                updateDead.add(unit);
+                updateDead.add((Unit) unit);
             }
         }
 
