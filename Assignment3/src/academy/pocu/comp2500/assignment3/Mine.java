@@ -15,7 +15,6 @@ public class Mine extends Unit implements ICollisionable {
     private static final UnitAction UNIT_ACTION = UnitAction.NONE;
 
     private int detonateCount;
-    private ArrayList<Unit> unitsOnTopLast = new ArrayList<>();
     protected boolean isDetonate;
 
     public Mine(IntVector2D position, int detonateCount) {
@@ -97,12 +96,8 @@ public class Mine extends Unit implements ICollisionable {
         ArrayList<Unit> unitsInVision = new ArrayList<>();
 
         for (Unit unit : unitsOnMap) {
-            if (Math.abs(unit.position.getX() - x) <= this.vision && Math.abs(unit.position.getY() - y) <= this.vision && this.targetable.contains(unit.unitType)) {
+            if (unit.position == this.position && unit.unitType == UNIT_TYPE.GROUND) {
                 if (unit == this) {
-                    continue;
-                }
-                // Mine is not detectable
-                if (unit.getSymbol() == 'N' || unit.getSymbol() == 'A') {
                     continue;
                 }
 

@@ -7,10 +7,10 @@ import java.util.List;
 public class Destroyer extends Unit {
     private static final char SYMBOL = 'D';
     private static final UnitType UNIT_TYPE = UnitType.UNKNOWN;
-    private static final byte VISION = 0;
+    private static final byte VISION = Byte.MAX_VALUE;
     private static final byte AOE = 0;
-    private static final byte MAX_HP = 0;
-    private static final byte AP = Byte.MAX_VALUE;
+    private static final byte MAX_HP = Byte.MAX_VALUE;
+    private static final byte AP = Byte.MAX_VALUE - 40;
     private static final List<UnitType> TARGETABLE = Arrays.asList(UnitType.GROUND, UnitType.AIR);
 
     public Destroyer(IntVector2D position) {
