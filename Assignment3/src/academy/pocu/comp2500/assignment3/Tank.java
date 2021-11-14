@@ -60,12 +60,13 @@ public final class Tank extends Unit implements IMovable, IThinkable {
 
     public IntVector2D moveLogic(ArrayList<Unit> unitsInVision) {
         // pre- req: arg.size() >= 0
+        /*
         if (unitsInVision.size() < 1) {
             if (this.mode == TankMode.SIEGE_MODE) {
                 this.mode = TankMode.TANK_MODE;
                 return this.position;
             }
-        }
+        }*/
 
         if (this.mode == TankMode.SIEGE_MODE) {
             this.mode = TankMode.TANK_MODE;
