@@ -1,6 +1,9 @@
 package academy.pocu.comp2500.lab9;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.UUID;
 
 
 public class BuyOneGetOneFree implements IEvent {
@@ -16,19 +19,24 @@ public class BuyOneGetOneFree implements IEvent {
     public int getTotalPrice(Collection<Book> books) {
         int sum = 0;
 
+        loop:
         for (Book book : books) {
             for (UUID uuid : this.sku.keySet()) {
                 if (uuid == book.getSku()) {
+
                     if (this.sku.get(uuid) == false) {
                         this.sku.replace(uuid, true);
                         sum += book.getPrice();
+                        continue loop;
                     } else {
                         this.sku.replace(uuid, false);
+                        continue loop;
                     }
-                } else {
-                    sum += book.getPrice();
+
                 }
             }
+
+            sum += book.getPrice();
         }
 
         return sum;
