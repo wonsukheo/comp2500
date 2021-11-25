@@ -1,6 +1,6 @@
 package academy.pocu.comp2500.lab10;
 
-import academy.pocu.comp2500.lab10.pocuflix.*;
+import academy.pocu.comp2500.lab10.pocuflix.User;
 
 public class Request {
     private User user;

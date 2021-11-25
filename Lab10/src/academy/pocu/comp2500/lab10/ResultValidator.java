@@ -11,6 +11,6 @@ public class ResultValidator {
     }
 
     public boolean isValid(ResultCode resultCode) {
-        return result.getCode() == resultCode;
+        return result.getCode().equals(resultCode);
     }
 }
