@@ -1,11 +1,9 @@
 package academy.pocu.comp2500.lab10;
 
-import academy.pocu.comp2500.lab10.pocuflix.OkResult;
 import academy.pocu.comp2500.lab10.pocuflix.ResultBase;
 import academy.pocu.comp2500.lab10.pocuflix.ResultCode;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class CacheMiddleware implements IRequestHandler {
     private IRequestHandler next;
@@ -22,7 +20,9 @@ public class CacheMiddleware implements IRequestHandler {
         if (cachedResults.containsKey(request)) {
             CachedResult cachedResult = cachedResults.get(request);
 
-            if (cachedResult.getExpiryCount() == 0) {
+            if (cachedResult.getExpiryCount() <= 0) {
+                cachedResults.remove(request);
+
                 return next.handle(request);
             }
 

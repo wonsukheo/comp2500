@@ -13,10 +13,9 @@ public class MaintenanceMiddleware implements IRequestHandler {
         this.maintenanceStartTime = maintenanceStartTime;
     }
 
-
     @Override
     public ResultBase handle(Request request) {
-        if (OffsetDateTime.now().isBefore(maintenanceStartTime.plusHours(1))) {
+        if (OffsetDateTime.now().isAfter(maintenanceStartTime) && OffsetDateTime.now().isBefore(maintenanceStartTime.plusHours(1))) {
             return new ServiceUnavailableResult(maintenanceStartTime, maintenanceStartTime.plusHours(1));
         }
 
