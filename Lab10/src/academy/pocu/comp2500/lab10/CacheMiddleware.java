@@ -20,13 +20,13 @@ public class CacheMiddleware implements IRequestHandler {
         if (cachedResults.containsKey(request)) {
             CachedResult cachedResult = cachedResults.get(request);
 
+            cachedResult.setExpiryCount(cachedResult.getExpiryCount() - 1);
+
             if (cachedResult.getExpiryCount() <= 0) {
                 cachedResults.remove(request);
 
                 return next.handle(request);
             }
-
-            cachedResult.setExpiryCount(cachedResult.getExpiryCount() - 1);
 
             return cachedResult;
         }
