@@ -1,9 +1,9 @@
 package academy.pocu.comp2500.assignment4;
 
 public class Canvas {
-    protected int width;
-    protected int height;
-    protected int[][] canvas;
+    private int width;
+    private int height;
+    private int[][] canvas;
 
     public Canvas(int width, int height) {
         //user input is always > 0

@@ -1,14 +1,10 @@
 package academy.pocu.comp2500.assignment4;
 
-public final class ClearCanvas implements ICommand {
+public final class ClearCanvasCommand implements ICommand {
     private boolean isExecuted;
     private boolean isUndo;
     private int[][] pixels;
     private Canvas canvas;
-
-    public ClearCanvas() {
-
-    }
 
     public boolean execute(Canvas canvas) {
         if (!isExecuted) {
@@ -38,6 +34,10 @@ public final class ClearCanvas implements ICommand {
 
         for (int i = 0; i < canvas.getHeight(); i++) {
             for (int j = 0; j < canvas.getWidth(); j++) {
+                if (canvas.getPixel(j, i) != ' ') {
+                    return false;
+                }
+
                 canvas.drawPixel(j, i, (char) pixels[i][j]);
             }
         }
@@ -54,6 +54,10 @@ public final class ClearCanvas implements ICommand {
 
         for (int i = 0; i < canvas.getHeight(); i++) {
             for (int j = 0; j < canvas.getWidth(); j++) {
+                if (canvas.getPixel(j, i) != pixels[i][j]) {
+                    return false;
+                }
+
                 canvas.drawPixel(j, i, ' ');
             }
         }

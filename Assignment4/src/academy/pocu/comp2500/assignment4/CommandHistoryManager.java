@@ -36,7 +36,7 @@ public final class CommandHistoryManager {
     public boolean undo() {
         int i = iCommands.size();
 
-        if (isCommandsExecuted.get(i - 1) == 1) {
+        if (canUndo() && isCommandsExecuted.get(i - 1) == 1) {
             if (iCommands.get(i - 1).undo()) {
                 isCommandsExecuted.set(i - 1, 2);
 
@@ -60,7 +60,7 @@ public final class CommandHistoryManager {
     public boolean redo() {
         int i = isCommandsExecuted.lastIndexOf(2);
 
-        if (i == isCommandsExecuted.size() - 1) {
+        if (canRedo() && i == isCommandsExecuted.size() - 1) {
             iCommands.get(i).redo();
 
             isCommandsExecuted.set(i, 1);

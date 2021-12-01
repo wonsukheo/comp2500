@@ -8,20 +8,20 @@ public class App {
         // registry.registerDrawPixelCommandCreator("Foo");
         // OR
         // registry.registerDrawPixelCommandCreator("Foo", "bar");
-        registry.registerClearCommandCreator("ClearCanvas");
+        registry.registerClearCommandCreator("ClearCanvasCommand");
 
-        registry.registerIncreasePixelCommandCreator("IncreasePixel");
+        registry.registerIncreasePixelCommandCreator("IncreasePixelCommand");
 
-        registry.registerDecreasePixelCommandCreator("DecreasePixel");
+        registry.registerDecreasePixelCommandCreator("DecreasePixelCommand");
 
-        registry.registerFillHorizontalLineCommandCreator("DrawRow");
+        registry.registerFillHorizontalLineCommandCreator("DrawRowCommand");
 
-        registry.registerFillVerticalLineCommandCreator("DrawColumn");
+        registry.registerFillVerticalLineCommandCreator("DrawColumnCommand");
 
-        registry.registerToLowercaseCommandCreator("ToLowerPixel");
+        registry.registerToLowercaseCommandCreator("ToLowerPixelCommand");
 
-        registry.registerToUppercaseCommandCreator("ToUpperPixel");
+        registry.registerToUppercaseCommandCreator("ToUpperPixelCommand");
 
-        registry.registerDrawPixelCommandCreator("DrawPixel");
+        registry.registerDrawPixelCommandCreator("DrawPixelCommand");
     }
 }
