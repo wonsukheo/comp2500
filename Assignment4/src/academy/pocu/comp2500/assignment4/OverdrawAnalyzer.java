@@ -7,7 +7,7 @@ public final class OverdrawAnalyzer extends Canvas {
     private HashMap<Integer, LinkedList<Character>> pixelHistory = new HashMap<>();
 
     public OverdrawAnalyzer(int x, int y) {
-        super(x,y);
+        super(x, y);
     }
 
     private Integer getPixelHash(int x, int y) {
@@ -20,11 +20,11 @@ public final class OverdrawAnalyzer extends Canvas {
         if (history == null) {
             history = new LinkedList<Character>();
 
-            history.add(super.getPixel(x,y));
+            history.add(super.getPixel(x, y));
 
             pixelHistory.put(getPixelHash(x, y), history);
         } else {
-            history.add(super.getPixel(x,y));
+            history.add(super.getPixel(x, y));
 
             pixelHistory.put(getPixelHash(x, y), history);
         }
@@ -37,7 +37,7 @@ public final class OverdrawAnalyzer extends Canvas {
             if (super.getPixel(x, y) != c) {
                 super.drawPixel(x, y, c);
 
-                updateHistory(x ,y);
+                updateHistory(x, y);
             }
         }
     }
@@ -47,7 +47,7 @@ public final class OverdrawAnalyzer extends Canvas {
             if (super.getPixel(x, y) < 126) {
                 super.drawPixel(x, y, (char) (super.getPixel(x, y) + 1));
 
-                updateHistory(x ,y);
+                updateHistory(x, y);
 
                 return true;
             }
@@ -61,7 +61,7 @@ public final class OverdrawAnalyzer extends Canvas {
             if (super.getPixel(x, y) > 32) {
                 super.drawPixel(x, y, (char) (super.getPixel(x, y) - 1));
 
-                updateHistory(x ,y);
+                updateHistory(x, y);
 
                 return true;
             }
@@ -77,7 +77,7 @@ public final class OverdrawAnalyzer extends Canvas {
 
                 super.drawPixel(x, y, c &= ~32);
 
-                updateHistory(x ,y);
+                updateHistory(x, y);
             }
         }
     }
@@ -89,7 +89,7 @@ public final class OverdrawAnalyzer extends Canvas {
 
                 super.drawPixel(x, y, c |= 32);
 
-                updateHistory(x ,y);
+                updateHistory(x, y);
             }
         }
     }
