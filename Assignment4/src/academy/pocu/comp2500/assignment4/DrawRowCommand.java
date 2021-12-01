@@ -44,7 +44,7 @@ public final class DrawRowCommand implements ICommand {
             }
         }
 
-        if(isExecuted && isSame) {
+        if (isExecuted && isSame) {
             for (int i = 0; i < canvas.getWidth(); i++) {
                 canvas.drawPixel(i, y, (char) previousRow[i]);
             }

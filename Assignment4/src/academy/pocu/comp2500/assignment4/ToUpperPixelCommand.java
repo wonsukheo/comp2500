@@ -18,15 +18,15 @@ public final class ToUpperPixelCommand implements ICommand {
             if (x >= 0 && x <= canvas.getWidth() - 1 && y >= 0 && y <= canvas.getHeight() - 1) {
                 this.pixel = canvas.getPixel(x, y);
 
+                this.canvas = canvas;
+
                 if (this.pixel >= 97 && this.pixel <= 122) {
-                    this.canvas = canvas;
-
                     canvas.drawPixel(x, y, this.pixel &= ~32);
-
-                    isExecuted = true;
-
-                    return true;
                 }
+
+                isExecuted = true;
+
+                return true;
             }
         }
 
@@ -35,7 +35,9 @@ public final class ToUpperPixelCommand implements ICommand {
 
     public boolean undo() {
         if (isExecuted && canvas.getPixel(x, y) == this.pixel) {
-            this.canvas.drawPixel(x, y, this.pixel |= 32);
+            if (this.pixel >= 65 && this.pixel <= 90) {
+                this.canvas.drawPixel(x, y, this.pixel |= 32);
+            }
 
             isUndo = true;
 
@@ -48,7 +50,9 @@ public final class ToUpperPixelCommand implements ICommand {
 
     public boolean redo() {
         if (isUndo && canvas.getPixel(x, y) == this.pixel) {
-            this.canvas.drawPixel(x, y, this.pixel &= ~32);
+            if (this.pixel >= 97 && this.pixel <= 122) {
+                this.canvas.drawPixel(x, y, this.pixel &= ~32);
+            }
 
             isUndo = false;
 

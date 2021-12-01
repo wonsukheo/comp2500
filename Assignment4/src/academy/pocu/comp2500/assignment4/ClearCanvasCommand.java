@@ -37,7 +37,11 @@ public final class ClearCanvasCommand implements ICommand {
                 if (canvas.getPixel(j, i) != ' ') {
                     return false;
                 }
+            }
+        }
 
+        for (int i = 0; i < canvas.getHeight(); i++) {
+            for (int j = 0; j < canvas.getWidth(); j++) {
                 canvas.drawPixel(j, i, (char) pixels[i][j]);
             }
         }
@@ -57,7 +61,11 @@ public final class ClearCanvasCommand implements ICommand {
                 if (canvas.getPixel(j, i) != pixels[i][j]) {
                     return false;
                 }
+            }
+        }
 
+        for (int i = 0; i < canvas.getHeight(); i++) {
+            for (int j = 0; j < canvas.getWidth(); j++) {
                 canvas.drawPixel(j, i, ' ');
             }
         }
