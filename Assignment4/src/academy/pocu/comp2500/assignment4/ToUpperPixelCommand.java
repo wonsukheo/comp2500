@@ -22,11 +22,11 @@ public final class ToUpperPixelCommand implements ICommand {
 
                 if (this.pixel >= 97 && this.pixel <= 122) {
                     canvas.drawPixel(x, y, this.pixel &= ~32);
+
+                    isExecuted = true;
+
+                    return true;
                 }
-
-                isExecuted = true;
-
-                return true;
             }
         }
 
@@ -46,7 +46,6 @@ public final class ToUpperPixelCommand implements ICommand {
 
         return false;
     }
-
 
     public boolean redo() {
         if (isUndo && canvas.getPixel(x, y) == this.pixel) {

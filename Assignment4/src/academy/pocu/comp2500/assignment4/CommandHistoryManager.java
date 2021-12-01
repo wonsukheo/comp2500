@@ -19,7 +19,11 @@ public final class CommandHistoryManager {
 
             if (isCommandsExecuted.size() > 1) {
                 if (isCommandsExecuted.get(isCommandsExecuted.size() - 2) == 2) {
-                    isCommandsExecuted.set(isCommandsExecuted.size() - 2, 3);
+                    for (int i = 0; i < isCommandsExecuted.size(); i ++) {
+                        if (isCommandsExecuted.get(i) == 2) {
+                            isCommandsExecuted.set(i, 3);
+                        }
+                    }
                 }
             }
 
