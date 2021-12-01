@@ -17,6 +17,12 @@ public final class CommandHistoryManager {
 
             isCommandsExecuted.add(1);
 
+            if (isCommandsExecuted.size() > 1) {
+                if (isCommandsExecuted.get(isCommandsExecuted.size() - 2) == 2) {
+                    isCommandsExecuted.set(isCommandsExecuted.size() - 2, 3);
+                }
+            }
+
             return true;
         }
 
@@ -60,15 +66,21 @@ public final class CommandHistoryManager {
     public boolean redo() {
         int i = isCommandsExecuted.indexOf(2);
 
-        if (canRedo()) {
-            iCommands.get(i).redo();
-
-            isCommandsExecuted.set(i, 1);
-
-            return true;
+        if (i == -1) {
+            return false;
         }
 
-        return false;
+        if (i != isCommandsExecuted.size() - 1) {
+            for (int j = i; j < isCommandsExecuted.size() - 1; j++) {
+                if (isCommandsExecuted.get(j) != 2) {
+                    return false;
+                }
+            }
+        }
+
+        iCommands.get(i).redo();
+        isCommandsExecuted.set(i, 1);
+        return true;
     }
 
 }
