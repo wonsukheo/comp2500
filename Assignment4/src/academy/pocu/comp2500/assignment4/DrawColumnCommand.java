@@ -41,6 +41,7 @@ public final class DrawColumnCommand implements ICommand {
         for (int i = 0; i < canvas.getHeight(); i++) {
             if (canvas.getPixel(x, i) != c) {
                 isSame = false;
+                break;
             }
         }
 
@@ -63,6 +64,7 @@ public final class DrawColumnCommand implements ICommand {
         for (int i = 0; i < canvas.getHeight(); i++) {
             if (canvas.getPixel(x, i) != previousColumn[i]) {
                 isSame = false;
+                break;
             }
         }
 

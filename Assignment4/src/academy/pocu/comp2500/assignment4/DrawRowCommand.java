@@ -41,6 +41,7 @@ public final class DrawRowCommand implements ICommand {
         for (int i = 0; i < canvas.getWidth(); i++) {
             if (canvas.getPixel(i, y) != c) {
                 isSame = false;
+                break;
             }
         }
 
@@ -63,6 +64,7 @@ public final class DrawRowCommand implements ICommand {
         for (int i = 0; i < canvas.getWidth(); i++) {
             if (canvas.getPixel(i, y) != previousRow[i]) {
                 isSame = false;
+                break;
             }
         }
 

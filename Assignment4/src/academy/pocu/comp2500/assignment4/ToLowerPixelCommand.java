@@ -37,11 +37,11 @@ public final class ToLowerPixelCommand implements ICommand {
         if (isExecuted && canvas.getPixel(x, y) == this.pixel) {
             if (this.canvas.getPixel(x, y) >= 97 && this.canvas.getPixel(x, y) <= 122) {
                 this.canvas.drawPixel(x, y, this.pixel &= ~32);
+
+                isUndo = true;
+
+                return true;
             }
-
-            isUndo = true;
-
-            return true;
         }
 
         return false;
@@ -52,11 +52,11 @@ public final class ToLowerPixelCommand implements ICommand {
         if (isUndo && canvas.getPixel(x, y) == this.pixel) {
             if (this.pixel >= 65 && this.pixel <= 90) {
                 this.canvas.drawPixel(x, y, this.pixel |= 32);
+
+                isUndo = false;
+
+                return true;
             }
-
-            isUndo = false;
-
-            return true;
         }
 
         return false;
