@@ -23,19 +23,9 @@ public final class CommandHistoryManager {
         if (iCommand.execute(canvas)) {
             iCommands.add(iCommand);
 
-            loop:
-            for (int i = 0; i < canvas.getHeight(); i++) {
-                for (int j = 0; j < canvas.getWidth(); j++) {
-                    if (copyCanvas.getPixel(j, i) != canvas.getPixel(j, i)) {
-                        isCommandsExecuted.add(1);
-                        break loop;
-                    }
-                }
-            }
 
-            if (iCommands.size() != isCommandsExecuted.size()) {
-                isCommandsExecuted.add(3);
-            }
+            isCommandsExecuted.add(1);
+
 
             if (isCommandsExecuted.size() > 1) {
                 if (isCommandsExecuted.get(isCommandsExecuted.size() - 2) == 2) {
@@ -102,9 +92,13 @@ public final class CommandHistoryManager {
             }
         }
 
-        iCommands.get(i).redo();
-        isCommandsExecuted.set(i, 1);
-        return true;
+        if (iCommands.get(i).redo()) {
+            isCommandsExecuted.set(i, 1);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

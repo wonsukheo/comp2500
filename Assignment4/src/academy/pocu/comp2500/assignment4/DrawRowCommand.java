@@ -6,7 +6,7 @@ public final class DrawRowCommand implements ICommand {
     private boolean isExecuted;
     private boolean isUndo;
     private Canvas canvas;
-    private int[] previousRow;
+    private char[] previousRow;
 
     public DrawRowCommand(int y, char c) {
         this.y = y;
@@ -15,16 +15,16 @@ public final class DrawRowCommand implements ICommand {
 
     public boolean execute(Canvas canvas) {
         if (!isExecuted) {
-            if (y >= 0 && y <= canvas.getHeight() - 1) {
-                previousRow = new int[canvas.getWidth()];
+            if (y >= 0 && y < canvas.getHeight()) {
+                previousRow = new char[canvas.getWidth()];
 
                 for (int i = 0; i < canvas.getWidth(); i++) {
-                    this.canvas = canvas;
-
                     previousRow[i] = canvas.getPixel(i, y);
 
                     canvas.drawPixel(i, y, c);
                 }
+
+                this.canvas = canvas;
 
                 isExecuted = true;
 
@@ -47,7 +47,7 @@ public final class DrawRowCommand implements ICommand {
 
         if (isExecuted && isSame) {
             for (int i = 0; i < canvas.getWidth(); i++) {
-                canvas.drawPixel(i, y, (char) previousRow[i]);
+                canvas.drawPixel(i, y, previousRow[i]);
             }
 
             isUndo = true;
