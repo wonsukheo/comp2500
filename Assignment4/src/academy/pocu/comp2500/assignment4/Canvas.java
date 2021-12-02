@@ -28,13 +28,13 @@ public class Canvas {
 
     public void drawPixel(int x, int y, char c) {
         //char arg is always valid ASCII character
-        if (x >= 0 && x <= this.width - 1 && y >= 0 && y <= this.height - 1) {
+        if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             canvas[y][x] = c;
         }
     }
 
     public char getPixel(int x, int y) {
-        if (x >= 0 && x <= this.width - 1 && y >= 0 && y <= this.height - 1) {
+        if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             return (char) canvas[y][x];
         }
 
@@ -42,7 +42,7 @@ public class Canvas {
     }
 
     public boolean increasePixel(int x, int y) {
-        if (x >= 0 && x <= this.width - 1 && y >= 0 && y <= this.height - 1) {
+        if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             if (canvas[y][x] < 126) {
                 canvas[y][x]++;
 
@@ -54,7 +54,7 @@ public class Canvas {
     }
 
     public boolean decreasePixel(int x, int y) {
-        if (x >= 0 && x <= this.width - 1 && y >= 0 && y <= this.height - 1) {
+        if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             if (canvas[y][x] > 32) {
                 canvas[y][x]--;
 
@@ -66,7 +66,7 @@ public class Canvas {
     }
 
     public void toUpper(int x, int y) {
-        if (x >= 0 && x <= this.width - 1 && y >= 0 && y <= this.height - 1) {
+        if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             if (canvas[y][x] >= 97 && canvas[y][x] <= 122) {
                 canvas[y][x] &= ~32;
             }
@@ -74,7 +74,7 @@ public class Canvas {
     }
 
     public void toLower(int x, int y) {
-        if (x >= 0 && x <= this.width - 1 && y >= 0 && y <= this.height - 1) {
+        if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             if (canvas[y][x] >= 65 && canvas[y][x] <= 90) {
                 canvas[y][x] |= 32;
             }
@@ -82,7 +82,7 @@ public class Canvas {
     }
 
     public void fillHorizontalLine(int y, char c) {
-        if (y >= 0 && y <= this.height) {
+        if (y >= 0 && y < this.height) {
             for (int i = 0; i < this.width; i++) {
                 canvas[y][i] = c;
             }
@@ -90,7 +90,7 @@ public class Canvas {
     }
 
     public void fillVerticalLine(int x, char c) {
-        if (x >= 0 && x <= this.width) {
+        if (x >= 0 && x < this.width) {
             for (int i = 0; i < this.height; i++) {
                 canvas[i][x] = c;
             }

@@ -4,10 +4,11 @@ public final class DrawPixelCommand implements ICommand {
     private final int x;
     private final int y;
     private final char c;
+    private Canvas canvas;
+    private char originalPixel;
+
     private boolean isExecuted;
     private boolean isUndo;
-    private Canvas canvas;
-    private char previousPixel;
 
     public DrawPixelCommand(int x, int y, char c) {
         this.x = x;
@@ -17,11 +18,10 @@ public final class DrawPixelCommand implements ICommand {
 
     public boolean execute(Canvas canvas) {
         if (!isExecuted) {
-            if (x >= 0 && x <= canvas.getWidth() - 1 && y >= 0 && y <= canvas.getHeight() - 1) {
+            if (x >= 0 && x < canvas.getWidth() && y >= 0 && y < canvas.getHeight()) {
                 if (c >= 32 && c <= 126) {
                     this.canvas = canvas;
-
-                    this.previousPixel = canvas.getPixel(x, y);
+                    this.originalPixel = canvas.getPixel(x, y);
 
                     canvas.drawPixel(x, y, c);
 
@@ -37,7 +37,7 @@ public final class DrawPixelCommand implements ICommand {
 
     public boolean undo() {
         if (isExecuted && canvas.getPixel(x, y) == c) {
-            this.canvas.drawPixel(x, y, previousPixel);
+            this.canvas.drawPixel(x, y, originalPixel);
 
             isUndo = true;
 
@@ -48,7 +48,7 @@ public final class DrawPixelCommand implements ICommand {
     }
 
     public boolean redo() {
-        if (isExecuted && canvas.getPixel(x, y) == previousPixel) {
+        if (isUndo && canvas.getPixel(x, y) == originalPixel) {
             this.canvas.drawPixel(x, y, c);
 
             isUndo = false;
@@ -58,5 +58,4 @@ public final class DrawPixelCommand implements ICommand {
 
         return false;
     }
-
 }

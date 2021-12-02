@@ -3,10 +3,11 @@ package academy.pocu.comp2500.assignment4;
 public final class ToUpperPixelCommand implements ICommand {
     private final int x;
     private final int y;
-    private boolean isExecuted;
-    private boolean isUndo;
     private Canvas canvas;
     private char pixel;
+
+    private boolean isExecuted;
+    private boolean isUndo;
 
     public ToUpperPixelCommand(int x, int y) {
         this.x = x;
@@ -15,10 +16,9 @@ public final class ToUpperPixelCommand implements ICommand {
 
     public boolean execute(Canvas canvas) {
         if (!isExecuted) {
-            if (x >= 0 && x <= canvas.getWidth() - 1 && y >= 0 && y <= canvas.getHeight() - 1) {
-                this.pixel = canvas.getPixel(x, y);
-
+            if (x >= 0 && x < canvas.getWidth() && y >= 0 && y < canvas.getHeight()) {
                 this.canvas = canvas;
+                this.pixel = canvas.getPixel(x, y);
 
                 if (this.pixel >= 97 && this.pixel <= 122) {
                     canvas.drawPixel(x, y, this.pixel &= ~32);
@@ -60,5 +60,4 @@ public final class ToUpperPixelCommand implements ICommand {
 
         return false;
     }
-
 }

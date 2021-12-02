@@ -1,13 +1,15 @@
 package academy.pocu.comp2500.assignment4;
 
 public final class ClearCanvasCommand implements ICommand {
+    private Canvas canvas;
+    private int[][] pixels;
+
     private boolean isExecuted;
     private boolean isUndo;
-    private int[][] pixels;
-    private Canvas canvas;
 
     public boolean execute(Canvas canvas) {
         if (!isExecuted) {
+            this.canvas = canvas;
             this.pixels = new int[canvas.getHeight()][canvas.getWidth()];
 
             for (int i = 0; i < canvas.getHeight(); i++) {
@@ -16,9 +18,6 @@ public final class ClearCanvasCommand implements ICommand {
                     canvas.drawPixel(j, i, ' ');
                 }
             }
-
-            this.canvas = canvas;
-
             isExecuted = true;
 
             return true;
@@ -72,5 +71,4 @@ public final class ClearCanvasCommand implements ICommand {
 
         return true;
     }
-
 }

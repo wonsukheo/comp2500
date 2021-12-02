@@ -3,10 +3,11 @@ package academy.pocu.comp2500.assignment4;
 public final class DrawRowCommand implements ICommand {
     private final int y;
     private final char c;
-    private boolean isExecuted;
-    private boolean isUndo;
     private Canvas canvas;
     private char[] previousRow;
+
+    private boolean isExecuted;
+    private boolean isUndo;
 
     public DrawRowCommand(int y, char c) {
         this.y = y;
@@ -16,15 +17,14 @@ public final class DrawRowCommand implements ICommand {
     public boolean execute(Canvas canvas) {
         if (!isExecuted) {
             if (y >= 0 && y < canvas.getHeight()) {
-                previousRow = new char[canvas.getWidth()];
+                this.canvas = canvas;
+                this.previousRow = new char[canvas.getWidth()];
 
                 for (int i = 0; i < canvas.getWidth(); i++) {
                     previousRow[i] = canvas.getPixel(i, y);
 
                     canvas.drawPixel(i, y, c);
                 }
-
-                this.canvas = canvas;
 
                 isExecuted = true;
 
@@ -36,49 +36,42 @@ public final class DrawRowCommand implements ICommand {
     }
 
     public boolean undo() {
-        boolean isSame = true;
+        if (!isExecuted) {
+            return false;
+        }
 
         for (int i = 0; i < canvas.getWidth(); i++) {
             if (canvas.getPixel(i, y) != c) {
-                isSame = false;
-                break;
+                return false;
             }
         }
 
-        if (isExecuted && isSame) {
-            for (int i = 0; i < canvas.getWidth(); i++) {
-                canvas.drawPixel(i, y, previousRow[i]);
-            }
-
-            isUndo = true;
-
-            return true;
+        for (int i = 0; i < canvas.getWidth(); i++) {
+            canvas.drawPixel(i, y, previousRow[i]);
         }
 
-        return false;
+        isUndo = true;
+
+        return true;
     }
 
-    public boolean redo() {
-        boolean isSame = true;
+    public boolean redo()   {
+        if (!isUndo) {
+            return false;
+        }
 
         for (int i = 0; i < canvas.getWidth(); i++) {
             if (canvas.getPixel(i, y) != previousRow[i]) {
-                isSame = false;
-                break;
+                return false;
             }
         }
 
-        if (isUndo && isSame) {
-            for (int i = 0; i < canvas.getWidth(); i++) {
-                canvas.drawPixel(i, y, c);
-            }
-
-            isUndo = false;
-
-            return true;
+        for (int i = 0; i < canvas.getWidth(); i++) {
+            canvas.drawPixel(i, y, c);
         }
 
-        return false;
+        isUndo = false;
+
+        return true;
     }
-
 }

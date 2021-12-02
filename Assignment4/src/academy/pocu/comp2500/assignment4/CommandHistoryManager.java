@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public final class CommandHistoryManager {
     private Canvas canvas;
     private ArrayList<ICommand> iCommands = new ArrayList<>();
+
+    // 1 - exectued, 2- undo, 3 - unavailable
     private ArrayList<Integer> isCommandsExecuted = new ArrayList<>();
 
     public CommandHistoryManager(Canvas canvas) {
@@ -12,31 +14,20 @@ public final class CommandHistoryManager {
     }
 
     public boolean execute(ICommand iCommand) {
-        Canvas copyCanvas = new Canvas(canvas.getWidth(), canvas.getHeight());
-
-        for (int i = 0; i < canvas.getHeight(); i++) {
-            for (int j = 0; j < canvas.getWidth(); j++) {
-                copyCanvas.drawPixel(j, i, canvas.getPixel(j, i));
-            }
-        }
-
         if (iCommand.execute(canvas)) {
             iCommands.add(iCommand);
 
-
             isCommandsExecuted.add(1);
-
 
             if (isCommandsExecuted.size() > 1) {
                 if (isCommandsExecuted.get(isCommandsExecuted.size() - 2) == 2) {
-                    for (int i = 0; i < isCommandsExecuted.size(); i ++) {
+                    for (int i = 0; i < isCommandsExecuted.size(); i++) {
                         if (isCommandsExecuted.get(i) == 2) {
                             isCommandsExecuted.set(i, 3);
                         }
                     }
                 }
             }
-
             return true;
         }
 
@@ -56,7 +47,7 @@ public final class CommandHistoryManager {
     public boolean undo() {
         int i = isCommandsExecuted.lastIndexOf(1);
 
-        if (canUndo()) {
+        if (i != -1) {
             if (iCommands.get(i).undo()) {
                 isCommandsExecuted.set(i, 2);
 
@@ -85,7 +76,7 @@ public final class CommandHistoryManager {
         }
 
         if (i != isCommandsExecuted.size() - 1) {
-            for (int j = i; j < isCommandsExecuted.size() - 1; j++) {
+            for (int j = i; j < isCommandsExecuted.size(); j++) {
                 if (isCommandsExecuted.get(j) != 2) {
                     return false;
                 }
@@ -98,7 +89,5 @@ public final class CommandHistoryManager {
         } else {
             return false;
         }
-
     }
-
 }
