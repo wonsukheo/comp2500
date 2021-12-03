@@ -113,7 +113,11 @@ public final class OverdrawAnalyzer extends Canvas {
     }
 
     public LinkedList<Character> getPixelHistory(int x, int y) {
-        return pixelHistory.get(getPixelHash(x, y));
+        if (pixelHistory.get(getPixelHash(x, y)) == null) {
+            return new LinkedList<>();
+        }
+
+        return pixelHistory.get(getPixelHash(x, y);
     }
 
     public int getOverdrawCount(int x, int y) {
