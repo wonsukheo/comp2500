@@ -8,6 +8,7 @@ public final class ToLowerPixelCommand implements ICommand {
 
     private boolean isExecuted;
     private boolean isUndo;
+    private boolean isMyAction;
 
     public ToLowerPixelCommand(int x, int y) {
         this.x = x;
@@ -22,6 +23,7 @@ public final class ToLowerPixelCommand implements ICommand {
 
                 if (this.pixel >= 65 && this.pixel <= 90) {
                     canvas.drawPixel(x, y, this.pixel |= 32);
+                    isMyAction = true;
                 }
 
                 isExecuted = true;
@@ -34,7 +36,7 @@ public final class ToLowerPixelCommand implements ICommand {
     }
 
     public boolean undo() {
-        if (isExecuted && canvas.getPixel(x, y) == this.pixel) {
+        if (isExecuted && canvas.getPixel(x, y) == this.pixel && isMyAction) {
             if (this.pixel >= 97 && this.pixel <= 122) {
                 this.canvas.drawPixel(x, y, this.pixel &= ~32);
             }

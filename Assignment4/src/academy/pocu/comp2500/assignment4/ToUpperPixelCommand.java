@@ -8,6 +8,7 @@ public final class ToUpperPixelCommand implements ICommand {
 
     private boolean isExecuted;
     private boolean isUndo;
+    private boolean isMyAction;
 
     public ToUpperPixelCommand(int x, int y) {
         this.x = x;
@@ -34,7 +35,7 @@ public final class ToUpperPixelCommand implements ICommand {
     }
 
     public boolean undo() {
-        if (isExecuted && canvas.getPixel(x, y) == this.pixel) {
+        if (isExecuted && canvas.getPixel(x, y) == this.pixel && isMyAction) {
             if (this.pixel >= 65 && this.pixel <= 90) {
                 this.canvas.drawPixel(x, y, this.pixel |= 32);
             }
