@@ -77,7 +77,7 @@ public final class CommandHistoryManager {
 
         if (i != isCommandsExecuted.size() - 1) {
             for (int j = i; j < isCommandsExecuted.size(); j++) {
-                if (isCommandsExecuted.get(j) != 2) {
+                if (isCommandsExecuted.get(j) == 1) {
                     return false;
                 }
             }
