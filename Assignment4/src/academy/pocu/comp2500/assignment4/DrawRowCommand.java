@@ -55,7 +55,7 @@ public final class DrawRowCommand implements ICommand {
         return true;
     }
 
-    public boolean redo()   {
+    public boolean redo() {
         if (!isUndo) {
             return false;
         }
