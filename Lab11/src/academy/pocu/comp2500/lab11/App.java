@@ -1,41 +1,16 @@
 package academy.pocu.comp2500.lab11;
 
-import academy.pocu.comp2500.lab11.pocu.*;
+import academy.pocu.comp2500.lab11.pocu.Product;
+import academy.pocu.comp2500.lab11.pocu.User;
+import academy.pocu.comp2500.lab11.pocu.Warehouse;
+import academy.pocu.comp2500.lab11.pocu.WarehouseType;
+import academy.pocu.comp2500.lab11.pocu.ProductNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
 public class App {
-    private int userInputInteger(BufferedReader in, PrintStream out, PrintStream err, int max) {
-        String userInput = new String();
-
-        try {
-            userInput = in.readLine();
-        } catch (IOException e) {
-            // what should i do when it occurs?
-            run(in, out, err);
-        }
-
-        if (userInput.equals("exit")) {
-            return -1;
-        }
-
-        int userInputInt = 0;
-
-        try {
-            userInputInt = Integer.parseInt(userInput);
-        } catch (NumberFormatException e) {
-            userInputInteger(in, out, err, max);
-        }
-
-        if (userInputInt < 1 || userInputInt > max) {
-            userInputInteger(in, out ,err, max);
-        }
-
-        return userInputInt - 1;
-    }
-
     public void run(BufferedReader in, PrintStream out, PrintStream err) {
         int userInputResult = chooseWarehouse(in, out);
 
