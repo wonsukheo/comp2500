@@ -37,7 +37,7 @@ public class App {
     }
 
     public void run(BufferedReader in, PrintStream out, PrintStream err) {
-        int userInputResult = chooseWarehouseMsg(in, out ,err);
+        int userInputResult = chooseWarehouse(in, out);
 
         if (userInputResult == -1) {
             return;
@@ -54,9 +54,16 @@ public class App {
             return;
         }
 
-        chooseProduct(in, out, err, wallet, userInputResult);
+        Warehouse warehouse = new Warehouse(WarehouseType.values()[userInputResult - 1]);
+
+        userInputResult = chooseProduct(in, out, wallet, warehouse);
+
+        if (userInputResult == -1) {
+            return;
+        }
     }
-    private int chooseWarehouseMsg(BufferedReader in, PrintStream out, PrintStream err) {
+
+    private int chooseWarehouse(BufferedReader in, PrintStream out) {
         StringBuilder sb = new StringBuilder();
         WarehouseType[] warehouseList = WarehouseType.values();
 
@@ -70,75 +77,98 @@ public class App {
             sb.append(System.lineSeparator());
         }
 
-        out.println(sb);
+        int result = -2;
 
-        String userInput = new String();
+        while (result == -2) {
+            out.println(sb);
 
-        try {
-            userInput = in.readLine();
-        } catch (IOException e) {
-            // what should i do when it occurs?
-            run(in, out, err);
-        }
-
-        if (userInput.equals("exit")) {
-            return -1;
-        }
-
-        int userInputInt = 0;
-
-        try {
-            userInputInt = Integer.parseInt(userInput);
-        } catch (NumberFormatException e) {
-            chooseWarehouseMsg(in, out, err);
-        }
-
-        if (userInputInt < 1 || userInputInt > warehouseList.length) {
-            chooseWarehouseMsg(in, out ,err);
-        }
-
-        return userInputInt - 1;
-    }
-
-    private void chooseProduct(BufferedReader in, PrintStream out, PrintStream err, SafeWallet wallet, int wareHouse) {
-        // 4. print.out Wallet balance
-        out.println(String.format("BALANCE: <%d>", wallet.getAmount()));
-
-        // 5. print.out ProductList
-        StringBuilder sb = new StringBuilder();
-        Warehouse warehouse = new Warehouse(WarehouseType.values()[wareHouse]);
-
-        sb.append("PRODUCT_LIST: Choose your product!");
-        sb.append(System.lineSeparator());
-
-        int i = 1;
-        for (Product product : warehouse.getProducts()) {
-            sb.append(String.format("%d. %-16s%4d", i++, product.getName(), product.getPrice()));
-            sb.append(System.lineSeparator());
-        }
-
-        out.println(sb);
-
-        // 6. user Input
-        int userInputResult = userInputInteger(in, out ,err, warehouse.getProducts().size());
-
-        if (userInputResult == -1) {
-            return;
-        }
-
-        // 7. purchase product
-        Product product = warehouse.getProducts().get(userInputResult);
-
-        if (wallet.getAmount() >= product.getPrice()) {
-            wallet.withdraw(product.getPrice());
+            String userInput = new String();
 
             try {
-                warehouse.removeProduct(product.getId());
-            } catch (ProductNotFoundException e) {
-                wallet.deposit(product.getPrice());
+                userInput = in.readLine();
+            } catch (IOException e) {
+
+            }
+
+            if (userInput.equals("exit")) {
+                return -1;
+            }
+
+            int userInputInt = 0;
+
+            try {
+                userInputInt = Integer.parseInt(userInput);
+            } catch (NumberFormatException e) {
+
+            }
+
+            if (userInputInt >= 1 && userInputInt <= warehouseList.length) {
+                return userInputInt;
             }
         }
 
-        this.chooseProduct(in, out, err, wallet, userInputResult);
+        return result;
+    }
+
+    private int chooseProduct(BufferedReader in, PrintStream out, SafeWallet wallet, Warehouse warehouse) {
+
+
+        int result = -2;
+
+        while (result == -2) {
+            StringBuilder sb = new StringBuilder();
+
+            // 4. print.out Wallet balance
+            sb.append(String.format("BALANCE: <%d>", wallet.getAmount()));
+            sb.append(System.lineSeparator());
+
+            // 5. print.out ProductList
+            sb.append("PRODUCT_LIST: Choose your product!");
+            sb.append(System.lineSeparator());
+
+            int i = 1;
+            for (Product product : warehouse.getProducts()) {
+                sb.append(String.format("%d. %-16s%4d", i++, product.getName(), product.getPrice()));
+                sb.append(System.lineSeparator());
+            }
+
+            out.println(sb);
+
+            String userInput = new String();
+
+            try {
+                userInput = in.readLine();
+            } catch (IOException e) {
+
+            }
+
+            if (userInput.equals("exit")) {
+                return -1;
+            }
+
+            int userInputInt = 0;
+
+            try {
+                userInputInt = Integer.parseInt(userInput);
+            } catch (NumberFormatException e) {
+
+            }
+
+            if (userInputInt >= 1 && userInputInt <= warehouse.getProducts().size()) {
+                Product product = warehouse.getProducts().get(userInputInt - 1);
+
+                if (wallet.getAmount() >= product.getPrice()) {
+                    wallet.withdraw(product.getPrice());
+
+                    try {
+                        warehouse.removeProduct(product.getId());
+                    } catch (ProductNotFoundException e) {
+                        wallet.deposit(product.getPrice());
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 }
