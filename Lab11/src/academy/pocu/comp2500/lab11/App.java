@@ -132,14 +132,13 @@ public class App {
                 Product product = warehouse.getProducts().get(userInputInt - 1);
 
                 if (wallet.getAmount() >= product.getPrice()) {
-                    wallet.withdraw(product.getPrice());
-
-                    try {
-                        if (wallet.getAmount() >= product.getPrice()) {
+                    if ( wallet.withdraw(product.getPrice())) {
+                        try {
                             warehouse.removeProduct(product.getId());
+
+                        } catch (ProductNotFoundException e) {
+                            wallet.deposit(product.getPrice());
                         }
-                    } catch (ProductNotFoundException e) {
-                        wallet.deposit(product.getPrice());
                     }
                 }
             }
