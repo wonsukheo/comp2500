@@ -36,10 +36,17 @@ public class App {
             return;
         }
 
-        int userInputInt = Integer.parseInt(userInput) - 1;
+        int userInputInt = 0;
+
+        try {
+            int userInputInteger = Integer.parseInt(userInput) - 1;
+            userInputInt = userInputInteger;
+        } catch (NumberFormatException e) {
+            run(in, out, err);
+        }
 
         if (userInputInt < 1 || userInputInt >= warehouseList.length) {
-            this.run(in, out, err);
+            run(in, out, err);
         }
 
         // 3. check user access for department's Wallet
@@ -88,7 +95,14 @@ public class App {
             return;
         }
 
-        int userInputInt = Integer.parseInt(userInput) - 1;
+        int userInputInt = 0;
+
+        try {
+            int userInputInteger = Integer.parseInt(userInput) - 1;
+            userInputInt = userInputInteger;
+        } catch (NumberFormatException e) {
+            run(in, out, err);
+        }
 
         if (userInputInt < 1 || userInputInt >= warehouse.getProducts().size()) {
             this.chooseProduct(in, out, err, wallet, userInputInt);
