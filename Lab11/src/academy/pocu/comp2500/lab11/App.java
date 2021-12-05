@@ -7,6 +7,36 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 public class App {
+    private int userInputInteger(BufferedReader in, PrintStream out, PrintStream err, int max) {
+        String userInput = new String();
+
+        try {
+            userInput = in.readLine();
+        } catch (IOException e) {
+            // what should i do when it occurs?
+            run(in, out, err);
+        }
+
+        if (userInput.equals("exit")) {
+            return -1;
+        }
+
+        int userInputInt = 0;
+
+        try {
+            int userInputInteger = Integer.parseInt(userInput) - 1;
+            userInputInt = userInputInteger;
+        } catch (NumberFormatException e) {
+            userInputInteger(in, out, err, max);
+        }
+
+        if (userInputInt < 0 || userInputInt >= max) {
+            userInputInteger(in, out ,err, max);
+        }
+
+        return userInputInt;
+    }
+
     public void run(BufferedReader in, PrintStream out, PrintStream err) {
         StringBuilder sb = new StringBuilder();
         WarehouseType[] warehouseList = WarehouseType.values();
@@ -24,29 +54,10 @@ public class App {
         out.println(sb);
 
         // 2. user Input
-        String userInput = new String();
+        int userInputResult = userInputInteger(in, out ,err, warehouseList.length);
 
-        try {
-            userInput = in.readLine();
-        } catch (IOException e) {
-            run(in, out, err);
-        }
-
-        if (userInput.equals("exit")) {
+        if (userInputResult == -1) {
             return;
-        }
-
-        int userInputInt = 0;
-
-        try {
-            int userInputInteger = Integer.parseInt(userInput) - 1;
-            userInputInt = userInputInteger;
-        } catch (NumberFormatException e) {
-            run(in, out, err);
-        }
-
-        if (userInputInt < 1 || userInputInt >= warehouseList.length) {
-            run(in, out, err);
         }
 
         // 3. check user access for department's Wallet
@@ -60,7 +71,7 @@ public class App {
             return;
         }
 
-        chooseProduct(in, out, err, wallet, userInputInt);
+        chooseProduct(in, out, err, wallet, userInputResult);
     }
 
     private void chooseProduct(BufferedReader in, PrintStream out, PrintStream err, SafeWallet wallet, int wareHouse) {
@@ -83,33 +94,14 @@ public class App {
         out.println(sb);
 
         // 6. user Input
-        String userInput = new String();
+        int userInputResult = userInputInteger(in, out ,err, warehouse.getProducts().size());
 
-        try {
-            userInput = in.readLine();
-        } catch (IOException e) {
-            run(in, out, err);
-        }
-
-        if (userInput.equals("exit")) {
+        if (userInputResult == -1) {
             return;
         }
 
-        int userInputInt = 0;
-
-        try {
-            int userInputInteger = Integer.parseInt(userInput) - 1;
-            userInputInt = userInputInteger;
-        } catch (NumberFormatException e) {
-            run(in, out, err);
-        }
-
-        if (userInputInt < 1 || userInputInt >= warehouse.getProducts().size()) {
-            this.chooseProduct(in, out, err, wallet, userInputInt);
-        }
-
         // 7. purchase product
-        Product product = warehouse.getProducts().get(userInputInt);
+        Product product = warehouse.getProducts().get(userInputResult);
 
         if (wallet.getAmount() >= product.getPrice()) {
             wallet.withdraw(product.getPrice());
@@ -121,6 +113,6 @@ public class App {
             }
         }
 
-        this.chooseProduct(in, out, err, wallet, userInputInt);
+        this.chooseProduct(in, out, err, wallet, userInputResult);
     }
 }
