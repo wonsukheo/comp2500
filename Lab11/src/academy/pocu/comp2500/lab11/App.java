@@ -111,18 +111,17 @@ public class App {
     }
 
     private int chooseProduct(BufferedReader in, PrintStream out, SafeWallet wallet, Warehouse warehouse) {
-
-
         int result = -2;
 
         while (result == -2) {
             StringBuilder sb = new StringBuilder();
 
             // 4. print.out Wallet balance
-            sb.append(String.format("BALANCE: <%d>", wallet.getAmount()));
+            sb.append(String.format("BALANCE: %d", wallet.getAmount()));
             sb.append(System.lineSeparator());
 
             // 5. print.out ProductList
+
             sb.append("PRODUCT_LIST: Choose your product!");
             sb.append(System.lineSeparator());
 
@@ -151,7 +150,7 @@ public class App {
             try {
                 userInputInt = Integer.parseInt(userInput);
             } catch (NumberFormatException e) {
-
+                continue;
             }
 
             if (userInputInt >= 1 && userInputInt <= warehouse.getProducts().size()) {
