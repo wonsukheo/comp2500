@@ -7,12 +7,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 public class App {
-    User user;
-
-    public App(User user) {
-        this.user = user;
-    }
-
     public void run(BufferedReader in, PrintStream out, PrintStream err) {
         StringBuilder sb = new StringBuilder();
         WarehouseType[] warehouseList = WarehouseType.values();
@@ -52,7 +46,7 @@ public class App {
         SafeWallet wallet;
 
         try {
-            wallet = new SafeWallet(user);
+            wallet = new SafeWallet(new User());
         } catch (IllegalAccessException e) {
             err.print("AUTH_ERROR");
 

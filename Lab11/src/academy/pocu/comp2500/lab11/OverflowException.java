@@ -1,21 +1,15 @@
 package academy.pocu.comp2500.lab11;
 
-public class OverflowException extends RuntimeException {
+public final class OverflowException extends RuntimeException {
     public OverflowException() {
         super();
     }
 
     public OverflowException(String msg) {
-        super();
+        super(msg);
     }
 
     public OverflowException(String msg, Throwable cause) {
-        super();
+        super(msg, cause);
     }
-
-    public OverflowException(Throwable cause) {
-        super();
-    }
-
-
 }
