@@ -1,7 +1,7 @@
 package academy.pocu.comp2500.lab11;
 
-public final class OverflowException extends RuntimeException {
-    private static final long SerialVersionUID = 94l;
+public class OverflowException extends RuntimeException {
+    private static final long serialVersionUID = 94l;
 
     public OverflowException() {
         super();

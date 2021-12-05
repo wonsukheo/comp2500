@@ -37,23 +37,7 @@ public class App {
     }
 
     public void run(BufferedReader in, PrintStream out, PrintStream err) {
-        StringBuilder sb = new StringBuilder();
-        WarehouseType[] warehouseList = WarehouseType.values();
-
-        // 1. print.out WarehouseList
-        sb.append("WAREHOUSE: Choose your warehouse!");
-        sb.append(System.lineSeparator());
-
-        int i = 1;
-        for (WarehouseType wType : warehouseList) {
-            sb.append(String.format("%d. %s", i++, wType.toString()));
-            sb.append(System.lineSeparator());
-        }
-
-        out.println(sb);
-
-        // 2. user Input
-        int userInputResult = userInputInteger(in, out ,err, warehouseList.length);
+        int userInputResult = chooseWarehouseMsg(in, out ,err);
 
         if (userInputResult == -1) {
             return;
@@ -72,7 +56,7 @@ public class App {
 
         chooseProduct(in, out, err, wallet, userInputResult);
     }
-    private void chooseWarehouseMsg(PrintStream out) {
+    private int chooseWarehouseMsg(BufferedReader in, PrintStream out, PrintStream err) {
         StringBuilder sb = new StringBuilder();
         WarehouseType[] warehouseList = WarehouseType.values();
 
@@ -87,6 +71,33 @@ public class App {
         }
 
         out.println(sb);
+
+        String userInput = new String();
+
+        try {
+            userInput = in.readLine();
+        } catch (IOException e) {
+            // what should i do when it occurs?
+            run(in, out, err);
+        }
+
+        if (userInput.equals("exit")) {
+            return -1;
+        }
+
+        int userInputInt = 0;
+
+        try {
+            userInputInt = Integer.parseInt(userInput);
+        } catch (NumberFormatException e) {
+            chooseWarehouseMsg(in, out, err);
+        }
+
+        if (userInputInt < 1 || userInputInt > warehouseList.length) {
+            chooseWarehouseMsg(in, out ,err);
+        }
+
+        return userInputInt - 1;
     }
 
     private void chooseProduct(BufferedReader in, PrintStream out, PrintStream err, SafeWallet wallet, int wareHouse) {
