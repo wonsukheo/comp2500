@@ -131,7 +131,7 @@ public class App {
             if (userInputInt >= 1 && userInputInt <= warehouse.getProducts().size()) {
                 Product product = warehouse.getProducts().get(userInputInt - 1);
 
-                if (wallet.getAmount() >= product.getPrice()) {
+                if (wallet.getAmount() > product.getPrice()) {
                     wallet.withdraw(product.getPrice());
 
                     try {
