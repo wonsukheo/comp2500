@@ -24,17 +24,16 @@ public class App {
         int userInputInt = 0;
 
         try {
-            int userInputInteger = Integer.parseInt(userInput) - 1;
-            userInputInt = userInputInteger;
+            userInputInt = Integer.parseInt(userInput);
         } catch (NumberFormatException e) {
             userInputInteger(in, out, err, max);
         }
 
-        if (userInputInt < 0 || userInputInt >= max) {
+        if (userInputInt < 1 || userInputInt > max) {
             userInputInteger(in, out ,err, max);
         }
 
-        return userInputInt;
+        return userInputInt - 1;
     }
 
     public void run(BufferedReader in, PrintStream out, PrintStream err) {
@@ -72,6 +71,22 @@ public class App {
         }
 
         chooseProduct(in, out, err, wallet, userInputResult);
+    }
+    private void chooseWarehouseMsg(PrintStream out) {
+        StringBuilder sb = new StringBuilder();
+        WarehouseType[] warehouseList = WarehouseType.values();
+
+        // 1. print.out WarehouseList
+        sb.append("WAREHOUSE: Choose your warehouse!");
+        sb.append(System.lineSeparator());
+
+        int i = 1;
+        for (WarehouseType wType : warehouseList) {
+            sb.append(String.format("%d. %s", i++, wType.toString()));
+            sb.append(System.lineSeparator());
+        }
+
+        out.println(sb);
     }
 
     private void chooseProduct(BufferedReader in, PrintStream out, PrintStream err, SafeWallet wallet, int wareHouse) {
